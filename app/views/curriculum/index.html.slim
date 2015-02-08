@@ -1,0 +1,97 @@
+div class="curriculum"
+  nav class="navbar navbar-default navbar-fixed-top"
+    div class="container"
+      div class="navbar-header"
+        a class="navbar-brand" href="#" Dan Jakob Ofer
+      div class="collapse navbar-collapse"
+        ul class="nav navbar-nav"
+          li
+            a href="#career" Career
+          li
+            a href="#expertise" Expertise
+  div class="jumbotron"
+    div class="container"
+      div class="row"
+        div class="col-md-9"
+          = raw @cv.cover_letter
+
+        div class="col-md-3 contact"
+          a id="email" href="mailto:dan.ofer@alumni.utoronto.ca" target='_blank'
+            img src='/assets/user-512px.svg'
+            br
+            p
+              | dan.ofer@alumni.utoronto.ca
+          a id="stack-overflow" href="http://careers.stackoverflow.com/ofer" target='_blank'
+            img src='/assets/stackoverflow.svg'
+            br
+            p
+              | Stack Overflow
+          a id="email" href="http://ca.linkedin.com/in/ofer987" target='_blank'
+            img src='/assets/linkedin-512px.svg'
+            br
+            p
+              | LinkedIn
+          a id="github" href="http://www.github.com/ofer987" target='_blank'
+            img src='/assets/github-circled-512px.svg'
+            br
+            p
+              | GitHub
+
+  div class="container"
+    a name="career"
+    div class="workplaces"
+      h2 Career
+      a class="workplace" href="http://www.ibm.com/ca/en" target="_blank"
+        img src="/assets/ibm.svg"
+      a class="workplace" href="http://www.zodiacaerospace.com" target="_blank"
+        img src="/assets/zodiac-aerospace-small.jpg"
+      a class="workplace" href="http://www.showcare.com" target="_blank"
+        img src="/assets/showcare.png"
+      a class="workplace" href="http://www.ficstar.com" target="_blank"
+        img src="/assets/ficstar.png"
+      a class="workplace" href="http://www.firmex.com" target="_blank"
+        img src="/assets/firmex.svg"
+      a class="workplace" href="http://www.groupemediatfo.org" target="_blank"
+        img src="/assets/tfo.png"
+
+
+    div class="abilities"
+      a name="expertise"
+      h2 Expertise
+      table
+        tbody
+          tr
+            td
+              ul
+                li
+                  img src="/assets/ok-512px.svg"
+                  span Ruby on Rails
+                li
+                  img src="/assets/ok-512px.svg"
+                  span C/C++
+                li
+                  img src="/assets/ok-512px.svg"
+                  span C# / ASP.NET / .NET Framework
+                li
+                  img src="/assets/ok-512px.svg"
+                  span JavaScript / AngularJS
+                li
+                  img src="/assets/ok-512px.svg"
+                  span Dart / AngularDart
+            td
+              ul
+                li
+                  img src="/assets/ok-512px.svg"
+                  span SQL Server
+                li
+                  img src="/assets/ok-512px.svg"
+                  span MySQL
+                li
+                  img src="/assets/ok-512px.svg"
+                  span Stored Procedures
+                li
+                  img src="/assets/ok-512px.svg"
+                  span MongoDB
+                li class="last"
+                  img src="/assets/ok-512px.svg"
+                  span Development Operations
