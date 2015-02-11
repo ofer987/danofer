@@ -1,0 +1,12 @@
+Ruby on Rails
+C/C++
+C# / .NET Framework
+ASP.NET
+JavaScript / AngularJS
+Dart / AngularDart
+EcmaScript 6
+SQL Server
+MySQL
+MondoDB
+Stored Procedures
+DevOps

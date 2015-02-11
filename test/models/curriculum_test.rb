@@ -15,4 +15,13 @@ class CurriculumTest < ActiveSupport::TestCase
 
     refute cv.cover_letter.blank?, 'no cover letter'
   end
+
+  test 'should return skills' do
+    skills = Curriculum.new.skills
+
+    assert skills.size > 0
+    skills.each do |skill|
+      refute skill.blank?
+    end
+  end
 end

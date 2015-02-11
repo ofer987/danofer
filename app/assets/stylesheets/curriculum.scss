@@ -1,3 +1,48 @@
-// Place all the styles related to the Curriculum controller here.
+// Place all the styles related to the curriculum controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.curriculum {
+  .contact {
+    a {
+      img {
+        width: 32px;
+        height: 32px;
+      }
+
+      p {
+        padding: 10px 0 10px 0;
+      }
+    }
+  }
+
+  .clients {
+    a.client {
+      img {
+        margin: 3em 0 3em 6em;
+        height: 64px;
+      }
+    }
+  }
+
+  .skills {
+    .row {
+      margin-top: 2em;
+      padding-left: 6em;
+
+      .col-lg-6 {
+        margin-bottom: 1em;
+
+        img {
+          width: 24px;
+          height: 24px;
+        }
+
+        span {
+          // font-size: 1.5em;
+          margin: 0 0 0 0.5em;
+        }
+      }
+    }
+  }
+}

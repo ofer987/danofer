@@ -7,7 +7,16 @@ class Curriculum
     read_markdown "app/assets/markdown/cover-20150205.markdown"
   end
 
+  def skills
+    skills_file = File.join(this_directory, 'curriculum/skills.txt')
+    File.readlines(skills_file)
+  end
+
   private
+
+  def this_directory
+   File.dirname(__FILE__)
+  end
 
   def read_markdown file_path
     # load curriculm markdown
