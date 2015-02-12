@@ -41,19 +41,9 @@ div class="curriculum"
     a name="clients"
     div class="clients"
       h2 Clients
-      a class="client" href="http://www.ibm.com/ca/en" target="_blank"
-        img src="#{asset_path('ibm.svg')}"
-      a class="client" href="http://www.zodiacaerospace.com" target="_blank"
-        img src="#{asset_path('zodiac-aerospace-small.jpg')}"
-      a class="client" href="http://www.showcare.com" target="_blank"
-        img src="#{asset_path('showcare.png')}"
-      a class="client" href="http://www.ficstar.com" target="_blank"
-        img src="#{asset_path('ficstar.png')}"
-      a class="client" href="http://www.firmex.com" target="_blank"
-        img src="#{asset_path('firmex.svg')}"
-      a class="client" href="http://www.groupemediatfo.org" target="_blank"
-        img src="#{asset_path('tfo.png')}"
-
+      - @cv.clients.each do |client|
+        a class="client" href="#{client.url}" target="_blank"
+          img src="#{asset_path(client.image)}"
 
     div class="skills"
       a name="skills"

@@ -8,8 +8,16 @@ class Curriculum
   end
 
   def skills
-    skills_file = File.join(this_directory, 'curriculum/skills.txt')
+    skills_file = File.join(this_directory, 'curriculums', 'skills.txt')
     File.readlines(skills_file)
+  end
+
+  def clients
+    Curriculums::Client.all
+  end
+
+  def projects
+    Curriculums::Project.all
   end
 
   private
