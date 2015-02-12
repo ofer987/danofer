@@ -1,10 +1,10 @@
 class Curriculum
   def resume
-    read_markdown "app/assets/markdown/20150205.markdown"
+    read_markdown File.join(this_directory, "curriculums", "20150205.markdown")
   end
 
   def cover_letter
-    read_markdown "app/assets/markdown/cover-20150205.markdown"
+    read_markdown File.join(this_directory, "curriculums", "cover-20150205.markdown")
   end
 
   def skills
