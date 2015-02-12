@@ -1,16 +1,16 @@
 module Curriculums
   class Project
-    attr_reader :name, :url, :repo
+    attr_reader :name, :url, :repo, :description
     def self.all
       projects_file = File.join(this_directory, "projects.txt")
 
       File.readlines(projects_file).map do |line|
-        Project.new *line.split
+        Project.new *line.split("|")
       end
     end
 
     def initialize *args
-      @name, @url, @repo = args
+      @name, @url, @repo, @description = args
     end
 
     private

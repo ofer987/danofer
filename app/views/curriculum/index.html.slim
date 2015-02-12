@@ -8,6 +8,8 @@ div class="curriculum"
           li
             a href="#clients" Clients
           li
+            a href="#projects" Projects
+          li
             a href="#skills" Skills
   div class="jumbotron"
     div class="container"
@@ -45,6 +47,23 @@ div class="curriculum"
         a class="client" href="#{client.url}" target="_blank"
           img src="#{asset_path(client.image)}"
 
+  div class="container"
+    a name="projects"
+    div class="projects"
+      h2 Projects
+      div class="row"
+        - @cv.projects.each do |project|
+          div class="col-lg-4"
+            h3 #{project.name}
+            p #{project.description}
+            div class="btn-group" role="group"
+              - unless project.url.blank?
+                a class="project btn btn-primary" href="#{project.url}" target="_blank"
+                  | View
+              a class="project btn btn-info" href="#{project.repo}" target="_blank"
+                | Repository
+
+  div class="container"
     div class="skills"
       a name="skills"
       h2 Skills

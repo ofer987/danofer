@@ -41,8 +41,8 @@ class CurriculumTest < ActiveSupport::TestCase
     assert projects.size > 0
     projects.each do |project|
       refute project.name.blank?, "name should not be blank. project is #{project}"
-      refute project.url.blank?, "url should not be blank. project is #{project}"
       refute project.repo.blank?, "repo should not be blank. project is #{project}"
+      refute project.description.blank?, "descripion should not be blank. project is #{project}"
     end
   end
 end
