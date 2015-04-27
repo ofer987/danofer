@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Presentation.create!(name: 'How to be a HomeStar Runner with Vim', presented_at: '2015-04-30', filename: 'presentations/keyboard_vim.pdf', location: '49 Spadina Avenue, Suite 206, Toronto, Ontario')

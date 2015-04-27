@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @presentation.name
+p
+  strong Presented at:
+  = @presentation.presented_at
+p
+  strong Location:
+  = @presentation.location
+p
+  strong Filename:
+  = @presentation.filename
+
+= link_to 'Edit', edit_presentation_path(@presentation)
+'|
+= link_to 'Back', presentations_path
