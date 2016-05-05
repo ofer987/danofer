@@ -1,10 +1,10 @@
 class Curriculum
   def resume
-    read_markdown File.join(this_directory, "curriculums", "20150205.markdown")
+    markdown_from_file("20150205.markdown")
   end
 
   def cover_letter
-    read_markdown File.join(this_directory, "curriculums", "cover-20150205.markdown")
+    markdown_from_file("cover-20150205.markdown")
   end
 
   def skills
@@ -20,13 +20,23 @@ class Curriculum
     Curriculums::Project.all
   end
 
+  def story
+    markdown_from_file('story.md')
+  end
+
   private
 
   def this_directory
    File.dirname(__FILE__)
   end
 
-  def read_markdown file_path
+  def markdown_from_file(path)
+    absolute_path = File.join(this_directory, 'curriculums', path)
+
+    read_markdown(absolute_path)
+  end
+
+  def read_markdown(file_path)
     # load curriculm markdown
     cv_markdown = File.read file_path, mode: 'rt'
     markdown_processor = MyMarkdown.new cv_markdown

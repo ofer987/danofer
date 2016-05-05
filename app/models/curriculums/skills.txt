@@ -1,11 +1,11 @@
+I know how to make websites scale
+Microservices
+High-transaction database operations
 Ruby on Rails
-C/C++
 C# / .NET Framework
 ASP.NET
-Elm
 Go
 Elixir
-SQL Server
-MySQL
-Stored Procedures
+SQL Server / T-SQL / Stored Procedures
+PostgreSQL
 Unix

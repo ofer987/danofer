@@ -1,3 +1,4 @@
-- @presentations.each do |presentation|
-  = link_to "#{presentation.name} at #{presentation.location}", presentation
-  br
+div class='container'
+  - @presentations.each do |presentation|
+    = link_to "#{presentation.name} at #{presentation.location}", presentation
+    br

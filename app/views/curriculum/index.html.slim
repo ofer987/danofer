@@ -1,74 +1,89 @@
-div class="curriculum"
-  nav class="navbar navbar-default navbar-fixed-top"
-    div class="container"
-      div class="navbar-header"
-        a class="navbar-brand" href="#" Dan Jakob Ofer
-      div class="collapse navbar-collapse"
-        ul class="nav navbar-nav"
-          li
-            a href="#clients" Clients
-          li
-            a href="#projects" Projects
-          li
-            a href="#skills" Skills
-  div class="jumbotron"
-    div class="container"
-      div class="row"
-        div class="col-md-9"
-          = raw @cv.cover_letter
-
-        div class="col-md-3 contact"
-          a id="email" href="mailto:dan.ofer@alumni.utoronto.ca" target='_blank'
-            img src="#{asset_path('user-512px.svg')}"
-            br
-            p
-              | dan.ofer@alumni.utoronto.ca
-          a id="stack-overflow" href="http://careers.stackoverflow.com/ofer" target='_blank'
-            img src="#{asset_path('stackoverflow.svg')}"
-            br
-            p
-              | Stack Overflow
-          a id="email" href="http://ca.linkedin.com/in/ofer987" target='_blank'
-            img src="#{asset_path('linkedin-512px.svg')}"
-            br
-            p
-              | LinkedIn
-          a id="github" href="http://www.github.com/ofer987" target='_blank'
-            img src="#{asset_path('github-circled-512px.svg')}"
-            br
-            p
-              | GitHub
-
+div class="jumbotron"
   div class="container"
-    a name="clients"
-    div class="clients"
-      h2 Clients
-      - @cv.clients.each do |client|
-        a class="client" href="#{client.url}" target="_blank"
-          img src="#{asset_path(client.image)}"
+    div class="row"
+      div class="col-md-9"
+        = raw @cv.cover_letter
 
-  div class="container"
-    a name="projects"
-    div class="projects"
-      h2 Projects
-      div class="row"
-        - @cv.projects.each do |project|
-          div class="col-lg-4"
-            h3 #{project.name}
-            p #{project.description}
-            div class="btn-group" role="group"
-              - unless project.url.blank?
-                a class="project btn btn-primary" href="#{project.url}" target="_blank"
-                  | View
+      div class="col-md-3 contact"
+        a id="email" href="mailto:dan.ofer@alumni.utoronto.ca" target='_blank'
+          img src="#{asset_path('user-512px.svg')}"
+          br
+          p
+            | dan.ofer@alumni.utoronto.ca
+        a id="stack-overflow" href="http://careers.stackoverflow.com/ofer" target='_blank'
+          img src="#{asset_path('stackoverflow.svg')}"
+          br
+          p
+            | Stack Overflow
+        a id="email" href="http://ca.linkedin.com/in/ofer987" target='_blank'
+          img src="#{asset_path('linkedin-512px.svg')}"
+          br
+          p
+            | LinkedIn
+        a id="github" href="http://www.github.com/ofer987" target='_blank'
+          img src="#{asset_path('github-circled-512px.svg')}"
+          br
+          p
+            | GitHub
+
+div class='container'
+  a name='highlights'
+  div class='projects'
+    h2 Highlights
+    div class='col-lg-4 left'
+      img src="#{asset_path('mywedhelper.png')}"
+      p
+        | a SaaS-based platform for brides to find the perfect vendor
+      ul
+        li Ruby on Rails
+        li Postgres
+        li RESTful API JSON endpoints
+        li Integration with Mandrill (email services) and Stripe (merchant services)
+        li First service of its kind in Canada
+      = link_to('Click here for Case Study', case_studies_url(anchor: 'mywedhelper'))
+
+    div class='col-lg-4 right'
+      img src="#{asset_path('showcare.png')}"
+      p
+        | a SaaS-based platform for complete management of major international conferences
+      ul
+        li ASP.NET
+        li C#
+        li SQL Server with Stored Procedures
+        li Used by dozens of conference organizations every year
+      = link_to('Click here for case study', case_studies_url(anchor: 'showcare'))
+
+div class="container"
+  a name="clients"
+  div class="clients"
+    h2 Clients
+    - @cv.clients.each do |client|
+      a class="client" href="#{client.url}" target="_blank"
+        img src="#{asset_path(client.image)}"
+
+div class="container"
+  a name="projects"
+  div class="projects"
+    h2 Projects
+    div class="row"
+      - @cv.projects.each do |project|
+        div class="col-lg-4"
+          h3 #{project.name}
+          p #{project.description}
+          div class="btn-group" role="group"
+            - unless project.url.blank?
+              a class="project btn btn-primary" href="#{project.url}" target="_blank"
+                | View
+            - unless project.repo.blank?
               a class="project btn btn-info" href="#{project.repo}" target="_blank"
                 | Repository
 
-  div class="container"
-    div class="skills"
-      a name="skills"
-      h2 Skills
-      div class="row"
-        - @cv.skills.each do |skill|
-          div class="col-lg-6"
-            img src="#{asset_path('ok-512px.svg')}"
-              span #{skill}
+div class="container"
+  div class="skills"
+    a name="skills"
+    h2 Skills
+    div class="row"
+      - @cv.skills.each do |skill|
+        div class="col-lg-6"
+          img src="#{asset_path('ok-512px.svg')}"
+            span #{skill}

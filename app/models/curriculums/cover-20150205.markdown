@@ -1,9 +1,9 @@
-## Dan Jakob Ofer is a Ruby on Rails developer in Toronto since 2008
+## Dan Jakob Ofer is the developer of numerous high-transaction websites
 
 - I have created large-scale web applications, accessed by millions of users
 
-- My code is clear and maintainable.
+- My code is clear and maintainable
 
 - My colleagues benefit from easy-to-read code because it follows conventions
 
-- I give talks! See the list of [past talks](http://danofer.com/presentations) that I have given
+- I give talks! See the list of [past talks](/presentations) that I have given
