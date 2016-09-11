@@ -1,6 +1,4 @@
 http://www.ibm.com/ca/en ibm.svg
 http://www.zodiacaerospace.com zodiac-aerospace-small.jpg
 http://www.showcare.com showcare.png
-http://www.ficstar.com ficstar.png
-http://www.firmex.com firmex.svg
 http://www.mywedhelper.com mywedhelper.png

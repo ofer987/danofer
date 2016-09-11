@@ -1,3 +1,2 @@
 MyWedHelper|https://www.mywedhelper.com||Where brides meet vendors to make their wedding plans to reality
 Transit.Tips|http://www.transit.tips|http://github.com/ofer987/transit.tips|A web site to view local public transportation in your vacinity. Supports cellphones and tablets.
-Numerous||http://github.com/ofer987/numerous|Content Management System to display galleries for images, a blog, and recipes for food.
