@@ -1,0 +1,30 @@
+{
+    "name": "danofer",
+    "version": "0.1.0",
+    "description": "Dan Ofer's personal website",
+    "main": "index.js",
+    "scripts": {
+        "build": "sh build-package",
+        "start-server": "ws"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:ofer987/danofer.git"
+    },
+    "author": "Dan Ofer",
+    "license": "MS-PL",
+    "bugs": {
+        "url": "https://github.com/ofer987/danofer/issues"
+    },
+    "homepage": "https://github.com/ofer987/danofer#readme",
+    "devDependencies": {
+        "css-loader": "^6.2.0",
+        "file-loader": "^6.2.0",
+        "html-loader": "^2.1.2",
+        "sass": "^1.37.0",
+        "sass-loader": "^12.1.0",
+        "style-loader": "^3.2.1",
+        "webpack": "^5.47.1",
+        "webpack-cli": "^4.7.2"
+    }
+}
