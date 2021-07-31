@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
     mode: "development",
     entry: [
-        "./src/index.js",
+        "./src/index.ts",
     ],
     watch: true,
     output: {
@@ -24,6 +24,10 @@ module.exports = {
                         }
                     }
                 ],
+            },
+            {
+                test: /\.ts$/i,
+                use: ["ts-loader"],
             },
             {
                 test: /\.html$/i,
