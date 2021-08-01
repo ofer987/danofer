@@ -1,4 +1,7 @@
 'use strict';
+
+// CSS
 import "./index.scss";
 
-import "./contact_me.ts";
+// JavaScript
+import "./contact-me.ts";

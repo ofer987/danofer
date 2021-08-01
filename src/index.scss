@@ -27,18 +27,3 @@ body {
     background-size: cover;
     height: 1500px;
 }
-
-#contact {
-    form {
-        width: 100%;
-
-        &.contact-me-closed {
-            display: none;
-        }
-
-        &.contact-me-opened {
-            display: block;
-        }
-    }
-
-}

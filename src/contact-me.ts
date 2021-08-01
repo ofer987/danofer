@@ -1,5 +1,10 @@
 'use strict';
 
+// CSS
+import "./contact-me.scss";
+
+// JavaScript
+
 const FORM_OPENED = "contact-me-opened";
 const FORM_CLOSED = "contact-me-closed";
 
