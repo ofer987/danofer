@@ -33,11 +33,22 @@ namespace Danofer.Api.Controllers
             _logger.LogInformation(model.Message);
 
             var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
-            if (isRealUser) {
-                return Content("Success");
+            if (isRealUser)
+            {
+                var isSuccess = await model.SendEmail(
+                    model.SenderName,
+                    model.SenderEmailAddress,
+                    model.Message
+                );
+                if (isSuccess)
+                {
+                    return Content("Email was sent!");
+                }
+
+                return Content("User is valid, but sending email failed");
             }
 
-            return Content("Failure");
+            return Content("User is probably a bot");
         }
     }
 }

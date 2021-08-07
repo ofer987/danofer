@@ -3,11 +3,16 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 namespace Danofer.Api.Models
 {
     public class MessagesModel
     {
         public static string ReCaptchaSecretKey = "recaptcha_secret_key";
+        public static string SendGridSecretKey = "send_grid_api_key";
+
         public static string ReCaptchaUrl = "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}";
         public static float Tolerance = 0.8F;
 
@@ -26,6 +31,8 @@ namespace Danofer.Api.Models
                 return Environment.GetEnvironmentVariable(ReCaptchaSecretKey);
             }
         }
+
+        public string SendGridSecret => Environment.GetEnvironmentVariable(SendGridSecretKey);
 
         public async Task<bool> IsRealUser(HttpClient httpClient)
         {
@@ -51,6 +58,19 @@ namespace Danofer.Api.Models
             }
 
             return false;
+        }
+
+        public async Task<bool> SendEmail(string senderName, string senderEmailAddress, string message)
+        {
+            var sender = new EmailAddress(senderEmailAddress, senderName);
+            var subject = "Somebody contacted you from danofer.com";
+            var recipient = new EmailAddress("dan@ofer.to", "Dan Jakob Ofer");
+
+            var client = new SendGridClient(SendGridSecret);
+            var email = MailHelper.CreateSingleEmail(sender, recipient, subject, message, string.Empty);
+            var response = await client.SendEmailAsync(email);
+
+            return response.IsSuccessStatusCode;
         }
     }
 }
