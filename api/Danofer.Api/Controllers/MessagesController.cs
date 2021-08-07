@@ -26,11 +26,11 @@ namespace Danofer.Api.Controllers
         public async Task<IActionResult> Create(string token, MessagesModel model)
         {
             // For debugging
-            // System.Console.WriteLine(token);
-            // System.Console.WriteLine(model.ReCaptchaToken);
-            // System.Console.WriteLine(model.SenderName);
-            // System.Console.WriteLine(model.SenderEmailAddress);
-            // System.Console.WriteLine(model.Message);
+            _logger.LogInformation(token);
+            _logger.LogInformation(model.ReCaptchaToken);
+            _logger.LogInformation(model.SenderName);
+            _logger.LogInformation(model.SenderEmailAddress);
+            _logger.LogInformation(model.Message);
 
             var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
             if (isRealUser) {
