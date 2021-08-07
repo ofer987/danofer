@@ -73,16 +73,16 @@ class ContactMe {
     }
 
     openForm(): void {
-        this.form.className = FORM_OPENED;
+        this.form.classList.add(FORM_OPENED);
+        this.form.classList.remove(FORM_CLOSED);
     }
 
     closeForm(): void {
-        this.form.className = FORM_CLOSED;
+        this.form.classList.add(FORM_CLOSED);
+        this.form.classList.remove(FORM_OPENED);
     }
 
     async sendEmail(response: Response): Promise<void> {
-        // alert(`Status is (${response.statusText})`);
-        // var body = response.body;
         var blob = await response.blob();
         var body = await blob.text();
 
