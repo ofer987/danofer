@@ -9,6 +9,8 @@ namespace Danofer.Api
 {
     public class Startup
     {
+        public static string WwwDanoferPolicy = "CORS_POLICY_WWW_DANOFER_COM";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,11 +21,20 @@ namespace Danofer.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Danofer.Api", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    WwwDanoferPolicy,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:8000");
+                    });
             });
         }
 
@@ -36,18 +47,17 @@ namespace Danofer.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Danofer.Api v1"));
             }
+            else
+            {
+                app.UseHttpsRedirection();
+            }
 
-            // app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(WwwDanoferPolicy);
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                // endpoints.MapControllerRoute(
-                //     name: "Send a message via email",
-                //     pattern: "/verify/{token}/{controller=Messages}/{action=Create}",
-                //     defaults: new { controller = "Messages", action = "Create" }
-                // );
             });
         }
     }

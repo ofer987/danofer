@@ -54,15 +54,6 @@ class ContactMe {
     async sendMessage(reCapchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
         var url = `${SEND_MESSAGE_DOMAIN}/verify/${reCapchaToken}/messages/create`;
 
-        var form = new FormData();
-        form.append("reCaptchaToken", reCapchaToken);
-        form.append("senderName", senderName);
-        form.append("senderEmailAddress", senderEmailAddress);
-        form.append("message", message);
-
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
         var body = {
             reCaptchaToken: reCapchaToken,
             senderName: senderName,
@@ -72,8 +63,11 @@ class ContactMe {
 
         var response = await fetch(url, {
             method: "POST",
-            body: form,
-            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body),
+            mode: "cors",
         });
 
         return await response.text();

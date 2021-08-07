@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Text;
 using System.Threading.Tasks;
-using System.IO;
+using System.Net.Mime;
 
 using Danofer.Api.Models;
 
 namespace Danofer.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class MessagesController : ControllerBase
     {
         private readonly ILogger<MessagesController> _logger;
@@ -19,30 +17,19 @@ namespace Danofer.Api.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost()]
+        [Consumes(MediaTypeNames.Application.Json)]
         [Route("/verify/{token}/messages/create")]
-        public async Task<IActionResult> Create(
-            string token,
-            string reCaptchaToken,
-            string senderName,
-            string senderEmailAddress,
-            string message
-        )
+        public async Task<IActionResult> Create(string token, MessagesModel model)
         {
-            reCaptchaToken = Request.Form[nameof(reCaptchaToken)];
-            senderName = Request.Form[nameof(senderName)];
-            senderEmailAddress = Request.Form[nameof(senderEmailAddress)];
-            message = Request.Form[nameof(message)];
+            // For debugging
+            // System.Console.WriteLine(token);
+            // System.Console.WriteLine(model.ReCaptchaToken);
+            // System.Console.WriteLine(model.SenderName);
+            // System.Console.WriteLine(model.SenderEmailAddress);
+            // System.Console.WriteLine(model.Message);
 
-            var messages = new MessagesModel
-            {
-                ReCaptchaToken = reCaptchaToken,
-                SenderName = senderName,
-                SenderEmailAddress = senderEmailAddress,
-                Message = message
-            };
-
-            var isRealUser = await messages.IsRealUser();
+            var isRealUser = await model.IsRealUser();
             if (isRealUser) {
                 return Content("Success");
             }
