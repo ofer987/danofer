@@ -9,13 +9,12 @@ const FORM_CLOSED = "contact-me-closed";
 const SEND_EMAIL = "SEND_EMAIL";
 
 const SEND_MESSAGE_DOMAIN = "http://localhost:5000";
-// const SITE_VERIFICATION_URL = "/email.json";
 const SITE_KEY = "6LdxCdMbAAAAAKKewSc8LJLO4eHHwUl8BCX1OMkq";
 
 class ContactMe {
-    form : HTMLFormElement;
-    toggleFormButton : HTMLInputElement;
-    submitButton : HTMLInputElement;
+    form: HTMLFormElement;
+    toggleFormButton: HTMLInputElement;
+    submitButton: HTMLInputElement;
 
     constructor() {
         this.form = document.getElementById("contact-me-form") as HTMLFormElement;
@@ -25,7 +24,7 @@ class ContactMe {
         this.init();
     }
 
-    init() : void {
+    init(): void {
         var self = this;
         this.toggleFormButton.addEventListener("click", function() {
             if (self.form.className === FORM_CLOSED) {
@@ -44,7 +43,7 @@ class ContactMe {
         });
     }
 
-    async validate() : Promise<string> {
+    async validate(): Promise<string> {
         const recaptcha = await load(SITE_KEY);
         const token = await recaptcha.execute(SEND_EMAIL);
 
@@ -73,19 +72,15 @@ class ContactMe {
         return await response.text();
     }
 
-    openForm() : void {
+    openForm(): void {
         this.form.className = FORM_OPENED;
     }
 
-    closeForm() : void {
+    closeForm(): void {
         this.form.className = FORM_CLOSED;
     }
 
-    // submit() : void {
-    //     this.sendEmail();
-    // }
-
-    async sendEmail(response : Response) : Promise<void> {
+    async sendEmail(response: Response): Promise<void> {
         // alert(`Status is (${response.statusText})`);
         // var body = response.body;
         var blob = await response.blob();
