@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using System;
 using System.Threading.Tasks;
 using System.Net.Mime;
 using System.Net.Http;
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Danofer.Api.Models;
 
 namespace Danofer.Api.Controllers
@@ -35,6 +36,21 @@ namespace Danofer.Api.Controllers
             var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
             if (isRealUser)
             {
+                try
+                {
+                    if (!model.IsValid())
+                    {
+                        var error = "Your request could not be submitted";
+                        _logger.LogDebug(error);
+
+                        return Content(error);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    _logger.LogDebug(exception, exception.Message);
+                }
+
                 var isSuccess = await model.SendEmail(
                     model.SenderName,
                     model.SenderEmailAddress,
@@ -48,7 +64,9 @@ namespace Danofer.Api.Controllers
                 return Content("User is valid, but sending email failed");
             }
 
-            return Content("User is probably a bot");
+            var message = "User is probably a bot";
+            _logger.LogDebug(message);
+            return Content(message);
         }
     }
 }

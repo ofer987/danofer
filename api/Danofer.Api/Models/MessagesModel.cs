@@ -75,5 +75,14 @@ namespace Danofer.Api.Models
 
             return response.IsSuccessStatusCode;
         }
+
+        public bool IsValid()
+        {
+            // TODO validate that the properties such as name is not empty
+            // the email address is valid! (maybe use a regular expression or an existing library)
+            // and that the message is not empty
+            // You could also throw an exception
+            return true;
+        }
     }
 }
