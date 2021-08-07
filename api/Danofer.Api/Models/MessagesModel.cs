@@ -62,12 +62,15 @@ namespace Danofer.Api.Models
 
         public async Task<bool> SendEmail(string senderName, string senderEmailAddress, string message)
         {
-            var sender = new EmailAddress(senderEmailAddress, senderName);
             var subject = "Somebody contacted you from danofer.com";
             var recipient = new EmailAddress("dan@ofer.to", "Dan Jakob Ofer");
 
-            var client = new SendGridClient(SendGridSecret);
+            var sender = new EmailAddress("dan@ofer.to", senderName);
+            var replyTo = new EmailAddress(senderEmailAddress, senderName);
             var email = MailHelper.CreateSingleEmail(sender, recipient, subject, message, string.Empty);
+            email.SetReplyTo(replyTo);
+
+            var client = new SendGridClient(SendGridSecret);
             var response = await client.SendEmailAsync(email);
 
             return response.IsSuccessStatusCode;

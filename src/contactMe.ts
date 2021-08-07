@@ -47,7 +47,7 @@ class ContactMe {
         const recaptcha = await load(SITE_KEY);
         const token = await recaptcha.execute(SEND_EMAIL);
 
-        return await this.sendMessage(token, "dan", "dan@ofer.to", "Hello World\n");
+        return await this.sendMessage(token, "Ron Ofer", "ronofer@live.ca", "Hi Dan!");
     }
 
     async sendMessage(reCapchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
