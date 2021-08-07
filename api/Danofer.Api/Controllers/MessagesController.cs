@@ -43,16 +43,15 @@ namespace Danofer.Api.Controllers
                         var error = "Your request could not be submitted";
                         _logger.LogDebug(error);
 
-                        // TODO set 5xx error
-                        return Content(error);
+                        throw new ArgumentException(error);
                     }
                 }
                 catch (Exception exception)
                 {
+                    // TODO: catch all the exceptions by setting a rule in Startup.cs
                     _logger.LogDebug(exception, exception.Message);
 
-                    // TODO set 5xx error
-                    return Content(exception.Message);
+                    throw;
                 }
 
                 var isSuccess = await model.SendEmail(
@@ -65,14 +64,12 @@ namespace Danofer.Api.Controllers
                     return Content("Email was sent!");
                 }
 
-                // TODO set 5xx error
-                return Content("User is valid, but sending email failed");
+                throw new Exception("User is valid, but sending email failed");
             }
 
-            // TODO set 5xx error
             var message = "User is probably a bot";
             _logger.LogDebug(message);
-            return Content(message);
+            throw new Exception(message);
         }
     }
 }
