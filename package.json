@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "sh build-package",
-        "start-server": "ws"
+        "start-server": "ws --hostname=localhost --port=8000"
     },
     "repository": {
         "type": "git",
@@ -21,6 +21,7 @@
         "css-loader": "^6.2.0",
         "file-loader": "^6.2.0",
         "html-loader": "^2.1.2",
+        "local-web-server": "^5.1.0",
         "sass": "^1.37.0",
         "sass-loader": "^12.1.0",
         "style-loader": "^3.2.1",
