@@ -4,4 +4,8 @@
 import "./index.scss";
 
 // JavaScript
-import "./contact-me.ts";
+import ContactMe from "./contactMe";
+import Messages from "./messages";
+
+new ContactMe();
+new Messages().messages.forEach(message => console.log(message));

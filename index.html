@@ -3,6 +3,8 @@
     <head>
         <title>Dan Ofer</title>
         <meta charset="utf-8" />
+
+        <script src="https://www.google.com/recaptcha/api.js?trustedtypes=true&render=6LdxCdMbAAAAAKKewSc8LJLO4eHHwUl8BCX1OMkq"></script>
     </head>
     <body>
         <div id="introduction">
@@ -14,9 +16,9 @@
         </div>
 
         <div id="contact">
-            <input id="toggle-form-button" type="button" value="contact-me" />
+            <input id="contact-me-toggle-button" type="button" value="Contact Me" />
 
-            <form id="contact-me" class="contact-me-closed">
+            <form id="contact-me-form" class="contact-me-closed">
                 <label id="name" for="name">Your name</label>
                 <input id="name" type="text" />
 
@@ -25,7 +27,7 @@
 
                 <br>
 
-                <input class="submit" type="button" value="Submit" />
+                <input id="contact-me-submit-button" class="submit" type="button" value="Submit" />
         </div>
 
         <div id="specialties">
