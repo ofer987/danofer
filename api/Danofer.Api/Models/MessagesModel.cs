@@ -27,10 +27,10 @@ namespace Danofer.Api.Models
             }
         }
 
-        public async Task<bool> IsRealUser()
+        public async Task<bool> IsRealUser(HttpClient httpClient)
         {
             var url = string.Format(ReCaptchaUrl, ReCaptchaSecret, ReCaptchaToken);
-            var response = await client.GetAsync(url);
+            var response = await httpClient.GetAsync(url);
 
             var responseStream = await response.Content.ReadAsStreamAsync();
             var reCaptcha = await JsonSerializer.DeserializeAsync<ReCaptchaModel>(responseStream);

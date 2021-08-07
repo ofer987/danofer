@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Net.Mime;
+using System.Net.Http;
 
 using Danofer.Api.Models;
 
@@ -11,10 +12,12 @@ namespace Danofer.Api.Controllers
     public class MessagesController : ControllerBase
     {
         private readonly ILogger<MessagesController> _logger;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public MessagesController(ILogger<MessagesController> logger)
+        public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory)
         {
             _logger = logger;
+            _clientFactory = clientFactory;
         }
 
         [HttpPost()]
@@ -29,7 +32,7 @@ namespace Danofer.Api.Controllers
             // System.Console.WriteLine(model.SenderEmailAddress);
             // System.Console.WriteLine(model.Message);
 
-            var isRealUser = await model.IsRealUser();
+            var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
             if (isRealUser) {
                 return Content("Success");
             }
