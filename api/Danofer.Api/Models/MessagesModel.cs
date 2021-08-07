@@ -5,6 +5,9 @@ using System.Text.Json;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using EmailValidation;
+
+using Danofer.Api.Extensions;
 
 namespace Danofer.Api.Models
 {
@@ -78,10 +81,21 @@ namespace Danofer.Api.Models
 
         public bool IsValid()
         {
-            // TODO validate that the properties such as name is not empty
-            // the email address is valid! (maybe use a regular expression or an existing library)
-            // and that the message is not empty
-            // You could also throw an exception
+            if (SenderName.IsNullOrWhiteSpace())
+            {
+                throw new ArgumentException("Name should not be blank");
+            }
+
+            if (!EmailValidator.Validate(SenderEmailAddress))
+            {
+                throw new ArgumentException("Email address is not valid");
+            }
+
+            if (Message.IsNullOrWhiteSpace())
+            {
+                throw new ArgumentException("The message should not be empty")
+            }
+
             return true;
         }
     }

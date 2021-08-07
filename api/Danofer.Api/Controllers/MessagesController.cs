@@ -43,12 +43,16 @@ namespace Danofer.Api.Controllers
                         var error = "Your request could not be submitted";
                         _logger.LogDebug(error);
 
+                        // TODO set 5xx error
                         return Content(error);
                     }
                 }
                 catch (Exception exception)
                 {
                     _logger.LogDebug(exception, exception.Message);
+
+                    // TODO set 5xx error
+                    return Content(exception.Message);
                 }
 
                 var isSuccess = await model.SendEmail(
@@ -61,9 +65,11 @@ namespace Danofer.Api.Controllers
                     return Content("Email was sent!");
                 }
 
+                // TODO set 5xx error
                 return Content("User is valid, but sending email failed");
             }
 
+            // TODO set 5xx error
             var message = "User is probably a bot";
             _logger.LogDebug(message);
             return Content(message);
