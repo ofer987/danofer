@@ -25,6 +25,8 @@ scp \
 
 # Restart NGINX just in case
 ssh \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
     -i ${server_rsa} \
     root@167.99.181.5 \
     service nginx restart;
