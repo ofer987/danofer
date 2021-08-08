@@ -8,10 +8,10 @@ on:
   push:
     branches:
       - "master"
+      - "test_rsa"
 
 jobs:
   build:
-    environment: Deploy
     runs-on: ubuntu-latest
 
     steps:
