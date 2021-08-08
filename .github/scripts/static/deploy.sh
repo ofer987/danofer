@@ -3,8 +3,8 @@
 set -ex;
 
 # Copy SSH private key
-server_rsa="./server_rsa";
-echo ${STATIC_SERVER_PRIVATE_KEY} > ${server_rsa};
+server_rsa="./github_actions_rsa";
+# echo ${STATIC_SERVER_PRIVATE_KEY} > ${server_rsa};
 
 # Remove its permissions
 chmod g-r "${server_rsa}";
