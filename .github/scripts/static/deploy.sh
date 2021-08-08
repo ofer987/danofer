@@ -9,7 +9,7 @@ echo ${STATIC_SERVER_PRIVATE_KEY} > ${server_rsa};
 # Deploy the static files to the remote server
 scp \
     -o StrictHostKeyChecking=no \
-    -o UserKnownHostsFile=/dev/null
+    -o UserKnownHostsFile=/dev/null \
     -i ${server_rsa} \
     -r \
     index.html dist \
