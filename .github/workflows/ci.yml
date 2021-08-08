@@ -23,4 +23,8 @@ jobs:
 
       - name: compile
         working-directory: ./static
-        run: bash ../.github/scripts/static_assets/compile.sh
+        run: bash ../.github/scripts/static/compile.sh
+
+      - name: deploy
+        working-directory: ./static
+        run: bash ../.github/scripts/static/deploy.sh
