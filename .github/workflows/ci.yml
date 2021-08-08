@@ -22,4 +22,5 @@ jobs:
           node-version: '14.17.1'
 
       - name: compile
+        working-directory: ./static
         run: bash .github/scripts/static_assets/compile.sh
