@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - "master"
+      - "deploy-api-using-docker"
+      - "deploy-api-using-docker-and-configuration"
 
 jobs:
   build:
@@ -30,3 +32,4 @@ jobs:
         run: bash ../.github/scripts/static/deploy.sh
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          SERVER_RSA: "./server_rsa"

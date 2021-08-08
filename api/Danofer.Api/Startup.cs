@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
+using System.IO;
+using System.Text.Json;
+
 namespace Danofer.Api
 {
     public class Startup
@@ -60,6 +63,15 @@ namespace Danofer.Api
             {
                 endpoints.MapControllers();
             });
+
+            SetConfiguration();
+        }
+
+        private void SetConfiguration()
+        {
+            var text = File.ReadAllText("../configuration.json");
+
+            Danofer.Api.Configuration.Config = JsonSerializer.Deserialize<Danofer.Api.Configuration>(text);
         }
     }
 }

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'json'
+
+configuration = {
+  send_grid_api_key: ENV['SEND_GRID_API_KEY'],
+  recaptcha_secret_key: ENV['RECAPTCHA_SECRET_KEY']
+}
+
+puts configuration.to_json

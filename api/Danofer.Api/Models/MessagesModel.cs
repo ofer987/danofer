@@ -13,29 +13,17 @@ namespace Danofer.Api.Models
 {
     public class MessagesModel
     {
-        public static string ReCaptchaSecretKey = "recaptcha_secret_key";
-        public static string SendGridSecretKey = "send_grid_api_key";
-
         public static string ReCaptchaUrl = "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}";
         public static float Tolerance = 0.8F;
-
-        // TODO use dependency injection instead
-        public static readonly HttpClient client = new HttpClient();
 
         public string ReCaptchaToken { get; init; } = string.Empty;
         public string SenderName { get; init; } = string.Empty;
         public string SenderEmailAddress { get; init; } = string.Empty;
         public string Message { get; init; } = string.Empty;
 
-        public string ReCaptchaSecret
-        {
-            get
-            {
-                return Environment.GetEnvironmentVariable(ReCaptchaSecretKey);
-            }
-        }
+        public string ReCaptchaSecret => Configuration.Config.ReCaptchaSecretKey;
+        public string SendGridSecret => Configuration.Config.SendGridApiKey;
 
-        public string SendGridSecret => Environment.GetEnvironmentVariable(SendGridSecretKey);
 
         public async Task<bool> IsRealUser(HttpClient httpClient)
         {
@@ -47,6 +35,7 @@ namespace Danofer.Api.Models
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
+            System.Console.WriteLine(url);
             System.Console.WriteLine(reCaptcha);
             System.Console.WriteLine(responseBody);
 
@@ -93,7 +82,7 @@ namespace Danofer.Api.Models
 
             if (Message.IsNullOrWhiteSpace())
             {
-                throw new ArgumentException("The message should not be empty")
+                throw new ArgumentException("The message should not be empty");
             }
 
             return true;

@@ -2,5 +2,7 @@
 **/bin/
 **/obj/
 
+configuration.json
+
 # Ruby
 .solargraph.yml
