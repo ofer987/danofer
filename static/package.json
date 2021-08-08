@@ -4,6 +4,7 @@
     "description": "Dan Ofer's personal website",
     "main": "index.js",
     "scripts": {
+        "build-assets": "npx webpack --config=webpack.config.prod.js",
         "build": "sh build-package",
         "start-server": "ws --hostname=localhost --port=8000"
     },

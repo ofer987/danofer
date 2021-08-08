@@ -1,0 +1,29 @@
+body {
+    margin: 0px;
+}
+
+#introduction {
+    width: 100%;
+    text-align: center;
+    height: 200px;
+}
+
+#specialties {
+    height: 400px;
+    text-align: left;
+
+    ul {
+        padding: 0px;
+    }
+
+    li {
+        display: block;
+    }
+}
+
+#image {
+    width: 100%;
+    background-image: url("./main.jpg");
+    background-size: cover;
+    height: 1500px;
+}
