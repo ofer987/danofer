@@ -28,5 +28,6 @@ jobs:
       - name: deploy
         working-directory: ./static
         run: bash ../.github/scripts/static/deploy.sh
+        environment: Deploy
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
