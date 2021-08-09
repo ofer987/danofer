@@ -1,4 +1,4 @@
-name: Deploy Static Website
+name: Deploy API Website
 
 on:
   # Manually trigger workflow
