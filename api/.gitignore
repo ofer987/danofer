@@ -2,5 +2,7 @@
 **/bin/
 **/obj/
 
+Danofer.Api/run
+
 # Ruby
 .solargraph.yml
