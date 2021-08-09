@@ -3,6 +3,6 @@
 set -ex;
 
 docker build \
-    --file Danofer.Dockerfile \
+    --file Danofer.build.Dockerfile \
     --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}" \
     .;

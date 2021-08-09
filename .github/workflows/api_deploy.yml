@@ -34,6 +34,8 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
 
   deploy:
     needs: [build]
@@ -42,18 +44,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: install-latest-docker-image
-        run: bash ./.github/scripts/api/install_docker_image.sh
+      - name: install-docker-file
+        run: bash ./.github/scripts/api/install_docker_file.sh
+        env:
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          SERVER_RSA: "./server_rsa"
+
+      - name: build-local-danofer-image
+        run: bash ./.github/scripts/api/build_danofer_image.sh
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
           IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          SEND_GRID_API_KEY: ${{ secrets.SEND_GRID_API_KEY }}
+          RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
 
-      - name: run-latest-docker-image
-        run: bash ./.github/scripts/api/run_docker_image.sh
+      - name: run-local-danofer-image
+        run: bash ./.github/scripts/api/run_danofer_image.sh
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"

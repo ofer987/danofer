@@ -15,9 +15,4 @@ ssh \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
     "${server_user}@${server_ip}" \
-    "docker run \
-        --file Danofer.run.Dockerfile \
-        --tag danofer_run:master
-        --build-arg send_grid_api_key
-        --build-arg recaptcha_secret_key
-        .;";
+    "docker run danofer_run:latest";
