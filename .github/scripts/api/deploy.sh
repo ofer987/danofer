@@ -8,6 +8,8 @@ echo "${STATIC_SERVER_PRIVATE_KEY}" > "${server_rsa}";
 
 cat "${server_rsa}";
 
+# diff "${server_rsa}" "${second_key}";
+
 # Remove its permissions
 chmod g-r "${server_rsa}";
 chmod g-w "${server_rsa}";

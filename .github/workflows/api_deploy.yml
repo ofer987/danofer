@@ -1,0 +1,56 @@
+name: Deploy Static Website
+
+on:
+  # Manually trigger workflow
+  workflow_dispatch:
+
+  # When pushing a ref such as a branch or a tag
+  push:
+    branches:
+      - "master"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set-up-docker
+        uses: docker-practice/actions-setup-docker@master
+
+      - name: build-docker-image
+        working-directory: ./api
+        run: bash ../.github/scripts/api/build_docker_image.sh
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
+
+      - name: push-docker-image
+        working-directory: ./api
+        run: bash ../.github/scripts/api/push_docker_image.sh
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install-latest-docker-image
+        run: bash ./.github/scripts/api/install_docker_image.sh
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          SERVER_RSA: "./server_rsa"
+          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: run-latest-docker-image
+        run: bash ./.github/scripts/api/run_docker_image.sh
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          SERVER_RSA: "./server_rsa"
