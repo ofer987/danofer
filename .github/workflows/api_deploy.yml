@@ -43,6 +43,7 @@ jobs:
 
       - name: install-latest-docker-image
         run: bash ./.github/scripts/api/install_docker_image.sh
+        env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
@@ -52,5 +53,6 @@ jobs:
 
       - name: run-latest-docker-image
         run: bash ./.github/scripts/api/run_docker_image.sh
+        env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"
