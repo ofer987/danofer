@@ -93,7 +93,7 @@ namespace Danofer.Api.Models
 
             if (Message.IsNullOrWhiteSpace())
             {
-                throw new ArgumentException("The message should not be empty")
+                throw new ArgumentException("The message should not be empty");
             }
 
             return true;
