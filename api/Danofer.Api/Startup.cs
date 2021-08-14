@@ -12,7 +12,8 @@ namespace Danofer.Api
 {
     public class Startup
     {
-        public static string WwwDanoferPolicy = "CORS_POLICY_WWW_DANOFER_COM";
+        public static string DanoferPolicy = "CORS_POLICY_WWW_DANOFER_COM";
+        public static string DevelopmentPolicy = "CORS_POLICY_LOCALHOST";
 
         public Startup(IConfiguration configuration)
         {
@@ -34,10 +35,17 @@ namespace Danofer.Api
             services.AddCors(options =>
             {
                 options.AddPolicy(
-                    WwwDanoferPolicy,
+                    DevelopmentPolicy,
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:8000");
+                    });
+
+                options.AddPolicy(
+                    DanoferPolicy,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://danofer.com", "https://www.danofer.com");
                     });
             });
         }
@@ -50,14 +58,17 @@ namespace Danofer.Api
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Danofer.Api v1"));
+
+                app.UseCors(DevelopmentPolicy);
+                System.Console.WriteLine("Development mode");
             }
             else
             {
-                app.UseHttpsRedirection();
+                app.UseCors(DanoferPolicy);
+                System.Console.WriteLine("Production mode");
             }
 
             app.UseRouting();
-            app.UseCors(WwwDanoferPolicy);
 
             app.UseEndpoints(endpoints =>
             {
@@ -69,7 +80,7 @@ namespace Danofer.Api
 
         private void SetConfiguration()
         {
-            var text = File.ReadAllText("../configuration.json");
+            var text = File.ReadAllText("./configuration.json");
 
             Danofer.Api.Configuration.Config = JsonSerializer.Deserialize<Danofer.Api.Configuration>(text);
         }

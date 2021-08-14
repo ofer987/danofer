@@ -2,7 +2,7 @@
 **/bin/
 **/obj/
 
-configuration.json
+Danofer.Api/configuration.json
 
 # Ruby
 .solargraph.yml
