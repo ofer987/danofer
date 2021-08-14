@@ -3,7 +3,6 @@ name: Deploy API Website
 on:
   # Manually trigger workflow
   workflow_dispatch:
-    - "deploy-api-using-docker-and-configuration"
 
   # When pushing a ref such as a branch or a tag
   push:
