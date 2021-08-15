@@ -1,14 +1,12 @@
 name: Deploy API Website
 
 on:
-  # When pushing a ref such as a branch or a tag
   push:
-    tags:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/releases/')
+    if: startsWith(github.ref, 'refs/heads/releases/')
 
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +18,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
 
       - name: push-docker-image
         working-directory: ./api
@@ -29,12 +26,11 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/releases/')
+    if: startsWith(github.ref, 'refs/heads/releases/')
 
     steps:
       - uses: actions/checkout@v2
