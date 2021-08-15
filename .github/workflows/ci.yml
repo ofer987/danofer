@@ -1,5 +1,8 @@
 name: Deploy Website
 
+on:
+  push:
+
 jobs:
   preparation:
     runs-on: ubuntu-latest
