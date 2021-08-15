@@ -3,6 +3,7 @@ name: Deploy Static Website
 on:
   # When pushing a ref such as a branch or a tag
   push:
+    tags:
 
 jobs:
   build:
