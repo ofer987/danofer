@@ -8,7 +8,7 @@ const FORM_OPENED = "contact-me-opened";
 const FORM_CLOSED = "contact-me-closed";
 const SEND_EMAIL = "SEND_EMAIL";
 
-const SEND_MESSAGE_DOMAIN = "http://localhost:5000";
+const SEND_MESSAGE_DOMAIN = "https://api.danofer.com";
 const SITE_KEY = "6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs";
 
 class ContactMe {
