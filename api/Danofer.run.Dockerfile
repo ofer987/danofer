@@ -6,4 +6,4 @@ WORKDIR /source/Danofer.Api
 
 COPY configuration.json .
 
-CMD dotnet run --launch-profile "Danofer.Api-Production"
+CMD dotnet run --launch-profile "Danofer.Api-Production" --urls=0.0.0.0:5000
