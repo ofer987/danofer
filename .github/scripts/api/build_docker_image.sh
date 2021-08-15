@@ -5,7 +5,7 @@ set -ex;
 script_directory="$(dirname ${BASH_SOURCE[0]})";
 create_version_script="${script_directory}/../create_version.sh";
 
-# Sets the VERSION variable
+# Create the VERSION variable
 source "${create_version_script}";
 
 docker build \

@@ -13,7 +13,7 @@ ruby "${script_directory}/build_configuration" > "${configuration_file}";
 # Permit read/write access to server
 source "${script_directory}/../create_server_rsa.sh";
 
-# Sets the VERSION variable
+# Create the VERSION variable
 source "${script_directory}/../create_version.sh";
 
 # Copy the configuration
