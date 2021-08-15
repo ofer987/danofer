@@ -3,11 +3,13 @@ name: Deploy Website
 on:
   # When pushing a ref such as a branch or a tag
   push:
+    branches:
+      - releases/*
 
 jobs:
   preparation:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, "refs/heads/releases/")
+    if: startsWith(github.ref, 'refs/heads/releases/')
 
     steps:
       - uses: actions/checkout@v2
