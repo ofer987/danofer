@@ -10,4 +10,4 @@ source "${script_directory}/create_version.sh";
 TAG_NAME="${VERSION}";
 
 git tag "${TAG_NAME}";
-git push --tags "${GITHUB_TOKEN}@github.com/ofer987/danofer.git";
+git push --tags "github:${GITHUB_TOKEN}@github.com:ofer987/danofer.git";
