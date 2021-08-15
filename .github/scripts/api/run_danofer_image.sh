@@ -9,9 +9,18 @@ server_user="root";
 # Permit read/write access to server
 source "${script_directory}/../create_server_rsa.sh";
 
+# First kill the existing container
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
     "${server_user}@${server_ip}" \
-    "docker-compose up danofer_api";
+    "docker-compose kill danofer_api";
+
+# Then start up a new container
+ssh \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -i ${SERVER_RSA} \
+    "${server_user}@${server_ip}" \
+    "docker-compose up --detach danofer_api";
