@@ -9,7 +9,7 @@ const FORM_CLOSED = "contact-me-closed";
 const SEND_EMAIL = "SEND_EMAIL";
 
 const SEND_MESSAGE_DOMAIN = "http://localhost:5000";
-const SITE_KEY = "6LdxCdMbAAAAAKKewSc8LJLO4eHHwUl8BCX1OMkq";
+const SITE_KEY = "6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs";
 
 class ContactMe {
     form: HTMLFormElement;
