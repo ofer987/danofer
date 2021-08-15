@@ -13,6 +13,9 @@ ruby "${script_directory}/build_configuration" > "${configuration_file}";
 # Permit read/write access to server
 source "${script_directory}/../create_server_rsa.sh";
 
+# Sets the VERSION variable
+source "${script_directory}/../create_version.sh";
+
 # Copy the configuration
 scp \
     -o StrictHostKeyChecking=no \
@@ -42,5 +45,8 @@ ssh \
     "${server_user}@${server_ip}" \
     "docker build \
         --file Danofer.run.Dockerfile \
+        --build-arg DOCKER_USERNAME=${DOCKER_USERNAME} \
+        --build-arg IMAGE_NAME=${IMAGE_NAME} \
+        --build-arg VERSION=${VERSION} \
         --tag danofer_run:latest \
         ./;";
