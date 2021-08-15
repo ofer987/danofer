@@ -29,8 +29,8 @@
         },
         "Danofer.Api-Production": {
             "commandName": "Project",
-            "dotnetRunMessages": "true",
-            "applicationUrl": "http://localhost:5000",
+            "launchBrowser": "true",
+            "applicationUrl": "http://+:80",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Production"
             }
