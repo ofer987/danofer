@@ -15,7 +15,7 @@ ssh \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
     "${server_user}@${server_ip}" \
-    "docker-compose kill danofer_api";
+    "docker-compose stop danofer_api";
 
 # Then start up a new container
 ssh \
