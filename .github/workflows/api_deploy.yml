@@ -1,15 +1,8 @@
 name: Deploy API Website
 
 on:
-  # Manually trigger workflow
-  workflow_dispatch:
-
   # When pushing a ref such as a branch or a tag
   push:
-    branches:
-      - "master"
-      - "deploy-api-using-docker"
-      - "deploy-api-using-docker-and-configuration"
 
 jobs:
   build:
