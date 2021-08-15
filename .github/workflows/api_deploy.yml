@@ -1,19 +1,13 @@
 name: Deploy API Website
 
 on:
-  # Manually trigger workflow
-  workflow_dispatch:
-
   # When pushing a ref such as a branch or a tag
   push:
-    branches:
-      - "master"
-      - "deploy-api-using-docker"
-      - "deploy-api-using-docker-and-configuration"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, "refs/tags/releases/")
 
     steps:
       - uses: actions/checkout@v2
@@ -39,6 +33,7 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, "refs/tags/releases/")
 
     steps:
       - uses: actions/checkout@v2
@@ -51,8 +46,8 @@ jobs:
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
           SEND_GRID_API_KEY: ${{ secrets.SEND_GRID_API_KEY }}
           RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
 
