@@ -1,11 +1,5 @@
 name: Deploy Website
 
-on:
-  # When pushing a ref such as a branch or a tag
-  push:
-    branches:
-      - releases/*
-
 jobs:
   preparation:
     runs-on: ubuntu-latest
