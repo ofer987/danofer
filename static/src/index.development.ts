@@ -7,5 +7,8 @@ import "./index.scss";
 import ContactMe from "./contactMe";
 import Messages from "./messages";
 
-new ContactMe();
+// Configuration
+import CONFIGURATION from "./configuration.development";
+
+new ContactMe(CONFIGURATION.apiOrigin);
 new Messages().messages.forEach(message => console.log(message));

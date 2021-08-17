@@ -15,8 +15,10 @@ class ContactMe {
     form: HTMLFormElement;
     toggleFormButton: HTMLInputElement;
     submitButton: HTMLInputElement;
+    apiOrigin: string
 
-    constructor() {
+    constructor(apiOrigin: string) {
+        this.apiOrigin = apiOrigin.trim();
         this.form = document.getElementById("contact-me-form") as HTMLFormElement;
         this.toggleFormButton = document.getElementById("contact-me-toggle-button") as HTMLInputElement;
         this.submitButton = document.getElementById("contact-me-submit-button") as HTMLInputElement;
@@ -43,6 +45,10 @@ class ContactMe {
         });
     }
 
+    url(reCaptchaToken: string): URL {
+        return new URL(`${this.apiOrigin}/verify/${reCaptchaToken}/messages/create`);
+    }
+
     async validate(): Promise<string> {
         const recaptcha = await load(SITE_KEY);
         const token = await recaptcha.execute(SEND_EMAIL);
@@ -51,8 +57,7 @@ class ContactMe {
     }
 
     async sendMessage(reCapchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
-        var url = `${SEND_MESSAGE_DOMAIN}/verify/${reCapchaToken}/messages/create`;
-
+        var url = this.url(reCapchaToken).toString();
         var body = {
             reCaptchaToken: reCapchaToken,
             senderName: senderName,

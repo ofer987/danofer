@@ -42,7 +42,7 @@ module.exports = (env) => {
         devtool: "inline-source-map",
         watch: true,
         entry: [
-            `./src/index.ts`,
+            `./src/index.${DEVELOPMENT}.ts`,
         ],
     };
     configurations[PRODUCTION] = {
@@ -50,7 +50,7 @@ module.exports = (env) => {
         mode: PRODUCTION,
         watch: false,
         entry: [
-            `./src/index.ts`,
+            `./src/index.${PRODUCTION}.ts`,
         ],
     };
 
