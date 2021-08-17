@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -ex;
-
-# Build JavaScript/CSS/image assets
-npx webpack;
