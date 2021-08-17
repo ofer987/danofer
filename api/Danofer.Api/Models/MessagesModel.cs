@@ -68,7 +68,7 @@ namespace Danofer.Api.Models
             return response.IsSuccessStatusCode;
         }
 
-        public bool IsValid()
+        public void Validate()
         {
             if (SenderName.IsNullOrWhiteSpace())
             {
@@ -84,8 +84,6 @@ namespace Danofer.Api.Models
             {
                 throw new ArgumentException("The message should not be empty");
             }
-
-            return true;
         }
     }
 }
