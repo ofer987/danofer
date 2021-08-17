@@ -36,23 +36,7 @@ namespace Danofer.Api.Controllers
             var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
             if (isRealUser)
             {
-                try
-                {
-                    if (!model.IsValid())
-                    {
-                        var error = "Your request could not be submitted";
-                        _logger.LogDebug(error);
-
-                        throw new ArgumentException(error);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    // TODO: catch all the exceptions by setting a rule in Startup.cs
-                    _logger.LogDebug(exception, exception.Message);
-
-                    throw;
-                }
+                model.Validate();
 
                 var isSuccess = await model.SendEmail(
                     model.SenderName,
@@ -68,7 +52,6 @@ namespace Danofer.Api.Controllers
             }
 
             var message = "User is probably a bot";
-            _logger.LogDebug(message);
             throw new Exception(message);
         }
     }

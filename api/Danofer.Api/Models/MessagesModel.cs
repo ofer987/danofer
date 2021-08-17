@@ -57,7 +57,7 @@ namespace Danofer.Api.Models
             var subject = "Somebody contacted you from danofer.com";
             var recipient = new EmailAddress("dan@ofer.to", "Dan Jakob Ofer");
 
-            var sender = new EmailAddress("dan@ofer.to", senderName);
+            var sender = new EmailAddress("admin@danofer.com", "Danofer.com");
             var replyTo = new EmailAddress(senderEmailAddress, senderName);
             var email = MailHelper.CreateSingleEmail(sender, recipient, subject, message, string.Empty);
             email.SetReplyTo(replyTo);
@@ -68,7 +68,7 @@ namespace Danofer.Api.Models
             return response.IsSuccessStatusCode;
         }
 
-        public bool IsValid()
+        public void Validate()
         {
             if (SenderName.IsNullOrWhiteSpace())
             {
@@ -84,8 +84,6 @@ namespace Danofer.Api.Models
             {
                 throw new ArgumentException("The message should not be empty");
             }
-
-            return true;
         }
     }
 }
