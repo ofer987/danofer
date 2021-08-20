@@ -38,7 +38,8 @@ namespace Danofer.Api
                     DevelopmentPolicy,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:8000");
+                        builder
+                            .WithOrigins("http://localhost:8000");
                     });
 
                 options.AddPolicy(
@@ -69,7 +70,6 @@ namespace Danofer.Api
             }
 
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

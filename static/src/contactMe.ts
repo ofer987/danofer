@@ -45,10 +45,6 @@ class ContactMe {
         });
     }
 
-    url(reCaptchaToken: string): URL {
-        return new URL(`${this.apiOrigin}/verify/${reCaptchaToken}/messages/create`);
-    }
-
     async validate(): Promise<string> {
         const recaptcha = await load(SITE_KEY);
         const token = await recaptcha.execute(SEND_EMAIL);
@@ -56,10 +52,11 @@ class ContactMe {
         return await this.sendMessage(token, "Ron Ofer", "ronofer@live.ca", "Hi Dan!");
     }
 
-    async sendMessage(reCapchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
-        var url = this.url(reCapchaToken).toString();
+    async sendMessage(reCaptchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
+        var url = `${this.apiOrigin}/messages/create`;
+
         var body = {
-            reCaptchaToken: reCapchaToken,
+            reCaptchaToken: reCaptchaToken,
             senderName: senderName,
             senderEmailAddress: senderEmailAddress,
             message: message,
@@ -67,9 +64,6 @@ class ContactMe {
 
         var response = await fetch(url, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify(body),
             mode: "cors",
         });
