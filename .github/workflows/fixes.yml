@@ -1,0 +1,15 @@
+name: Deploy Website
+
+on:
+  push:
+
+jobs:
+  preparation:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/fixes/')
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: create_version
+        run: bash .github/scripts/create_version.sh
