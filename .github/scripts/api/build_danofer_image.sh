@@ -23,13 +23,6 @@ scp \
     -i ${SERVER_RSA} \
     "${configuration_file}" "${server_user}@${server_ip}:./";
 
-# Copy Docker compose yaml file
-scp \
-    -o StrictHostKeyChecking=no \
-    -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
-    "docker-compose.yml" "${server_user}@${server_ip}:./";
-
 # Copy Dockerfile
 scp \
     -o StrictHostKeyChecking=no \
