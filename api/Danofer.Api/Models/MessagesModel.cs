@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -16,9 +17,16 @@ namespace Danofer.Api.Models
         public static string ReCaptchaUrl = "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}";
         public static float Tolerance = 0.8F;
 
+        [JsonPropertyName("reCaptchaToken")]
         public string ReCaptchaToken { get; init; } = string.Empty;
+
+        [JsonPropertyName("senderName")]
         public string SenderName { get; init; } = string.Empty;
+
+        [JsonPropertyName("senderEmailAddress")]
         public string SenderEmailAddress { get; init; } = string.Empty;
+
+        [JsonPropertyName("message")]
         public string Message { get; init; } = string.Empty;
 
         public string ReCaptchaSecret => Configuration.Config.ReCaptchaSecretKey;

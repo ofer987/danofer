@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
-using System.Net.Mime;
 using System.Net.Http;
+using System.Text.Json;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,17 +22,16 @@ namespace Danofer.Api.Controllers
             _clientFactory = clientFactory;
         }
 
-        [HttpPost()]
-        [Consumes(MediaTypeNames.Application.Json)]
-        [Route("/verify/{token}/messages/create")]
-        public async Task<IActionResult> Create(string token, MessagesModel model)
+        [HttpPost("/messages/create")]
+        public async Task<IActionResult> Create()
         {
+            var model = await ReadModel<MessagesModel>(Request.Body);
+
             // For debugging
-            _logger.LogInformation(token);
-            _logger.LogInformation(model.ReCaptchaToken);
-            _logger.LogInformation(model.SenderName);
-            _logger.LogInformation(model.SenderEmailAddress);
-            _logger.LogInformation(model.Message);
+            _logger.LogInformation($"{nameof(model.ReCaptchaToken)}: {model.ReCaptchaToken}");
+            _logger.LogInformation($"{nameof(model.SenderName)}: {model.SenderName}");
+            _logger.LogInformation($"{nameof(model.SenderEmailAddress)}: {model.SenderEmailAddress}");
+            _logger.LogInformation($"{nameof(model.Message)}: {model.Message}");
 
             var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
             if (isRealUser)
@@ -53,6 +53,11 @@ namespace Danofer.Api.Controllers
 
             var message = "User is probably a bot";
             throw new Exception(message);
+        }
+
+        private async Task<T> ReadModel<T>(Stream stream)
+        {
+            return await JsonSerializer.DeserializeAsync<T>(stream);
         }
     }
 }
