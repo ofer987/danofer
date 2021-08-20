@@ -11,13 +11,21 @@ container_name="danofer_run";
 # Permit read/write access to server
 source "${script_directory}/../create_server_rsa.sh";
 
-# First kill the existing container
+# First stop the existing container
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
     "${server_user}@${server_ip}" \
     "docker stop ${container_name}";
+
+# Then remove it
+ssh \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    -i ${SERVER_RSA} \
+    "${server_user}@${server_ip}" \
+    "docker system prune --force";
 
 # Then start up a new container
 ssh \
