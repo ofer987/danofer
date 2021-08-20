@@ -4,4 +4,4 @@ set -ex;
 
 yarn;
 
-yarn build-assets;
+yarn build;
