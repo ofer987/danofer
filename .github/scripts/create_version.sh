@@ -8,5 +8,5 @@ PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
 
 VERSION="${MAJOR}.${MINOR}.${PATCH}";
 
-git log;
+ls -ltr *;
 echo "VERSION is ${VERSION}";

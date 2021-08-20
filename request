@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -ex;
+
+curl 'http://localhost:5000/messages/create' \
+    -X 'POST' \
+    -H 'Accept: */*' \
+    -H 'Content-Type: text/plain;charset=UTF-8' \
+    -H 'Origin: http://localhost:8000' \
+    -H 'Content-Length: 566' \
+    -H 'Accept-Language: en-us' \
+    -H 'Host: localhost:5000' \
+    -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15' \
+    -H 'Referer: http://localhost:8000/' \
+    -H 'Accept-Encoding: gzip, deflate' \
+    -H 'Connection: keep-alive' \
+    --data-binary '{"reCaptchaToken":"03AGdBq25PO2_xLM_FoVwkfpA7oK4z7VA_jOcwPYMEq1rC0PnRxfAlhIjb9YwZwqtNH7Gf24YAc_9DS-6cUDmLM-V4nj_w-vyT8gRDfubtS2xSKFS7vtoKjfCF3wE6Bk18t60iEFPUKbtiHeyDA7Y2lId81CQtttQQjDH6J1ZQZvp54VU6bYcir--DeZNEpduaZ9uXaeLU3YkVXc48Le9JOsXMWVzwig8diGGpENRyFCQsVQW8g5BJL3Q1kjznP0BR5NfQ1o7_iGje523m1POIsQjltisGQqTAIPKbqSIPuUX6r_kL8PnE5haDyU3wm4IIW0vQpAPkV4rt7Pc_VJ5fu0NnHJrVLhmIopU2xgzCMXqgUAIuMrHj5f_VMevP7Wkzm6wucoaWQxdMqZQFPP_CcmJCrfIVPctqqxWqurpjo6RbQKs8okLGteBE8tPj5ZM-v6b01GqxnKs1","senderName":"Ron Ofer","senderEmailAddress":"ronofer@live.ca","message":"Hi Dan!"}'
