@@ -12,7 +12,7 @@ using Danofer.Api.Extensions;
 
 namespace Danofer.Api.Models
 {
-    public class MessagesModel
+    public class MessagesModel : Model
     {
         public static string ReCaptchaUrl = "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}";
         public static float Tolerance = 0.8F;

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Text.Json;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,8 +8,7 @@ using Danofer.Api.Models;
 
 namespace Danofer.Api.Controllers
 {
-    [ApiController]
-    public class MessagesController : ControllerBase
+    public class MessagesController : JsonController<MessagesModel>
     {
         private readonly ILogger<MessagesController> _logger;
         private readonly IHttpClientFactory _clientFactory;
@@ -25,7 +22,7 @@ namespace Danofer.Api.Controllers
         [HttpPost("/messages/create")]
         public async Task<IActionResult> Create()
         {
-            var model = await ReadModel<MessagesModel>(Request.Body);
+            var model = await ReadModel(Request.Body);
 
             // For debugging
             _logger.LogInformation($"{nameof(model.ReCaptchaToken)}: {model.ReCaptchaToken}");
@@ -53,11 +50,6 @@ namespace Danofer.Api.Controllers
 
             var message = "User is probably a bot";
             throw new Exception(message);
-        }
-
-        private async Task<T> ReadModel<T>(Stream stream)
-        {
-            return await JsonSerializer.DeserializeAsync<T>(stream);
         }
     }
 }
