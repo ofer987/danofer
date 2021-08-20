@@ -10,8 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        ref:
-          branch: fix
+        with:
+          ref: fix
 
       - name: create_version
         run: bash .github/scripts/create_version.sh
