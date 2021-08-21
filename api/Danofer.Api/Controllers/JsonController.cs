@@ -10,7 +10,9 @@ namespace Danofer.Api.Controllers
     [ApiController]
     public abstract class JsonController<T> : ControllerBase where T : Model
     {
-        protected async Task<T> ReadModel(Stream stream)
+#nullable enable
+        protected async Task<T> ReadModel(Stream? stream)
+#nullable disable
         {
             return await JsonSerializer.DeserializeAsync<T>(stream);
         }

@@ -39,7 +39,9 @@ namespace Danofer.Api.Models
             var response = await httpClient.GetAsync(url);
 
             var responseStream = await response.Content.ReadAsStreamAsync();
-            var reCaptcha = await JsonSerializer.DeserializeAsync<ReCaptchaModel>(responseStream);
+#nullable enable
+            var reCaptcha = await JsonSerializer.DeserializeAsync<ReCaptchaModel?>(responseStream);
+#nullable disable
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -47,7 +49,7 @@ namespace Danofer.Api.Models
             System.Console.WriteLine(reCaptcha);
             System.Console.WriteLine(responseBody);
 
-            if (!reCaptcha.Success)
+            if (reCaptcha is not null && !reCaptcha.Success)
             {
                 return false;
             }
