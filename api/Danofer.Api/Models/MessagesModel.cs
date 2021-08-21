@@ -45,10 +45,6 @@ namespace Danofer.Api.Models
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            System.Console.WriteLine(url);
-            System.Console.WriteLine(reCaptcha);
-            System.Console.WriteLine(responseBody);
-
             if (reCaptcha is not null && !reCaptcha.Success)
             {
                 return false;
