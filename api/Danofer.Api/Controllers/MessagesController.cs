@@ -8,7 +8,7 @@ using Danofer.Api.Models;
 
 namespace Danofer.Api.Controllers
 {
-    public class MessagesController : JsonController<MessagesModel>
+    public class MessagesController : CorsJsonController<MessagesModel>
     {
         private readonly ILogger<MessagesController> _logger;
         private readonly IHttpClientFactory _clientFactory;

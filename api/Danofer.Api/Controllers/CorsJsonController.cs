@@ -8,7 +8,7 @@ using Danofer.Api.Models;
 namespace Danofer.Api.Controllers
 {
     [ApiController]
-    public abstract class JsonController<T> : ControllerBase where T : Model
+    public abstract class CorsJsonController<T> : ControllerBase where T : Model
     {
 #nullable enable
         protected async Task<T> ReadModel(Stream? stream)

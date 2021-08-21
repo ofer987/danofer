@@ -32,7 +32,6 @@ namespace Danofer.Api.Models
         public string ReCaptchaSecret => Configuration.Config.ReCaptchaSecretKey;
         public string SendGridSecret => Configuration.Config.SendGridApiKey;
 
-
         public async Task<bool> IsRealUser(HttpClient httpClient)
         {
             var url = string.Format(ReCaptchaUrl, ReCaptchaSecret, ReCaptchaToken);
