@@ -6,10 +6,10 @@ namespace Danofer.Api
     public class Configuration
     {
         [JsonPropertyName("recaptcha_secret_key")]
-        public string ReCaptchaSecretKey { get; set; }
+        public string ReCaptchaSecretKey { get; init; } = string.Empty;
 
         [JsonPropertyName("send_grid_api_key")]
-        public string SendGridApiKey { get; set; }
+        public string SendGridApiKey { get; init; } = string.Empty;
 
 #nullable enable
         private static Configuration? _config = null;
