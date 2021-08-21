@@ -10,11 +10,11 @@ namespace Danofer.Api.Controllers
     [ApiController]
     public abstract class CorsJsonController<T> : ControllerBase where T : Model
     {
-#nullable enable
-        protected async Task<T> ReadModel(Stream? stream)
-#nullable disable
+        protected async Task<T> ReadModel(Stream stream)
         {
+            #nullable disable
             return await JsonSerializer.DeserializeAsync<T>(stream);
+            #nullable restore
         }
     }
 }
