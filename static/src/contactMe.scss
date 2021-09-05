@@ -20,8 +20,11 @@
 
 }
 
-.contact {
-    // background-color: white;
+#introduction {
+    height: 100px;
+}
+
+form#contact-me-form {
     z-index: 2000;
 
     position: fixed;
@@ -29,29 +32,31 @@
     right: 100px;
     bottom: 100px;
     left: 100px;
-    
-    form {
-        width: 100%;
-        background-color: white;
 
-        input, textarea {
-            display: block;
-            margin-bottom: 20px;
-            required: true;
-            width: 200px;
-        }
+    background-color: white;
 
-        textarea {
-            resize: vertical;
-        }
+    button.close {
+        position: fixed;
+        right: 100px;
+        top: 100px;
+    }
 
-        &.contact-me-closed {
-            display: none;
-        }
+    input, textarea {
+        display: block;
+        margin-bottom: 20px;
+        required: true;
+        width: 200px;
+    }
 
-        &.contact-me-opened {
-            display: block;
-            z-index: 2000;
-        }
+    textarea {
+        resize: vertical;
+    }
+
+    &.contact-me-closed {
+        display: none;
+    }
+
+    &.contact-me-opened {
+        display: block;
     }
 }

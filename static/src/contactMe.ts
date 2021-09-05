@@ -15,7 +15,8 @@ const SITE_KEY = "6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs";
 class ContactMe {
     pageBlocker: HTMLElement;
     form: HTMLFormElement;
-    toggleFormButton: HTMLInputElement;
+    openFormButton: HTMLInputElement;
+    closeFormButton: HTMLButtonElement;
     submitButton: HTMLInputElement;
     apiOrigin: string
 
@@ -46,7 +47,8 @@ class ContactMe {
     constructor(apiOrigin: string) {
         this.apiOrigin = apiOrigin.trim();
         this.form = document.getElementById("contact-me-form") as HTMLFormElement;
-        this.toggleFormButton = document.getElementById("contact-me-toggle-button") as HTMLInputElement;
+        this.openFormButton = document.getElementById("contact-me-toggle-button") as HTMLInputElement;
+        this.closeFormButton = document.querySelector(".close") as HTMLButtonElement;
         this.submitButton = document.getElementById("contact-me-submit-button") as HTMLInputElement;
         this.pageBlocker = document.querySelector(".page-blocker") as HTMLElement;
 
@@ -55,11 +57,15 @@ class ContactMe {
 
     init(): void {
         var self = this;
-        this.toggleFormButton.addEventListener("click", function() {
+        this.openFormButton.addEventListener("click", function() {
             if (self.form.className === FORM_CLOSED) {
                 self.disablePage();
                 self.openForm();
-            } else {
+            }
+        });
+
+        this.closeFormButton.addEventListener("click", function() {
+            if (self.form.className === FORM_OPENED) {
                 self.enablePage();
                 self.closeForm();
             }
@@ -71,6 +77,9 @@ class ContactMe {
             this.validate().then(value => {
                 alert(value);
             });
+
+            this.enablePage();
+            this.closeForm();
         });
     }
 
