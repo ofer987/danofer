@@ -7,6 +7,8 @@
         <script src="https://www.google.com/recaptcha/api.js?trustedtypes=true&render=6LdxCdMbAAAAAKKewSc8LJLO4eHHwUl8BCX1OMkq"></script>
     </head>
     <body>
+        <div class="page-blocker blocker-disabled">
+        </div>
         <div id="introduction">
             <h1>Dan Ofer</h1>
 
@@ -15,28 +17,87 @@
             </div>
         </div>
 
-        <div id="contact">
+        <div class="contact">
             <input id="contact-me-toggle-button" type="button" value="Contact Me" />
 
             <form id="contact-me-form" class="contact-me-closed">
                 <label id="name" for="name">Your name</label>
-                <input id="name" type="text" />
+                <input id="name" type="text" required="true" tabindex="1"></input>
+
+                <label id="email-address" for="email-address">Your email address</label>
+                <input id="email-address" type="text" required="true" tabindex="2"></input>
 
                 <label id="message" for="message">What do you want to tell me?</label>
-                <input id="message" type="textarea" />
+                <textarea id="message" type="textarea" required="true" rows="10" tabindex="3"></textarea>
 
                 <br>
 
-                <input id="contact-me-submit-button" class="submit" type="button" value="Submit" />
+                <input id="contact-me-submit-button" class="submit" type="button" value="Submit" tabindex="4" />
         </div>
 
-        <div id="specialties">
+        <div class="experience">
+            <div id="thomson-reuters-digital">
+                <ol>
+                    <li class="timeline">
+                        January 2019 to Present
+                    </li>
+                    <li class="company">
+                        Thomson Reuters
+                    </li>
+                </ol>
+                <p>
+                    I am a principal contributor who develops and deploys Thomson Reuters’ marketing websites on the Adobe Experience Manager (AEM) platform. Accomplishments include
+                    <ol>
+                        <li>
+                    Setting standards for how to develop software for both in-house developers and contract developers, and then institutionalising them in Confluence documents
+                        </li>
+                        <li>
+                            building business logic using Java 8
+                        </li>
+                        <li>
+                            Writing frontend user interfaces in TypeScript/React (for new websites) and ECMAScript 5 (for legacy websites)
+                        </li>
+                        <li>
+                            Upgrading from AEM 6.2 to AEM 6.4 (2019), and then again from AEM 6.4 to 6.5 (2021)
+                        </li>
+                        <li>
+                            Building a fully-automated Continuous Integration and Deployment infrastructure (CI/CD) in both GitLab (2019) and GitHub (2020 – Present) using GitHub Actions and Bash
+                        </li>
+                        <li>
+                            Configuring static code analysis tools like Veracode and SonarQube
+                        </li>
+                        <li>
+                            using optimised imagery to reduce page bandwidth and improve loading times
+                        </li>
+                        <li>
+                            Using Sumo Logic (2019 – 2020) and Datadog (2021 – Present) to gain insights of how our websites are used by customers to drive business decisions
+                        </li>
+                        <li>
+                            Created a Docker-ised version of our Adobe Experience Manager product to share with the team. I ensure this image is always up-to-date by creating a Ruby script to run within a GitHub Action that automatically installs packages (located within an S3 bucket) into our AEM image, before uploading it to our JFrog repository.
+                        </li>
+                    </ol>
+                </p>
+            </div>
+
+            <div id="thomson-reuters-financial-risk">
+                <p>
+                    Thomson Reuters operates a proprietary Software-as-a-Service (SaaS) platform for running their customers' web applications. I was responsible for adding new web stacks (Java 8 and Node.js 6); improving the stability of the system by creating a new automated testing framework; and adding new features, such as the ability to target users who belong to specific physical locations.
+                </p>
+            </div>
+
+            <div id="trike-apps">
+                <p>
+                    Bellroy runs an e-commerce platform to sell wallets and carry products. At Trike Apps I improved the performance of Bellroy’s platform by using a smarter caching strategy, loading slower content asynchronously, and using responsive imagery to reduce image size. I extended Liquid templates to allow designers to do A/B testing. And finally I implemented an integration with PayPal, allowing users to pay using PayPal Express Checkout without leaving the Bellroy site.
+                </p>
+            </div>
+        </div>
+
+        <div class="specialties">
             <ul class="list">
                 <li id="java">Java</li>
-                <li id="c-sharp">C# including .NET Framework 4.7 and .NET Core 2 - 5</li>
+                <li id="c-sharp">C# / .NET Framework 4.7 and .NET Core 2.2 to 3.1 / .NET 5</li>
                 <li id="web-development">The usual suspects including HTML5, CSS3, and JavaScript</li>
-                <li id="java-script">I even know ECMAScript 3 and 5. In fact, I prefer to start a project simple projects using either ECMAScript 5 prototype-based classes or ECMAScript 2015 classes for simple projects.</li>
-                <li id=type-script>For more complex projects I prefer TypeScript facilitating development using static types</li>
+                <li id="java-script">I even know ECMAScript 3 and 5. In fact, I prefer to start a project using Webpack together with TypeScript.</li>
             </ul>
         </div>
 
