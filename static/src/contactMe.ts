@@ -56,18 +56,17 @@ class ContactMe {
     }
 
     init(): void {
-        var self = this;
-        this.openFormButton.addEventListener("click", function() {
-            if (self.form.className === FORM_CLOSED) {
-                self.disablePage();
-                self.openForm();
+        this.openFormButton.addEventListener("click", () => {
+            if (this.form.className === FORM_CLOSED) {
+                this.disablePage();
+                this.openForm();
             }
         });
 
-        this.closeFormButton.addEventListener("click", function() {
-            if (self.form.className === FORM_OPENED) {
-                self.enablePage();
-                self.closeForm();
+        this.closeFormButton.addEventListener("click", () => {
+            if (this.form.className === FORM_OPENED) {
+                this.enablePage();
+                this.closeForm();
             }
         });
 
