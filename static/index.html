@@ -7,14 +7,11 @@
         <script src="https://www.google.com/recaptcha/api.js?trustedtypes=true&render=6LdxCdMbAAAAAKKewSc8LJLO4eHHwUl8BCX1OMkq"></script>
     </head>
     <body>
-        <div class="page-blocker blocker-disabled">
-        </div>
+        <div class="page-blocker blocker-disabled"></div>
         <div id="introduction">
             <h1>Dan Ofer</h1>
 
-            <div id="main">
-                <p>Software Developer Extraordinaire</p>
-            </div>
+            <p id="main">Software Developer Extraordinaire</p>
         </div>
 
         <div class="contact">
@@ -34,82 +31,140 @@
                 <br>
 
                 <input id="contact-me-submit-button" class="submit" type="button" value="Submit" tabindex="4" />
+            </form>
         </div>
 
-        <div class="experience">
-            <div id="thomson-reuters-digital">
-                <ol>
-                    <li class="timeline">
-                        January 2019 to Present
-                    </li>
-                    <li class="company">
-                        Thomson Reuters
-                    </li>
-                    <li>
-                        <!-- <div class="experience-image"></div> -->
-                        <svg class="experience-manager">
-                            <image href="./src/icons/experience-manager.svg">
+        <div id="thomson-reuters-digital">
+            <h2>Thomson Reuters - Senior Software Engineer (January 2019 – Present)</h2>
+            <p>
+                I am a principal contributor who develops and deploys Thomson Reuters’ marketing websites on the Adobe Experience Manager (AEM) platform. Accomplishments include
+            </p>
+            <div class="experience">
+                <!-- <div class="meta-data"> -->
+                <!--     <ol> -->
+                <!--         <li class="timeline"> -->
+                <!--             January 2019 to Present -->
+                <!--         </li> -->
+                <!--     </ol> -->
+                <!-- </div> -->
+                <h3>Adobe Experience Manager</h3>
+                <div class="responsibility aem">
+                    <div class="icons">
+                        <svg class="icon experience-manager" width="50px" height="50px">
+                            <image href="./src/icons/experience-manager.svg" width="50px" height="50px"></image>
                         </svg>
-                    </li>
-                </ol>
-                <p>
-                    I am a principal contributor who develops and deploys Thomson Reuters’ marketing websites on the Adobe Experience Manager (AEM) platform. Accomplishments include
-                    <ol>
-                        <li>
-                    Setting standards for how to develop software for both in-house developers and contract developers, and then institutionalising them in Confluence documents
-                        </li>
-                        <li>
-                            building business logic using Java 8
-                        </li>
-                        <li>
-                            Writing frontend user interfaces in TypeScript/React (for new websites) and ECMAScript 5 (for legacy websites)
-                        </li>
-                        <li>
-                            Upgrading from AEM 6.2 to AEM 6.4 (2019), and then again from AEM 6.4 to 6.5 (2021)
-                        </li>
-                        <li>
-                            Building a fully-automated Continuous Integration and Deployment infrastructure (CI/CD) in both GitLab (2019) and GitHub (2020 – Present) using GitHub Actions and Bash
-                        </li>
-                        <li>
-                            Configuring static code analysis tools like Veracode and SonarQube
-                        </li>
-                        <li>
-                            using optimised imagery to reduce page bandwidth and improve loading times
-                        </li>
-                        <li>
-                            Using Sumo Logic (2019 – 2020) and Datadog (2021 – Present) to gain insights of how our websites are used by customers to drive business decisions
-                        </li>
-                        <li>
-                            Created a Docker-ised version of our Adobe Experience Manager product to share with the team. I ensure this image is always up-to-date by creating a Ruby script to run within a GitHub Action that automatically installs packages (located within an S3 bucket) into our AEM image, before uploading it to our JFrog repository.
-                        </li>
-                    </ol>
-                </p>
-            </div>
+                        <svg class="icon java" width="50px" height="50px">
+                            <image href="./src/icons/java.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon jquery" width="50px" height="50px">
+                            <image href="./src/icons/jquery.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon typescript" width="50px" height="50px">
+                            <image href="./src/icons/typescript.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon sass" width="50px" height="50px">
+                            <image href="./src/icons/sass.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon react" width="50px" height="50px">
+                            <image href="./src/icons/react.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon github" width="50px" height="50px">
+                            <image href="./src/icons/github.svg" width="50px" height="50px"></image>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        <ol>
+                            <li>
+                                Consulted on the architecture of new features together with project manager, contenet authors, and third-party vendors
+                            </li>
+                            <li>
+                                Developed new features on Adobe Experience Manager
+                            </li>
+                            <li>
+                                Oversaw the development of new webpages such as <a href="https://tax.thomsonreuters.com/us/en/onvio">Onvio</a> and <a href="https://tax.thomsonreuters.com/en/onesource">ONESOURCE</a>
+                            </li>
+                            <li>
+                                Transitioned the <a href="https://legal.thomsonreuters.com">Thomson Reuters Legal page</a> to use <a href="https://stenciljs.com">Stencil Web Components</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
 
-            <div id="thomson-reuters-financial-risk">
-                <p>
-                    Thomson Reuters operates a proprietary Software-as-a-Service (SaaS) platform for running their customers' web applications. I was responsible for adding new web stacks (Java 8 and Node.js 6); improving the stability of the system by creating a new automated testing framework; and adding new features, such as the ability to target users who belong to specific physical locations.
-                </p>
-            </div>
+                <h3>Documentation</h3>
+                <div class="responsibility documentation">
+                    <div class="icons">
+                        <svg class="icon confluence" width="50px" height="50px">
+                            <image href="./src/icons/confluence.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon github" width="50px" height="50px">
+                            <image href="./src/icons/github.svg" width="50px" height="50px"></image>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        <ol>
+                            <li>
+                                Wrote documentation in both GitHub (for software developers) and on Confluence (for managers, content authors, and third-party vendors.)
+                            </li>
+                            <li>
+                                Set up coding guidelines
+                            </li>
+                        </ol>
+                    </div>
+                </div>
 
-            <div id="trike-apps">
-                <p>
-                    Bellroy runs an e-commerce platform to sell wallets and carry products. At Trike Apps I improved the performance of Bellroy’s platform by using a smarter caching strategy, loading slower content asynchronously, and using responsive imagery to reduce image size. I extended Liquid templates to allow designers to do A/B testing. And finally I implemented an integration with PayPal, allowing users to pay using PayPal Express Checkout without leaving the Bellroy site.
-                </p>
+                <h3>Continuous Integration / Continuous Deployment</h3>
+                <div class="responsibility ci-cd">
+                    <div class="icons">
+                        <svg class="icon github" width="50px" height="50px">
+                            <image href="./src/icons/github.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon experience-manager" width="50px" height="50px">
+                            <image href="./src/icons/experience-manager.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon bash" width="50px" height="50px">
+                            <image href="./src/icons/code-2.svg" width="50px" height="50px"></image>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        <ol>
+                            <li>
+                                Configured GitHub Actions to automate deployments to our Quality Assurance and Pre-production environments
+                            </li>
+                            <li>
+                                Set up migration scripts to automate migration of new frontend asset versions
+                            </li>
+                            <li>
+                                Configured our Adobe Experience Manager platform to deploy to Amazon Managed Services
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>PayOnline</h3>
+                <div class="responsibility payonline">
+                    <div class="icons">
+                        <svg class="icon asp" width="50px" height="50px">
+                            <image href="./src/icons/asp.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon paypal" width="50px" height="50px">
+                            <image href="./src/icons/paypal.svg" width="50px" height="50px"></image>
+                        </svg>
+                        <svg class="icon sql-server" width="50px" height="50px">
+                            <image href="./src/icons/sql.svg" width="50px" height="50px"></image>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        <ol>
+                            <li>
+                                Bug fixes on Thomson Reuters' <a href="https://support.checkpoint.thomsonreuters.com/billing/invoicepayment.asp">PayOnline system</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="specialties">
-            <ul class="list">
-                <li id="java">Java</li>
-                <li id="c-sharp">C# / .NET Framework 4.7 and .NET Core 2.2 to 3.1 / .NET 5</li>
-                <li id="web-development">The usual suspects including HTML5, CSS3, and JavaScript</li>
-                <li id="java-script">I even know ECMAScript 3 and 5. In fact, I prefer to start a project using Webpack together with TypeScript.</li>
-            </ul>
-        </div>
-
-        <div id="image">
-        </div>
+        <div id="image"></div>
 
         <!-- Contains both JavaScript and CSS -->
         <script src="dist/main.js"></script>

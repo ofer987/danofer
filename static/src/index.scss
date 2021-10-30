@@ -1,40 +1,79 @@
 body {
   margin: 0px;
-}
 
-#introduction {
-  width: 100%;
-  text-align: center;
-  height: 200px;
-}
-
-#specialties {
-  height: 400px;
-  text-align: left;
-
-  ul {
-    padding: 0px;
+  #introduction {
+    width: 100%;
+    text-align: center;
+    height: 200px;
   }
 
-  li {
-    display: block;
+  #specialties {
+    height: 400px;
+    text-align: left;
+
+    ul {
+      padding: 0px;
+    }
+
+    li {
+      display: block;
+    }
   }
-}
 
-#image {
-  width: 100%;
-  background-image: url("./main.jpg");
-  background-size: cover;
-  height: 1500px;
-}
+  #image {
+    width: 100%;
+    background-image: url("./main.jpg");
+    background-size: cover;
+    height: 1500px;
+  }
 
-.experience-manager-image {
-  .background-image: url("./icons/experience-manager.svg");
-}
+  .experience {
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
 
-svg.experience-manager {
-  image {
-    width: 100px;
-    height: 100px;
+    .responsibility {
+      display: flex;
+      flex-flow: wrap;
+      flex-direction: row;
+      width: 100%;
+    }
+
+    .icons {
+      width: 20%;
+      display: flex;
+      flex-flow: wrap;
+      flex-direction: row;
+
+      .icon {
+        padding: 10px;
+        // background-size: 50px 50px;
+        // width: 50%;
+        // auto: 50%;
+
+        image {
+          // background-size: 50px 50px;
+          // width: 50%;
+          // auto: 50%;
+        }
+      }
+    }
+
+    .description {
+      width: 80%;
+      text-align: justify;
+
+      a {
+        color: blue;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:visited, &:hover, &:focus, &:active {
+          color: blue;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
