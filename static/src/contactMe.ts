@@ -83,7 +83,7 @@ class ContactMe {
     }
 
     async validate(): Promise<string> {
-        const recaptcha = await load(SITE_KEY);
+      const recaptcha = await load(SITE_KEY, { autoHideBadge: true });
         const token = await recaptcha.execute(SEND_EMAIL);
 
         try {

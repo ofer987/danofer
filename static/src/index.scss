@@ -1,29 +1,78 @@
 body {
-    margin: 0px;
-}
+  margin: 0px;
 
-#introduction {
+  #introduction {
     width: 100%;
     text-align: center;
-    height: 200px;
-}
+  }
 
-#specialties {
+  #specialties {
     height: 400px;
     text-align: left;
 
     ul {
-        padding: 0px;
+      padding: 0px;
     }
 
     li {
-        display: block;
+      display: block;
     }
-}
+  }
 
-#image {
+  #image {
     width: 100%;
     background-image: url("./main.jpg");
     background-size: cover;
     height: 1500px;
+  }
+
+  .experience {
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
+
+    .responsibility {
+      display: flex;
+      flex-flow: wrap;
+      flex-direction: row;
+      width: 100%;
+    }
+
+    .icons {
+      width: 20%;
+      display: flex;
+      flex-flow: wrap;
+      flex-direction: row;
+
+      .icon {
+        padding: 10px;
+        // background-size: 50px 50px;
+        // width: 50%;
+        // auto: 50%;
+
+        image {
+          // background-size: 50px 50px;
+          // width: 50%;
+          // auto: 50%;
+        }
+      }
+    }
+
+    .description {
+      width: 80%;
+      text-align: justify;
+
+      a {
+        color: blue;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:visited, &:hover, &:focus, &:active {
+          color: blue;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
