@@ -12,7 +12,7 @@ scp \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
     -r \
-    index.html dist \
+    index.html dist icons  \
     root@167.99.181.5:/var/www/danofer;
 
 # Restart NGINX just in case
