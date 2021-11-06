@@ -1,5 +1,5 @@
 body {
-  margin: 0px;
+  font-size: 40px;
 
   #introduction {
     width: 100%;
@@ -36,41 +36,92 @@ body {
       flex-flow: wrap;
       flex-direction: row;
       width: 100%;
-    }
 
-    .icons {
-      width: 20%;
-      display: flex;
-      flex-flow: wrap;
-      flex-direction: row;
+      .icons {
+        width: 20%;
+        display: flex;
+        flex-flow: wrap;
+        flex-direction: row;
 
-      .icon {
-        padding: 10px;
-        // background-size: 50px 50px;
-        // width: 50%;
-        // auto: 50%;
+        img {
+          width: 4em;
+          height: 4em;
+        }
 
-        image {
+        .icon {
+          padding: 10px;
           // background-size: 50px 50px;
           // width: 50%;
           // auto: 50%;
+
+          image {
+            // background-size: 50px 50px;
+            // width: 50%;
+            // auto: 50%;
+          }
         }
       }
-    }
 
-    .description {
-      width: 80%;
-      text-align: justify;
+      .description {
+        width: 80%;
+        text-align: justify;
 
-      a {
-        color: blue;
-        cursor: pointer;
-        text-decoration: none;
-
-        &:visited, &:hover, &:focus, &:active {
+        a {
           color: blue;
           cursor: pointer;
           text-decoration: none;
+
+          &:visited, &:hover, &:focus, &:active {
+            color: blue;
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 0px) {
+  body {
+    font-size: 40px;
+
+    .experience {
+      .responsibility {
+        .icons {
+          width: 100%;
+
+          img {
+            width: 4em;
+            height: 4em;
+          }
+        }
+
+        .description {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 400px) {
+  body {
+    font-size: 24px;
+
+    .experience {
+      .responsibility {
+        .icons {
+          width: 20%;
+
+          img {
+            width: 4em;
+            height: 4em;
+          }
+        }
+
+        .description {
+          width: 80%;
         }
       }
     }
