@@ -82,6 +82,7 @@ body {
   }
 }
 
+// Mobile
 @media (min-width: 0px) {
   body {
     font-size: 40px;
@@ -92,8 +93,8 @@ body {
           width: 100%;
 
           img {
-            width: 4em;
-            height: 4em;
+            width: 2em;
+            height: 2em;
           }
         }
 
@@ -105,9 +106,34 @@ body {
   }
 }
 
-@media (min-width: 400px) {
+// Tablet
+@media (min-width: 376px) {
   body {
     font-size: 24px;
+
+    .experience {
+      .responsibility {
+        .icons {
+          width: 40%;
+
+          img {
+            width: 3em;
+            height: 3em;
+          }
+        }
+
+        .description {
+          width: 60%;
+        }
+      }
+    }
+  }
+}
+
+// Desktop
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
 
     .experience {
       .responsibility {
@@ -115,8 +141,8 @@ body {
           width: 20%;
 
           img {
-            width: 4em;
-            height: 4em;
+            width: 3em;
+            height: 3em;
           }
         }
 
