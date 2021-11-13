@@ -82,6 +82,17 @@ class ContactMe {
             this.enablePage();
             this.closeForm();
         });
+
+      document.addEventListener("keydown", (event: KeyboardEvent) => {
+          if (this.form.className != FORM_OPENED) {
+              return;
+          }
+
+          if (event.code == "Escape") {
+              this.enablePage();
+              this.closeForm();
+          }
+      });
     }
 
     async validate(): Promise<string> {
