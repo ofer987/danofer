@@ -69,10 +69,10 @@ form#contact-me-form {
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
 
-  button.close {
-    position: fixed;
-    right: 100px;
-    top: 100px;
+  .close {
+    position: static;
+    float: right;
+    width: 1.5em;
   }
 
   input, textarea {
