@@ -59,10 +59,11 @@ form#contact-me-form {
   z-index: 2000;
 
   position: fixed;
-  top: 100px;
-  right: 100px;
-  bottom: 100px;
-  left: 100px;
+  padding: 0.5em;
+  top: 5em;
+  right: 5em;
+  bottom: 5em;
+  left: 5em;
 
   font-size: 1.5em;
   text-align: left;
@@ -78,8 +79,7 @@ form#contact-me-form {
   input, textarea {
     display: block;
     margin-bottom: 20px;
-    required: true;
-    width: 200px;
+    width: 20em;
   }
 
   textarea {
