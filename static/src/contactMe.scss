@@ -6,6 +6,7 @@
   padding-bottom: 1em;
 
   #contact-me-toggle-button {
+    width: 15em;
     display: inline-block;
   }
 
@@ -17,6 +18,7 @@
     padding-bottom: 1em;
 
     #contact-me-toggle-button {
+      width: 15em;
       display: inline-block;
     }
   }
@@ -57,6 +59,7 @@
 
 form#contact-me-form {
   z-index: 2000;
+  overflow-y: scroll;
 
   position: fixed;
   padding: 0.5em;
@@ -65,7 +68,7 @@ form#contact-me-form {
   bottom: 5em;
   left: 5em;
 
-  font-size: 1.5em;
+  font-size: 1.25em;
   text-align: left;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
@@ -76,10 +79,18 @@ form#contact-me-form {
     width: 1.5em;
   }
 
-  input, textarea {
+  label {
+    font-size: 1em;
+  }
+
+  input[type="text"], textarea {
     display: block;
-    margin-bottom: 20px;
+    border: 0;
+    padding: 0;
+    margin-top: 0.25em;
+    margin-bottom: 1em;
     width: 20em;
+    font-size: 1em;
   }
 
   textarea {
@@ -92,5 +103,25 @@ form#contact-me-form {
 
   &.contact-me-opened {
     display: block;
+  }
+}
+
+@media (max-width: 800px) {
+  form#contact-me-form {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 20px;
+
+    .close {
+      float: none;
+      display: block;
+      margin-bottom: 1em;
+    }
+
+    input[type="text"], textarea {
+      width: fit-content;
+    }
   }
 }
