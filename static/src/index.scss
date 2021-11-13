@@ -1,6 +1,7 @@
+// Desktop
 body {
   margin: 0;
-  font-size: 40px;
+  font-size: 16px;
 
   #image {
     width: 100%;
@@ -46,8 +47,8 @@ body {
         flex-direction: row;
 
         img {
-          width: 4em;
-          height: 4em;
+          width: 3em;
+          height: 3em;
 
           cursor: pointer;
         }
@@ -90,34 +91,10 @@ body {
   }
 }
 
-// Mobile
-@media (min-width: 0px) {
-  body {
-    font-size: 24px;
-
-    .experience {
-      .responsibility {
-        .icons {
-          width: 100%;
-
-          img {
-            width: 2em;
-            height: 2em;
-          }
-        }
-
-        .description {
-          width: 100%;
-        }
-      }
-    }
-  }
-}
-
 // Tablet
-@media (min-width: 376px) {
+@media (max-width: 800px) {
   body {
-    font-size: 24px;
+    font-size: 20px;
 
     .experience {
       .responsibility {
@@ -138,24 +115,24 @@ body {
   }
 }
 
-// Desktop
-@media (min-width: 768px) {
+// Mobile
+@media (max-width: 375px) {
   body {
-    font-size: 16px;
+    font-size: 24px;
 
     .experience {
       .responsibility {
         .icons {
-          width: 20%;
+          width: 100%;
 
           img {
-            width: 3em;
-            height: 3em;
+            width: 2em;
+            height: 2em;
           }
         }
 
         .description {
-          width: 80%;
+          width: 100%;
         }
       }
     }
