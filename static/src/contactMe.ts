@@ -18,6 +18,7 @@ class ContactMe {
     openFormButton: HTMLInputElement;
     closeFormButton: HTMLButtonElement;
     submitButton: HTMLInputElement;
+    introduction: HTMLElement;
     apiOrigin: string
 
     get senderName(): string {
@@ -51,6 +52,7 @@ class ContactMe {
         this.closeFormButton = document.querySelector(".close") as HTMLButtonElement;
         this.submitButton = document.getElementById("contact-me-submit-button") as HTMLInputElement;
         this.pageBlocker = document.querySelector(".page-blocker") as HTMLElement;
+      this.introduction = document.querySelector("#introduction") as HTMLElement;
 
         this.init();
     }
@@ -115,11 +117,13 @@ class ContactMe {
     enablePage(): void {
         this.pageBlocker.classList.add("blocker-disabled");
         this.pageBlocker.classList.remove("blocker-enabled");
+        this.introduction.classList.remove("blocker-enabled");
     }
 
     disablePage(): void {
         this.pageBlocker.classList.add("blocker-enabled");
         this.pageBlocker.classList.remove("blocker-disabled");
+        this.introduction.classList.add("blocker-enabled");
     }
 
     openForm(): void {

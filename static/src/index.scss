@@ -1,9 +1,18 @@
 body {
+  margin: 0;
   font-size: 40px;
 
-  #introduction {
+  #image {
     width: 100%;
-    text-align: center;
+    background-image: url("./main.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 1500px;
+
+    #introduction {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   #specialties {
@@ -17,13 +26,6 @@ body {
     li {
       display: block;
     }
-  }
-
-  #image {
-    width: 100%;
-    background-image: url("./main.jpg");
-    background-size: cover;
-    height: 1500px;
   }
 
   .experience {

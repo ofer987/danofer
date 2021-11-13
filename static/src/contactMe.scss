@@ -1,3 +1,39 @@
+#introduction {
+  font-size: 1.5em;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 2em;
+  padding-bottom: 1em;
+
+  #contact-me-toggle-button {
+    display: inline-block;
+  }
+
+  &.blocker-disabled {
+    font-size: 1.5em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 2em;
+    padding-bottom: 1em;
+
+    #contact-me-toggle-button {
+      display: inline-block;
+    }
+  }
+
+  &.blocker-enabled {
+    height: 0;
+    font-size: 0;
+    color: rgba(0, 0, 0, 0);
+    padding-top: 0;
+    padding-bottom: 0;
+
+    #contact-me-toggle-button {
+      display: none;
+    }
+  }
+}
+
 .page-blocker {
   width: 100%;
   height: 100%;
@@ -17,11 +53,6 @@
   &.blocker-enabled {
     display: block;
   }
-
-}
-
-#introduction {
-  height: 100px;
 }
 
 form#contact-me-form {
@@ -33,7 +64,10 @@ form#contact-me-form {
   bottom: 100px;
   left: 100px;
 
-  background-color: white;
+  font-size: 1.5em;
+  text-align: left;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
 
   button.close {
     position: fixed;
