@@ -4,8 +4,8 @@
     "description": "Dan Ofer's personal website",
     "main": "index.js",
     "scripts": {
-        "build-and-watch": "npx webpack --env mode=development",
-        "build": "npx webpack --env mode=production",
+        "build-and-watch": "bash build_and_watch.sh",
+        "build": "bash build.sh",
         "start-server": "ws --hostname=localhost --port=8000"
     },
     "repository": {
@@ -23,6 +23,7 @@
         "file-loader": "^6.2.0",
         "html-loader": "^2.1.2",
         "local-web-server": "^5.1.0",
+        "mustache": "^4.2.0",
         "sass": "^1.37.0",
         "sass-loader": "^12.1.0",
         "style-loader": "^3.2.1",

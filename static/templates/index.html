@@ -7,13 +7,13 @@
 
         <script src="https://www.google.com/recaptcha/api.js?trustedtypes=true&render=6LdxCdMbAAAAAKKewSc8LJLO4eHHwUl8BCX1OMkq"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1R44GW2WP"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_tag_id }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            gtag("js", new Date());
 
-            gtag('config', 'G-T1R44GW2WP');
+            gtag("config", "{{ google_tag_id }}");
         </script>
     </head>
     <body>
