@@ -19,6 +19,8 @@ jobs:
       - name: compile
         working-directory: ./static
         run: bash ../.github/scripts/static/compile.sh
+        env:
+          GOOGLE_TAG_ID: ${{ secrets.GOOGLE_TAG_ID }}
 
       - name: deploy
         working-directory: ./static
