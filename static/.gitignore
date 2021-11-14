@@ -1,3 +1,9 @@
+# Environment variables used to generate machine-dependent HTML files
+# For example, we want to use different GOOGLE_TAG_ID values on
+# development and on production systems
+local.json
+index.html
+
 # Logs
 logs
 *.log
