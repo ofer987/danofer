@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
@@ -38,13 +39,11 @@ namespace Danofer.Api.Models
             var response = await httpClient.GetAsync(url);
 
             var responseStream = await response.Content.ReadAsStreamAsync();
-#nullable enable
-            var reCaptcha = await JsonSerializer.DeserializeAsync<ReCaptchaModel?>(responseStream);
-#nullable disable
+            var reCaptcha = await GetGoogleAnswer(responseStream);
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            if (reCaptcha is not null && !reCaptcha.Success)
+            if (!reCaptcha.Success)
             {
                 return false;
             }
@@ -89,6 +88,18 @@ namespace Danofer.Api.Models
             {
                 throw new ArgumentException("The message should not be empty");
             }
+        }
+
+        private async Task<ReCaptchaModel> GetGoogleAnswer(Stream stream)
+        {
+            var reCaptcha = await JsonSerializer.DeserializeAsync<ReCaptchaModel?>(stream);
+
+            if (reCaptcha is null)
+            {
+                throw new InvalidOperationException("Could not contact Google");
+            }
+
+            return reCaptcha;
         }
     }
 }
