@@ -16,77 +16,104 @@ body {
     }
   }
 
-  #specialties {
-    height: 400px;
-    text-align: left;
+  .work {
+    margin: 0 1em;
 
-    ul {
-      padding: 0px;
+    @mixin work($color: aqua) {
+      padding-left: 1em;
+      border-left: $color;
+      border-left-style: solid;
+      border-left-width: 0.5em;
     }
 
-    li {
-      display: block;
+    &#thomson-reuters-digital {
+      @include work(blueviolet);
     }
-  }
 
-  .experience {
-    display: flex;
-    flex-flow: wrap;
-    flex-direction: column;
+    &#thomson-reuters-finance-and-risk {
+      @include work(green);
+    }
 
-    .responsibility {
+    &#danofer-com {
+      @include work(turquoise);
+    }
+
+    &#danofer-com {
+      @include work(darkorange);
+    }
+
+    &#financier {
+      @include work(#328636);
+    }
+
+    &#trike-apps {
+      @include work(#24afca);
+    }
+
+    h2 {
+      // text-align: center;
+      margin-top: 3em;
+    }
+
+    .experience {
       display: flex;
       flex-flow: wrap;
-      flex-direction: row;
-      width: 100%;
+      flex-direction: column;
 
-      .icons {
-        width: 20%;
+      .responsibility {
         display: flex;
         flex-flow: wrap;
         flex-direction: row;
+        width: 100%;
 
-        img {
-          width: 3em;
-          height: 3em;
+        .icons {
+          width: 20%;
+          display: flex;
+          flex-flow: wrap;
+          flex-direction: row;
 
-          cursor: pointer;
+          img {
+            width: 3em;
+            height: 3em;
+
+            cursor: pointer;
+          }
+
+          .icon {
+            padding: 10px;
+          }
         }
 
-        .icon {
-          padding: 10px;
-        }
-      }
+        .description {
+          width: 80%;
+          text-align: justify;
 
-      .description {
-        width: 80%;
-        text-align: justify;
-
-        a {
-          color: blue;
-          cursor: pointer;
-          text-decoration: none;
-
-          &:visited, &:hover, &:focus, &:active {
+          a {
             color: blue;
             cursor: pointer;
             text-decoration: none;
+
+            &:visited, &:hover, &:focus, &:active {
+              color: blue;
+              cursor: pointer;
+              text-decoration: none;
+            }
           }
         }
       }
     }
-  }
 
-  input[type="button"] {
-    background-color: white;
-    border-color: white;
-    border-width: 0;
-    margin: 0;
-    padding: 0.75em;
-    color: black;
-
-    &:active {
+    input[type="button"] {
+      background-color: white;
+      border-color: white;
+      border-width: 0;
+      margin: 0;
+      padding: 0.75em;
       color: black;
+
+      &:active {
+        color: black;
+      }
     }
   }
 }
@@ -96,19 +123,21 @@ body {
   body {
     font-size: 20px;
 
-    .experience {
-      .responsibility {
-        .icons {
-          width: 40%;
+    .work {
+      .experience {
+        .responsibility {
+          .icons {
+            width: 40%;
 
-          img {
-            width: 3em;
-            height: 3em;
+            img {
+              width: 3em;
+              height: 3em;
+            }
           }
-        }
 
-        .description {
-          width: 60%;
+          .description {
+            width: 60%;
+          }
         }
       }
     }
@@ -120,19 +149,21 @@ body {
   body {
     font-size: 24px;
 
-    .experience {
-      .responsibility {
-        .icons {
-          width: 100%;
+    .work {
+      .experience {
+        .responsibility {
+          .icons {
+            width: 100%;
 
-          img {
-            width: 2em;
-            height: 2em;
+            img {
+              width: 2em;
+              height: 2em;
+            }
           }
-        }
 
-        .description {
-          width: 100%;
+          .description {
+            width: 100%;
+          }
         }
       }
     }
