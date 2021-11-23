@@ -1,3 +1,16 @@
+.contact-me-button {
+  display: inline-block;
+  width: max-content;
+  padding: 0.25em 2em;
+
+  background-color: white;
+  color: black;
+
+  text-align: center;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+
 #introduction {
   font-size: 1.5em;
   color: white;
@@ -6,7 +19,6 @@
   padding-bottom: 1em;
 
   #contact-me-toggle-button {
-    width: 15em;
     display: inline-block;
   }
 
