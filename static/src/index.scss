@@ -24,6 +24,15 @@ body {
       border-left: $color;
       border-left-style: solid;
       border-left-width: 0.5em;
+
+      ol {
+        list-style-type: circle;
+        color: $color;
+
+        span {
+          color: black;
+        }
+      }
     }
 
     &#thomson-reuters-digital {
