@@ -1,3 +1,37 @@
+@mixin work($color: aqua) {
+  padding-left: 1em;
+  border-left: $color;
+  border-left-style: solid;
+  border-left-width: 0.5em;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+
+    .position {
+      width: 100%;
+      text-align: left;
+      margin-top: 0em;
+    }
+
+    .at {
+      width: 100%;
+      text-align: left;
+      margin-top: 0em;
+      font-size: 1em;
+    }
+  }
+
+  ol {
+    list-style-type: circle;
+    color: $color;
+
+    span {
+      color: black;
+    }
+  }
+}
+
 // Desktop
 body {
   margin: 0;
@@ -17,23 +51,7 @@ body {
   }
 
   .work {
-    margin: 0 1em;
-
-    @mixin work($color: aqua) {
-      padding-left: 1em;
-      border-left: $color;
-      border-left-style: solid;
-      border-left-width: 0.5em;
-
-      ol {
-        list-style-type: circle;
-        color: $color;
-
-        span {
-          color: black;
-        }
-      }
-    }
+    margin: 3em 1em 0 1em;
 
     &#thomson-reuters-digital {
       @include work(blueviolet);
@@ -57,11 +75,6 @@ body {
 
     &#trike-apps {
       @include work(#24afca);
-    }
-
-    h2 {
-      // text-align: center;
-      margin-top: 3em;
     }
 
     .experience {
