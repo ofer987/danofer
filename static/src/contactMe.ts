@@ -13,147 +13,147 @@ const SEND_MESSAGE_DOMAIN = "https://api.danofer.com";
 const SITE_KEY = "6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs";
 
 class ContactMe {
-    pageBlocker: HTMLElement;
-    form: HTMLFormElement;
-    openFormButton: HTMLInputElement;
-    closeFormButton: HTMLButtonElement;
-    submitButton: HTMLInputElement;
-    introduction: HTMLElement;
-    apiOrigin: string
+  pageBlocker: HTMLElement;
+  form: HTMLFormElement;
+  openFormButton: HTMLInputElement;
+  closeFormButton: HTMLButtonElement;
+  submitButton: HTMLInputElement;
+  introduction: HTMLElement;
+  apiOrigin: string
 
-    get senderName(): string {
-        return (this.form.querySelector("input#name") as HTMLInputElement)
-            .value
-            .trim();
+  get senderName(): string {
+    return (this.form.querySelector("input#name") as HTMLInputElement)
+      .value
+      .trim();
+  }
+
+  get senderEmailAddress(): string {
+    var element = this.form.querySelector("input#email-address") as HTMLInputElement;
+
+    var email = element.value.trim();
+
+    if (!EmailValidator.validate(email)) {
+      throw "email is invalid";
     }
 
-    get senderEmailAddress(): string {
-        var element = this.form.querySelector("input#email-address") as HTMLInputElement;
+    return email;
+  }
 
-        var email = element.value.trim();
+  get message(): string {
+    return (this.form.querySelector("textarea#message") as HTMLTextAreaElement)
+      .value
+      .trim();
+  }
 
-        if (!EmailValidator.validate(email)) {
-            throw "email is invalid";
-        }
+  constructor(apiOrigin: string) {
+    this.apiOrigin = apiOrigin.trim();
+    this.form = document.getElementById("contact-me-form") as HTMLFormElement;
+    this.openFormButton = document.getElementById("contact-me-toggle-button") as HTMLInputElement;
+    this.closeFormButton = document.querySelector(".close") as HTMLButtonElement;
+    this.submitButton = document.getElementById("contact-me-submit-button") as HTMLInputElement;
+    this.pageBlocker = document.querySelector(".page-blocker") as HTMLElement;
+    this.introduction = document.querySelector("#introduction") as HTMLElement;
 
-        return email;
-    }
+    this.init();
+  }
 
-    get message(): string {
-        return (this.form.querySelector("textarea#message") as HTMLTextAreaElement)
-            .value
-            .trim();
-    }
+  init(): void {
+    this.openFormButton.addEventListener("click", () => {
+      if (this.form.className === FORM_CLOSED) {
+        this.disablePage();
+        this.openForm();
+      }
+    });
 
-    constructor(apiOrigin: string) {
-        this.apiOrigin = apiOrigin.trim();
-        this.form = document.getElementById("contact-me-form") as HTMLFormElement;
-        this.openFormButton = document.getElementById("contact-me-toggle-button") as HTMLInputElement;
-        this.closeFormButton = document.querySelector(".close") as HTMLButtonElement;
-        this.submitButton = document.getElementById("contact-me-submit-button") as HTMLInputElement;
-        this.pageBlocker = document.querySelector(".page-blocker") as HTMLElement;
-      this.introduction = document.querySelector("#introduction") as HTMLElement;
+    this.closeFormButton.addEventListener("click", () => {
+      if (this.form.className === FORM_OPENED) {
+        this.enablePage();
+        this.closeForm();
+      }
+    });
 
-        this.init();
-    }
+    this.submitButton.addEventListener("click", (event) => {
+      event.preventDefault();
 
-    init(): void {
-        this.openFormButton.addEventListener("click", () => {
-            if (this.form.className === FORM_CLOSED) {
-                this.disablePage();
-                this.openForm();
-            }
-        });
-
-        this.closeFormButton.addEventListener("click", () => {
-            if (this.form.className === FORM_OPENED) {
-                this.enablePage();
-                this.closeForm();
-            }
-        });
-
-        this.submitButton.addEventListener("click", (event) => {
-            event.preventDefault();
-
-            this.validate().then(value => {
-                alert(value);
-            });
-
-            this.enablePage();
-            this.closeForm();
-        });
-
-      document.addEventListener("keydown", (event: KeyboardEvent) => {
-          if (this.form.className != FORM_OPENED) {
-              return;
-          }
-
-          if (event.code == "Escape") {
-              this.enablePage();
-              this.closeForm();
-          }
+      this.validate().then(value => {
+        alert(value);
       });
+
+      this.enablePage();
+      this.closeForm();
+    });
+
+    document.addEventListener("keydown", (event: KeyboardEvent) => {
+      if (this.form.className != FORM_OPENED) {
+        return;
+      }
+
+      if (event.code == "Escape") {
+        this.enablePage();
+        this.closeForm();
+      }
+    });
+  }
+
+  async validate(): Promise<string> {
+    const recaptcha = await load(SITE_KEY, { autoHideBadge: true });
+    const token = await recaptcha.execute(SEND_EMAIL);
+
+    try {
+      return await this.sendMessage(token, this.senderName, this.senderEmailAddress, this.message);
+    } catch (exception) {
+      return exception;
     }
+  }
 
-    async validate(): Promise<string> {
-      const recaptcha = await load(SITE_KEY, { autoHideBadge: true });
-        const token = await recaptcha.execute(SEND_EMAIL);
+  async sendMessage(reCaptchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
+    var url = `${this.apiOrigin}/messages/create`;
 
-        try {
-            return await this.sendMessage(token, this.senderName, this.senderEmailAddress, this.message);
-        } catch (exception) {
-            return exception;
-        }
-    }
+    var body = {
+      reCaptchaToken: reCaptchaToken,
+      senderName: senderName,
+      senderEmailAddress: senderEmailAddress,
+      message: message,
+    };
 
-    async sendMessage(reCaptchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
-        var url = `${this.apiOrigin}/messages/create`;
+    var response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      mode: "cors",
+    });
 
-        var body = {
-            reCaptchaToken: reCaptchaToken,
-            senderName: senderName,
-            senderEmailAddress: senderEmailAddress,
-            message: message,
-        };
+    return await response.text();
+  }
 
-        var response = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(body),
-            mode: "cors",
-        });
+  enablePage(): void {
+    this.pageBlocker.classList.add("blocker-disabled");
+    this.pageBlocker.classList.remove("blocker-enabled");
+    this.introduction.classList.remove("blocker-enabled");
+  }
 
-        return await response.text();
-    }
+  disablePage(): void {
+    this.pageBlocker.classList.add("blocker-enabled");
+    this.pageBlocker.classList.remove("blocker-disabled");
+    this.introduction.classList.add("blocker-enabled");
+  }
 
-    enablePage(): void {
-        this.pageBlocker.classList.add("blocker-disabled");
-        this.pageBlocker.classList.remove("blocker-enabled");
-        this.introduction.classList.remove("blocker-enabled");
-    }
+  openForm(): void {
+    this.form.classList.add(FORM_OPENED);
+    this.form.classList.remove(FORM_CLOSED);
+  }
 
-    disablePage(): void {
-        this.pageBlocker.classList.add("blocker-enabled");
-        this.pageBlocker.classList.remove("blocker-disabled");
-        this.introduction.classList.add("blocker-enabled");
-    }
+  closeForm(): void {
+    this.form.classList.add(FORM_CLOSED);
+    this.form.classList.remove(FORM_OPENED);
+  }
 
-    openForm(): void {
-        this.form.classList.add(FORM_OPENED);
-        this.form.classList.remove(FORM_CLOSED);
-    }
+  async sendEmail(response: Response): Promise<void> {
+    var blob = await response.blob();
+    var body = await blob.text();
 
-    closeForm(): void {
-        this.form.classList.add(FORM_CLOSED);
-        this.form.classList.remove(FORM_OPENED);
-    }
-
-    async sendEmail(response: Response): Promise<void> {
-        var blob = await response.blob();
-        var body = await blob.text();
-
-        alert(`Body is (${JSON.parse(body)})`);
-        alert("An email has just been sent");
-    }
+    alert(`Body is (${JSON.parse(body)})`);
+    alert("An email has just been sent");
+  }
 }
 
 export default ContactMe;
