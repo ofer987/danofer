@@ -30,8 +30,8 @@ namespace Danofer.Api.Controllers
             _logger.LogInformation($"{nameof(model.SenderEmailAddress)}: {model.SenderEmailAddress}");
             _logger.LogInformation($"{nameof(model.Message)}: {model.Message}");
 
-            var isRealUser = await model.IsRealUser(_clientFactory.CreateClient("default"));
-            if (isRealUser)
+            var isHuman = await model.IsHuman(_clientFactory.CreateClient("default"));
+            if (isHuman)
             {
                 model.Validate();
 
