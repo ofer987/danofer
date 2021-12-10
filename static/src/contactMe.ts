@@ -12,6 +12,11 @@ const SEND_EMAIL = "SEND_EMAIL";
 const SEND_MESSAGE_DOMAIN = "https://api.danofer.com";
 const SITE_KEY = "6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs";
 
+interface ServerResponse {
+  okay: boolean;
+  message: string;
+}
+
 class ContactMe {
   pageBlocker: HTMLElement;
   form: HTMLFormElement;
@@ -72,15 +77,17 @@ class ContactMe {
       }
     });
 
-    this.submitButton.addEventListener("click", (event) => {
+    this.submitButton.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      this.validate().then(value => {
-        alert(value);
-      });
+      let response = await this.sendMessage();
 
-      this.enablePage();
-      this.closeForm();
+      alert(response.message);
+
+      if (response.okay) {
+        this.enablePage();
+        this.closeForm();
+      }
     });
 
     document.addEventListener("keydown", (event: KeyboardEvent) => {
@@ -95,25 +102,17 @@ class ContactMe {
     });
   }
 
-  async validate(): Promise<string> {
+  async sendMessage(): Promise<ServerResponse> {
     const recaptcha = await load(SITE_KEY, { autoHideBadge: true });
     const token = await recaptcha.execute(SEND_EMAIL);
 
-    try {
-      return await this.sendMessage(token, this.senderName, this.senderEmailAddress, this.message);
-    } catch (exception) {
-      return exception;
-    }
-  }
-
-  async sendMessage(reCaptchaToken: string, senderName: string, senderEmailAddress: string, message: string): Promise<string> {
     var url = `${this.apiOrigin}/messages/create`;
 
     var body = {
-      reCaptchaToken: reCaptchaToken,
-      senderName: senderName,
-      senderEmailAddress: senderEmailAddress,
-      message: message,
+      reCaptchaToken: recaptcha.getSiteKey(),
+      senderName: this.senderName,
+      senderEmailAddress: this.senderEmailAddress,
+      message: this.message,
     };
 
     var response = await fetch(url, {
@@ -122,7 +121,10 @@ class ContactMe {
       mode: "cors",
     });
 
-    return await response.text();
+    return await {
+      okay: response.ok,
+      message: await response.text()
+    };
   }
 
   enablePage(): void {
