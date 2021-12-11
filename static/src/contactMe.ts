@@ -109,7 +109,7 @@ class ContactMe {
     var url = `${this.apiOrigin}/messages/create`;
 
     var body = {
-      reCaptchaToken: recaptcha.getSiteKey(),
+      reCaptchaToken: token,
       senderName: this.senderName,
       senderEmailAddress: this.senderEmailAddress,
       message: this.message,
