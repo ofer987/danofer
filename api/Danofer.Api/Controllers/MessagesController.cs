@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Net;
 using System.Net.Http;
 
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,18 @@ namespace Danofer.Api.Controllers
             var isHuman = await model.IsHuman(_clientFactory.CreateClient("default"));
             if (isHuman)
             {
-                model.Validate();
+                try
+                {
+                    model.Validate();
+                }
+                catch (ArgumentException exception)
+                {
+                    return Problem(
+                        title: exception.ParamName,
+                        detail: $"Missing {exception.ParamName}",
+                        statusCode: (int)HttpStatusCode.BadRequest
+                    );
+                }
 
                 var isSuccess = await model.SendEmail(
                     model.SenderName,
@@ -45,11 +57,18 @@ namespace Danofer.Api.Controllers
                     return Content("Email was sent!");
                 }
 
-                throw new Exception("User is valid, but sending email failed");
+                return Problem(
+                    title: "email-not-sent",
+                    detail: "The email was not sent",
+                    statusCode: (int)HttpStatusCode.BadRequest
+                );
             }
 
-            var message = "User is probably a bot";
-            throw new Exception(message);
+            return Problem(
+                title: "is-bot",
+                detail: "The user is a bot",
+                statusCode: (int)HttpStatusCode.BadRequest
+            );
         }
     }
 }

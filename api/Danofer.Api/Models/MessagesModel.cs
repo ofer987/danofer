@@ -76,17 +76,17 @@ namespace Danofer.Api.Models
         {
             if (SenderName.IsNullOrWhiteSpace())
             {
-                throw new ArgumentException("Name should not be blank");
+                throw new ArgumentException("Name should not be blank", nameof(SenderName));
             }
 
             if (!EmailValidator.Validate(SenderEmailAddress))
             {
-                throw new ArgumentException("Email address is not valid");
+                throw new ArgumentException("Email address is not valid", nameof(SenderEmailAddress));
             }
 
             if (Message.IsNullOrWhiteSpace())
             {
-                throw new ArgumentException("The message should not be empty");
+                throw new ArgumentException("The message should not be empty", nameof(Message));
             }
         }
 
