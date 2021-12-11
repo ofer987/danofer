@@ -54,7 +54,10 @@ namespace Danofer.Api.Controllers
                 );
                 if (isSuccess)
                 {
-                    return Content("Email was sent!");
+                    return new OkObjectResult(new {
+                        title = "email-sent",
+                        detail = "The email was sent"
+                    });
                 }
 
                 return Problem(

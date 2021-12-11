@@ -12,9 +12,14 @@ const SEND_EMAIL = "SEND_EMAIL";
 const SEND_MESSAGE_DOMAIN = "https://api.danofer.com";
 const SITE_KEY = "6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs";
 
+interface MessageResponse {
+  title: string | null;
+  detail: string | null;
+}
+
 interface ServerResponse {
   okay: boolean;
-  message: string;
+  message: MessageResponse;
 }
 
 class ContactMe {
@@ -80,13 +85,22 @@ class ContactMe {
     this.submitButton.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      let response = await this.sendMessage();
+      let response: ServerResponse;
+      try {
+        response = await this.sendMessage();
+      } catch (error) {
+        alert(error);
 
-      alert(response.message);
+        return;
+      }
 
       if (response.okay) {
+        alert(response.message.detail);
+
         this.enablePage();
         this.closeForm();
+      } else {
+        alert(response.message.detail)
       }
     });
 
@@ -123,7 +137,7 @@ class ContactMe {
 
     return await {
       okay: response.ok,
-      message: await response.text()
+      message: JSON.parse(await response.text())
     };
   }
 
