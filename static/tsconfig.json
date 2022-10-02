@@ -1,6 +1,6 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "target": "es5"
-    }
+  "compilerOptions": {
+    "lib": ["esnext", "ESNext.Array", "dom"],
+    "target": "es5"
+  }
 }

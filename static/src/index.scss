@@ -32,8 +32,33 @@
   }
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("./fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
+}
+
+@font-face {
+  font-family: "RobotoMono";
+  src: url("./fonts/RobotoMono-Medium.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
+}
+
+@font-face {
+  font-family: "RobotoMonoLight";
+  src: url("./fonts/RobotoMono-Light.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
+}
+
 // Desktop
 body {
+  font-family: Roboto;
   margin: 0;
   font-size: 16px;
 
@@ -98,15 +123,25 @@ body {
           flex-flow: wrap;
           flex-direction: row;
 
-          img {
-            width: 3em;
-            height: 3em;
-
-            cursor: pointer;
-          }
-
           .icon {
-            padding: 10px;
+            cursor: pointer;
+            padding: 0.625em;
+            width: 4em;
+
+            img {
+              width: 3em;
+              height: 3em;
+              margin-left: 0.5em;
+              margin-right: 0.5em;
+
+              cursor: pointer;
+            }
+
+            .text {
+              font-family: RobotoMonoLight;
+              font-size: 0.7em;
+              text-align: center;
+            }
           }
         }
 
@@ -114,15 +149,21 @@ body {
           width: 80%;
           text-align: justify;
 
+          img {
+            height: 1.00em;
+          }
+
           a {
-            color: blue;
+            color: lightblue;
             cursor: pointer;
-            text-decoration: none;
+            text-decoration: underline;
+            text-decoration-style: dashed;
 
             &:visited, &:hover, &:focus, &:active {
-              color: blue;
+              color: lightblue;
               cursor: pointer;
-              text-decoration: none;
+              text-decoration: underline;
+              text-decoration-style: dashed;
             }
           }
         }
