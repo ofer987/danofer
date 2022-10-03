@@ -155,13 +155,13 @@ body {
           }
 
           a {
-            color: lightblue;
+            color: blue;
             cursor: pointer;
             text-decoration: underline;
             text-decoration-style: dashed;
 
             &:visited, &:hover, &:focus, &:active {
-              color: lightblue;
+              color: blue;
               cursor: pointer;
               text-decoration: underline;
               text-decoration-style: dashed;

@@ -250,9 +250,21 @@ class Icons {
       },
       {
         className: "jenkins",
-        location: "https://maven.apache.org/plugins/maven-checkstyle-plugin/",
+        location: "https://www.jenkins.io",
         image: "./icons/jenkins.png",
         altText: "Jenkins",
+      },
+      {
+        className: "thomson-reuters",
+        location: "https://www.jenkins.io",
+        image: "./icons/jenkins.png",
+        altText: "Jenkins",
+      },
+      {
+        className: "aws",
+        location: "https://aws.amazon.com",
+        image: "./icons/aws.png",
+        altText: "Amazon Web Services",
       },
     ]
   }
