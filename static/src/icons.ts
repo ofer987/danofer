@@ -9,6 +9,8 @@ class Icons {
   private init() {
     for (let icon of this.classes) {
       this.setupIcon(icon);
+
+      this.setupDescription(icon);
     }
   }
 
@@ -16,6 +18,40 @@ class Icons {
     this.addImage(icon.className, icon.image);
     this.addClickLocation(icon.className, icon.location)
     this.addText(icon.className, icon.altText);
+  }
+
+  private setupDescription(icon: Image): void {
+    const elements = this.container.querySelectorAll(`.description .${icon.className}`);
+
+    elements.forEach((element: HTMLAnchorElement) => {
+      const imageElement = this.createImage(icon.image);
+      const textElement = this.createSpan(element.textContent);
+
+      this.configureAnchor(element, icon.location, icon.altText, imageElement, textElement);
+    });
+  }
+
+  private configureAnchor(element: HTMLAnchorElement, location: string, text: string, imageElement: HTMLImageElement, textElement: HTMLSpanElement): void {
+    element.href = location;
+    element.title = text;
+    element.textContent = "";
+
+    element.appendChild(imageElement);
+    element.appendChild(textElement);
+  }
+
+  private createSpan(text: string): HTMLSpanElement {
+    const result = document.createElement("span");
+    result.textContent = text;
+
+    return result;
+  }
+
+  private createImage(image: string): HTMLImageElement {
+    const result = document.createElement("img");
+    result.src = image;
+
+    return result;
   }
 
   private addImage(className: string, image: string) {
@@ -205,6 +241,18 @@ class Icons {
         location: "https://eslint.org/",
         image: "./icons/eslint.svg",
         altText: "ESLint",
+      },
+      {
+        className: "checkstyle",
+        location: "https://maven.apache.org/plugins/maven-checkstyle-plugin/",
+        image: "./img/checkstyle.png",
+        altText: "Apache Maven Checkstyle Plugin",
+      },
+      {
+        className: "jenkins",
+        location: "https://maven.apache.org/plugins/maven-checkstyle-plugin/",
+        image: "./icons/jenkins.png",
+        altText: "Jenkins",
       },
     ]
   }
