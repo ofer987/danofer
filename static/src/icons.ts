@@ -27,13 +27,13 @@ class Icons {
       const imageElement = this.createImage(icon.image);
       const textElement = this.createSpan(element.textContent);
 
-      this.configureAnchor(element, icon.location, icon.altText, imageElement, textElement);
+      this.configureAnchor(element, icon.location, imageElement, textElement, icon.altText, icon.description);
     });
   }
 
-  private configureAnchor(element: HTMLAnchorElement, location: string, text: string, imageElement: HTMLImageElement, textElement: HTMLSpanElement): void {
+  private configureAnchor(element: HTMLAnchorElement, location: string, imageElement: HTMLImageElement, textElement: HTMLSpanElement, text: string, description?: string): void {
     element.href = location;
-    element.title = text;
+    element.title = description || text;
     element.textContent = "";
 
     element.appendChild(imageElement);
@@ -92,7 +92,7 @@ class Icons {
         location: "https://www.java.com",
         image: "./icons/java.svg",
         altText: "Java",
-        description: "Java 11"
+        description: "Java Development Kit"
       },
       {
         className: "jquery",
@@ -197,7 +197,7 @@ class Icons {
       {
         className: "gitlab",
         location: "https://about.gitlab.com",
-        image: "./icons/gitlab.svg",
+        image: "./icons/gitlab.png",
         altText: "GitLab",
       },
       {
@@ -265,6 +265,19 @@ class Icons {
         location: "https://aws.amazon.com",
         image: "./icons/aws.png",
         altText: "Amazon Web Services",
+      },
+      {
+        className: "stenciljs",
+        location: "https://stenciljs.com",
+        image: "./icons/stenciljs.png",
+        altText: "Stencil",
+      },
+      {
+        className: "ams",
+        location: "https://business.adobe.com/products/experience-manager/managed-services.html",
+        image: "./icons/ams.ico",
+        altText: "Adobe Managed Services",
+        description: "Managed Services for Adobe Experience Cloud"
       },
     ]
   }
