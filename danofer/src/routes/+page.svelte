@@ -63,12 +63,12 @@
 				<div class="icons">
 					<Icon
 						klass="icon experience-manager"
-						src="./icons/experience-manager.svg"
+						src="./src/routes/icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<Icon klass="icon java" src="../icons/java.svg" alt="Java" />
-					<Icon klass="icon typescript" src="../icons/typescript.svg" alt="TypeScript" />
-					<Icon klass="icon sass" src="./icons/sass.svg" alt="Sass" />
+					<Icon klass="icon java" src="./src/routes/icons/java.svg" alt="Java" />
+					<Icon klass="icon typescript" src="./src/routes/icons/typescript.svg" alt="TypeScript" />
+					<Icon klass="icon sass" src="./src/routes/icons/sass.svg" alt="Sass" />
 				</div>
 				<div class="description">
 					<ol>
@@ -93,9 +93,9 @@
 			<h3>Release Process</h3>
 			<div class="responsibility installation">
 				<div class="icons">
-					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
-					<Icon klass="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
-					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon github" src="./src/routes/icons/github.svg" alt="GitHub" />
+					<Icon klass="icon ruby" src="./src/routes/icons/ruby.svg" alt="Ruby" />
+					<Icon klass="icon bash" src="./src/routes/icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
@@ -122,10 +122,10 @@
 			<h3>Integration Testing Framework</h3>
 			<div class="responsibility documentation">
 				<div class="icons">
-					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
-					<Icon klass="icon selenium" src="./icons/selenium.png" alt="Selenium" />
-					<Icon klass="icon cucumber" src="./icons/cucumber.png" alt="Cucumber" />
-					<Icon klass="icon jenkins" src="./icons/jenkins.png" alt="Jenkins" />
+					<Icon klass="icon github" src="./src/routes/icons/github.svg" alt="GitHub" />
+					<Icon klass="icon selenium" src="./src/routes/icons/selenium.png" alt="Selenium" />
+					<Icon klass="icon cucumber" src="./src/routes/icons/cucumber.png" alt="Cucumber" />
+					<Icon klass="icon jenkins" src="./src/routes/icons/jenkins.png" alt="Jenkins" />
 				</div>
 				<div class="description">
 					<ol>
@@ -165,15 +165,15 @@
 				<div class="icons">
 					<img
 						class="icon experience-manager"
-						src="./icons/experience-manager.svg"
+						src="./src/routes/icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<Icon klass="icon java" src="./icons/java.svg" alt="Java" />
-					<Icon klass="icon jquery" src="./icons/jquery.svg" alt="jQuery" />
-					<Icon klass="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
-					<Icon klass="icon sass" src="./icons/sass.svg" alt="Sass" />
-					<Icon klass="icon react" src="./icons/react.svg" alt="React" />
-					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon java" src="./src/routes/icons/java.svg" alt="Java" />
+					<Icon klass="icon jquery" src="./src/routes/icons/jquery.svg" alt="jQuery" />
+					<Icon klass="icon typescript" src="./src/routes/icons/typescript.svg" alt="TypeScript" />
+					<Icon klass="icon sass" src="./src/routes/icons/sass.svg" alt="Sass" />
+					<Icon klass="icon react" src="./src/routes/icons/react.svg" alt="React" />
+					<Icon klass="icon github" src="./src/routes/icons/github.svg" alt="GitHub" />
 				</div>
 				<div class="description">
 					<ol>
@@ -212,11 +212,11 @@
 				<div class="icons">
 					<img
 						class="icon experience-manager"
-						src="./icons/experience-manager.svg"
+						src="./src/routes/icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<Icon klass="icon docker" src="./icons/docker-2.svg" alt="Docker" />
-					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon docker" src="./src/routes/icons/docker-2.svg" alt="Docker" />
+					<Icon klass="icon bash" src="./src/routes/icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
@@ -246,8 +246,8 @@
 			<h3>Documentation</h3>
 			<div class="responsibility documentation">
 				<div class="icons">
-					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
-					<Icon klass="icon confluence" src="./icons/confluence.svg" alt="Confluence" />
+					<Icon klass="icon github" src="./src/routes/icons/github.svg" alt="GitHub" />
+					<Icon klass="icon confluence" src="./src/routes/icons/confluence.svg" alt="Confluence" />
 				</div>
 				<div class="description">
 					<ol>
@@ -267,13 +267,13 @@
 			<h3>Continuous Integration / Continuous Deployment</h3>
 			<div class="responsibility ci-cd">
 				<div class="icons">
-					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
-					<img
-						class="icon experience-manager"
-						src="./icons/experience-manager.svg"
+					<Icon klass="icon github" src="./src/routes/icons/github.svg" alt="GitHub" />
+					<Icon
+						klass="icon experience-manager"
+						src="./src/routes/icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon bash" src="./src/routes/icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
@@ -302,9 +302,9 @@
 			<h3>PayOnline</h3>
 			<div class="responsibility payonline">
 				<div class="icons">
-					<Icon klass="icon asp" src="./icons/asp.svg" alt="Classic ASP" />
-					<Icon klass="icon paypal" src="./icons/paypal.svg" alt="PayPal" />
-					<Icon klass="icon sql-server" src="./icons/sql.svg" alt="SQL Server" />
+					<Icon klass="icon asp" src="./src/routes/icons/asp.svg" alt="Classic ASP" />
+					<Icon klass="icon paypal" src="./src/routes/icons/paypal.svg" alt="PayPal" />
+					<Icon klass="icon sql-server" src="./src/routes/icons/sql.svg" alt="SQL Server" />
 				</div>
 				<div class="description">
 					<ol>
@@ -335,9 +335,9 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<Icon klass="icon java" src="./icons/java.svg" alt="Java" />
-					<Icon klass="icon nodejs" src="./icons/node-js.svg" alt="Node.js" />
+					<Icon klass="icon csharp" src="./src/routes/icons/csharp.svg" alt="C#" />
+					<Icon klass="icon java" src="./src/routes/icons/java.svg" alt="Java" />
+					<Icon klass="icon nodejs" src="./src/routes/icons/node-js.svg" alt="Node.js" />
 				</div>
 				<div class="description">
 					<ol>
@@ -359,7 +359,7 @@
 			<h3>Deployment</h3>
 			<div class="responsibility deployments">
 				<div class="icons">
-					<Icon klass="icon gitlab" src="./icons/gitlab.svg" alt="GitLab" />
+					<Icon klass="icon gitlab" src="./src/routes/icons/gitlab.svg" alt="GitLab" />
 				</div>
 				<div class="description">
 					<ol>
@@ -381,9 +381,9 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<Icon klass="icon java" src="./icons/java.svg" alt="Java" />
-					<Icon klass="icon nodejs" src="./icons/node-js.svg" alt="Node.js" />
+					<Icon klass="icon csharp" src="./src/routes/icons/csharp.svg" alt="C#" />
+					<Icon klass="icon java" src="./src/routes/icons/java.svg" alt="Java" />
+					<Icon klass="icon nodejs" src="./src/routes/icons/node-js.svg" alt="Node.js" />
 				</div>
 				<div class="description">
 					<ol>
@@ -409,11 +409,15 @@
 			<h3>Microservice Architecture</h3>
 			<div class="responsibility architecture">
 				<div class="icons">
-					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<Icon klass="icon docker" src="./icons/docker-2.svg" alt="Docker" />
-					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
-					<Icon klass="icon sendgrid" src="./icons/sendgrid.svg" alt="SendGrid" />
-					<Icon klass="icon digitalocean" src="./icons/digitalocean.svg" alt="Digital Ocean" />
+					<Icon klass="icon csharp" src="./src/routes/icons/csharp.svg" alt="C#" />
+					<Icon klass="icon docker" src="./src/routes/icons/docker-2.svg" alt="Docker" />
+					<Icon klass="icon bash" src="./src/routes/icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon sendgrid" src="./src/routes/icons/sendgrid.svg" alt="SendGrid" />
+					<Icon
+						klass="icon digitalocean"
+						src="./src/routes/icons/digitalocean.svg"
+						alt="Digital Ocean"
+					/>
 				</div>
 				<div class="description">
 					<ol>
@@ -453,8 +457,8 @@
 			<h3>Continuous Integration / Continuous Deployment</h3>
 			<div class="responsibility ci-cd">
 				<div class="icons">
-					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
-					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon github" src="./src/routes/icons/github.svg" alt="GitHub" />
+					<Icon klass="icon bash" src="./src/routes/icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
@@ -487,13 +491,13 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<Icon klass="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
-					<Icon klass="icon react" src="./icons/react.svg" alt="React" />
-					<Icon klass="icon sass" src="./icons/sass.svg" alt="Sass" />
-					<Icon klass="icon graphql" src="./icons/graphql.svg" alt="GraphQL" />
-					<Icon klass="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
-					<Icon klass="icon postgresql" src="./icons/postgresql.svg" alt="PostgreSQL" />
+					<Icon klass="icon csharp" src="./src/routes/icons/csharp.svg" alt="C#" />
+					<Icon klass="icon typescript" src="./src/routes/icons/typescript.svg" alt="TypeScript" />
+					<Icon klass="icon react" src="./src/routes/icons/react.svg" alt="React" />
+					<Icon klass="icon sass" src="./src/routes/icons/sass.svg" alt="Sass" />
+					<Icon klass="icon graphql" src="./src/routes/icons/graphql.svg" alt="GraphQL" />
+					<Icon klass="icon ruby" src="./src/routes/icons/ruby.svg" alt="Ruby" />
+					<Icon klass="icon postgresql" src="./src/routes/icons/postgresql.svg" alt="PostgreSQL" />
 				</div>
 				<div class="description">
 					<ol>
@@ -539,9 +543,9 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<Icon klass="icon javascript" src="./icons/javascript.svg" alt="JavaScript" />
-					<Icon klass="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
-					<Icon klass="icon postgresql" src="./icons/postgresql.svg" alt="PostgreSQL" />
+					<Icon klass="icon javascript" src="./src/routes/icons/javascript.svg" alt="JavaScript" />
+					<Icon klass="icon ruby" src="./src/routes/icons/ruby.svg" alt="Ruby" />
+					<Icon klass="icon postgresql" src="./src/routes/icons/postgresql.svg" alt="PostgreSQL" />
 				</div>
 				<div class="description">
 					<ol>
@@ -571,55 +575,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<!-- Contains both JavaScript and CSS -->
-	<script src="dist/main.js"></script>
 </section>
 
 <style lang="scss">
