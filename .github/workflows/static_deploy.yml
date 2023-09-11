@@ -2,27 +2,27 @@ name: Deploy Static Website
 
 on:
   push:
+    'releases/*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/releases/')
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: install-node-14.17.1
-        uses: actions/setup-node@v2
+      - name: Install Node.js 18
+        uses: actions/setup-node@v3
         with:
-          node-version: '14.17.1'
+          node-version: '18.17'
 
-      - name: compile
+      - name: Compile
         working-directory: ./static
         run: bash ../.github/scripts/static/compile.sh
         env:
           GOOGLE_TAG_ID: ${{ secrets.GOOGLE_TAG_ID }}
 
-      - name: deploy
+      - name: Deploy
         working-directory: ./static
         run: bash ../.github/scripts/static/deploy.sh
         env:
