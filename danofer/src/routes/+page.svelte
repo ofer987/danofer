@@ -1,10 +1,9 @@
 <script>
+	import Icon from './Icon.svelte';
 </script>
 
 <svelte:head>
 	<title>Dan Ofer</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
 <section>
@@ -62,14 +61,14 @@
 			<h3>Adobe Experience Manager</h3>
 			<div class="responsibility aem">
 				<div class="icons">
-					<img
-						class="icon experience-manager"
+					<Icon
+						klass="icon experience-manager"
 						src="./icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<img class="icon java" src="./icons/java.svg" alt="Java" />
-					<img class="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
-					<img class="icon sass" src="./icons/sass.svg" alt="Sass" />
+					<Icon klass="icon java" src="../icons/java.svg" alt="Java" />
+					<Icon klass="icon typescript" src="../icons/typescript.svg" alt="TypeScript" />
+					<Icon klass="icon sass" src="./icons/sass.svg" alt="Sass" />
 				</div>
 				<div class="description">
 					<ol>
@@ -94,9 +93,9 @@
 			<h3>Release Process</h3>
 			<div class="responsibility installation">
 				<div class="icons">
-					<img class="icon github" src="./icons/github.svg" alt="GitHub" />
-					<img class="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
-					<img class="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
+					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
@@ -123,10 +122,10 @@
 			<h3>Integration Testing Framework</h3>
 			<div class="responsibility documentation">
 				<div class="icons">
-					<img class="icon github" src="./icons/github.svg" alt="GitHub" />
-					<img class="icon selenium" src="./icons/selenium.png" alt="Selenium" />
-					<img class="icon cucumber" src="./icons/cucumber.png" alt="Cucumber" />
-					<img class="icon jenkins" src="./icons/jenkins.png" alt="Jenkins" />
+					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon selenium" src="./icons/selenium.png" alt="Selenium" />
+					<Icon klass="icon cucumber" src="./icons/cucumber.png" alt="Cucumber" />
+					<Icon klass="icon jenkins" src="./icons/jenkins.png" alt="Jenkins" />
 				</div>
 				<div class="description">
 					<ol>
@@ -169,12 +168,12 @@
 						src="./icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<img class="icon java" src="./icons/java.svg" alt="Java" />
-					<img class="icon jquery" src="./icons/jquery.svg" alt="jQuery" />
-					<img class="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
-					<img class="icon sass" src="./icons/sass.svg" alt="Sass" />
-					<img class="icon react" src="./icons/react.svg" alt="React" />
-					<img class="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon java" src="./icons/java.svg" alt="Java" />
+					<Icon klass="icon jquery" src="./icons/jquery.svg" alt="jQuery" />
+					<Icon klass="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
+					<Icon klass="icon sass" src="./icons/sass.svg" alt="Sass" />
+					<Icon klass="icon react" src="./icons/react.svg" alt="React" />
+					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
 				</div>
 				<div class="description">
 					<ol>
@@ -192,7 +191,8 @@
 								Oversaw the development of new webpages such as <a
 									href="https://tax.thomsonreuters.com/us/en/onvio">Onvio</a
 								>
-								and <a href="https://tax.thomsonreuters.com/en/onesource">ONESOURCE</a>
+								and
+								<a href="https://tax.thomsonreuters.com/en/onesource">ONESOURCE</a>
 							</span>
 						</li>
 						<li>
@@ -215,8 +215,8 @@
 						src="./icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<img class="icon docker" src="./icons/docker-2.svg" alt="Docker" />
-					<img class="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon docker" src="./icons/docker-2.svg" alt="Docker" />
+					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
@@ -233,7 +233,8 @@
 						</li>
 						<li>
 							<span>
-								Wrote <a href="https://github.com/features/actions">GitHub Action</a> pipelines and
+								Wrote <a href="https://github.com/features/actions">GitHub Action</a>
+								pipelines and
 								<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automatically update
 								the Docker image and deploy it to JFrog Artifactory
 							</span>
@@ -245,8 +246,8 @@
 			<h3>Documentation</h3>
 			<div class="responsibility documentation">
 				<div class="icons">
-					<img class="icon github" src="./icons/github.svg" alt="GitHub" />
-					<img class="icon confluence" src="./icons/confluence.svg" alt="Confluence" />
+					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon confluence" src="./icons/confluence.svg" alt="Confluence" />
 				</div>
 				<div class="description">
 					<ol>
@@ -266,19 +267,20 @@
 			<h3>Continuous Integration / Continuous Deployment</h3>
 			<div class="responsibility ci-cd">
 				<div class="icons">
-					<img class="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
 					<img
 						class="icon experience-manager"
 						src="./icons/experience-manager.svg"
 						alt="Adobe Experience Manager"
 					/>
-					<img class="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
 						<li>
 							<span>
-								Configured <a href="https://github.com/features/actions">GitHub Actions</a> with
+								Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+								with
 								<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
 								to our Quality Assurance and Pre-production environments
 							</span>
@@ -300,9 +302,9 @@
 			<h3>PayOnline</h3>
 			<div class="responsibility payonline">
 				<div class="icons">
-					<img class="icon asp" src="./icons/asp.svg" alt="Classic ASP" />
-					<img class="icon paypal" src="./icons/paypal.svg" alt="PayPal" />
-					<img class="icon sql-server" src="./icons/sql.svg" alt="SQL Server" />
+					<Icon klass="icon asp" src="./icons/asp.svg" alt="Classic ASP" />
+					<Icon klass="icon paypal" src="./icons/paypal.svg" alt="PayPal" />
+					<Icon klass="icon sql-server" src="./icons/sql.svg" alt="SQL Server" />
 				</div>
 				<div class="description">
 					<ol>
@@ -333,9 +335,9 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<img class="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<img class="icon java" src="./icons/java.svg" alt="Java" />
-					<img class="icon nodejs" src="./icons/node-js.svg" alt="Node.js" />
+					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
+					<Icon klass="icon java" src="./icons/java.svg" alt="Java" />
+					<Icon klass="icon nodejs" src="./icons/node-js.svg" alt="Node.js" />
 				</div>
 				<div class="description">
 					<ol>
@@ -357,7 +359,7 @@
 			<h3>Deployment</h3>
 			<div class="responsibility deployments">
 				<div class="icons">
-					<img class="icon gitlab" src="./icons/gitlab.svg" alt="GitLab" />
+					<Icon klass="icon gitlab" src="./icons/gitlab.svg" alt="GitLab" />
 				</div>
 				<div class="description">
 					<ol>
@@ -379,9 +381,9 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<img class="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<img class="icon java" src="./icons/java.svg" alt="Java" />
-					<img class="icon nodejs" src="./icons/node-js.svg" alt="Node.js" />
+					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
+					<Icon klass="icon java" src="./icons/java.svg" alt="Java" />
+					<Icon klass="icon nodejs" src="./icons/node-js.svg" alt="Node.js" />
 				</div>
 				<div class="description">
 					<ol>
@@ -407,17 +409,18 @@
 			<h3>Microservice Architecture</h3>
 			<div class="responsibility architecture">
 				<div class="icons">
-					<img class="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<img class="icon docker" src="./icons/docker-2.svg" alt="Docker" />
-					<img class="icon bash" src="./icons/code-2.svg" alt="Bash" />
-					<img class="icon sendgrid" src="./icons/sendgrid.svg" alt="SendGrid" />
-					<img class="icon digitalocean" src="./icons/digitalocean.svg" alt="Digital Ocean" />
+					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
+					<Icon klass="icon docker" src="./icons/docker-2.svg" alt="Docker" />
+					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon sendgrid" src="./icons/sendgrid.svg" alt="SendGrid" />
+					<Icon klass="icon digitalocean" src="./icons/digitalocean.svg" alt="Digital Ocean" />
 				</div>
 				<div class="description">
 					<ol>
 						<li>
 							<span>
-								Configured <a href="https://github.com/features/actions">GitHub Actions</a> with
+								Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+								with
 								<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
 								to a Production environment hosted on DigitalOcean
 							</span>
@@ -450,14 +453,15 @@
 			<h3>Continuous Integration / Continuous Deployment</h3>
 			<div class="responsibility ci-cd">
 				<div class="icons">
-					<img class="icon github" src="./icons/github.svg" alt="GitHub" />
-					<img class="icon bash" src="./icons/code-2.svg" alt="Bash" />
+					<Icon klass="icon github" src="./icons/github.svg" alt="GitHub" />
+					<Icon klass="icon bash" src="./icons/code-2.svg" alt="Bash" />
 				</div>
 				<div class="description">
 					<ol>
 						<li>
 							<span>
-								Configured <a href="https://github.com/features/actions">GitHub Actions</a> with
+								Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+								with
 								<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
 								to our Quality Assurance and Pre-production environments
 							</span>
@@ -483,13 +487,13 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<img class="icon csharp" src="./icons/csharp.svg" alt="C#" />
-					<img class="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
-					<img class="icon react" src="./icons/react.svg" alt="React" />
-					<img class="icon sass" src="./icons/sass.svg" alt="Sass" />
-					<img class="icon graphql" src="./icons/graphql.svg" alt="GraphQL" />
-					<img class="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
-					<img class="icon postgresql" src="./icons/postgresql.svg" alt="PostgreSQL" />
+					<Icon klass="icon csharp" src="./icons/csharp.svg" alt="C#" />
+					<Icon klass="icon typescript" src="./icons/typescript.svg" alt="TypeScript" />
+					<Icon klass="icon react" src="./icons/react.svg" alt="React" />
+					<Icon klass="icon sass" src="./icons/sass.svg" alt="Sass" />
+					<Icon klass="icon graphql" src="./icons/graphql.svg" alt="GraphQL" />
+					<Icon klass="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
+					<Icon klass="icon postgresql" src="./icons/postgresql.svg" alt="PostgreSQL" />
 				</div>
 				<div class="description">
 					<ol>
@@ -535,9 +539,9 @@
 			<h3>Development</h3>
 			<div class="responsibility development">
 				<div class="icons">
-					<img class="icon javascript" src="./icons/javascript.svg" alt="JavaScript" />
-					<img class="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
-					<img class="icon postgresql" src="./icons/postgresql.svg" alt="PostgreSQL" />
+					<Icon klass="icon javascript" src="./icons/javascript.svg" alt="JavaScript" />
+					<Icon klass="icon ruby" src="./icons/ruby.svg" alt="Ruby" />
+					<Icon klass="icon postgresql" src="./icons/postgresql.svg" alt="PostgreSQL" />
 				</div>
 				<div class="description">
 					<ol>
@@ -596,10 +600,29 @@
 	<!-- Contains both JavaScript and CSS -->
 	<!-- Contains both JavaScript and CSS -->
 	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
+	<!-- Contains both JavaScript and CSS -->
 	<script src="dist/main.js"></script>
 </section>
 
-<style lang="sass">
+<style lang="scss">
 	@mixin work($color: aqua) {
 		padding-left: 1em;
 		border-left: $color;
@@ -634,124 +657,118 @@
 		}
 	}
 
-	// Desktop
-	body {
-		margin: 0;
-		font-size: 16px;
+	#image {
+		width: 100%;
+		background-image: url('./main.jpg');
+		background-size: cover;
+		background-position: center;
+		height: 1500px;
 
-		#image {
+		#introduction {
 			width: 100%;
-			background-image: url('./main.jpg');
-			background-size: cover;
-			background-position: center;
-			height: 1500px;
+			text-align: center;
+		}
+	}
 
-			#introduction {
-				width: 100%;
-				text-align: center;
-			}
+	.work {
+		margin: 3em 1em 3em 1em;
+
+		&#thomson-reuters-digital-2 {
+			@include work(violet);
 		}
 
-		.work {
-			margin: 3em 1em 3em 1em;
+		&#thomson-reuters-digital {
+			@include work(blueviolet);
+		}
 
-			&#thomson-reuters-digital-2 {
-				@include work(violet);
-			}
+		&#thomson-reuters-finance-and-risk {
+			@include work(green);
+		}
 
-			&#thomson-reuters-digital {
-				@include work(blueviolet);
-			}
+		&#danofer-com {
+			@include work(turquoise);
+		}
 
-			&#thomson-reuters-finance-and-risk {
-				@include work(green);
-			}
+		&#danofer-com {
+			@include work(darkorange);
+		}
 
-			&#danofer-com {
-				@include work(turquoise);
-			}
+		&#financier {
+			@include work(#328636);
+		}
 
-			&#danofer-com {
-				@include work(darkorange);
-			}
+		&#trike-apps {
+			@include work(#24afca);
+		}
 
-			&#financier {
-				@include work(#328636);
-			}
+		.experience {
+			display: flex;
+			flex-flow: wrap;
+			flex-direction: column;
 
-			&#trike-apps {
-				@include work(#24afca);
-			}
-
-			.experience {
+			.responsibility {
 				display: flex;
 				flex-flow: wrap;
-				flex-direction: column;
+				flex-direction: row;
+				width: 100%;
 
-				.responsibility {
+				.icons {
+					width: 20%;
 					display: flex;
 					flex-flow: wrap;
 					flex-direction: row;
-					width: 100%;
 
-					.icons {
-						width: 20%;
-						display: flex;
-						flex-flow: wrap;
-						flex-direction: row;
+					img {
+						width: 3em;
+						height: 3em;
 
-						img {
-							width: 3em;
-							height: 3em;
-
-							cursor: pointer;
-						}
-
-						.icon {
-							padding: 10px;
-						}
+						cursor: pointer;
 					}
 
-					.description {
-						width: 80%;
-						text-align: justify;
+					.icon {
+						padding: 10px;
+					}
+				}
 
-						a {
+				.description {
+					width: 80%;
+					text-align: justify;
+
+					a {
+						color: blue;
+						cursor: pointer;
+						text-decoration: none;
+
+						&:visited,
+						&:hover,
+						&:focus,
+						&:active {
 							color: blue;
 							cursor: pointer;
 							text-decoration: none;
-
-							&:visited,
-							&:hover,
-							&:focus,
-							&:active {
-								color: blue;
-								cursor: pointer;
-								text-decoration: none;
-							}
 						}
 					}
 				}
 			}
+		}
 
-			input[type='button'] {
-				background-color: white;
-				border-color: white;
-				border-width: 0;
-				margin: 0;
-				padding: 0.75em;
+		input[type='button'] {
+			background-color: white;
+			border-color: white;
+			border-width: 0;
+			margin: 0;
+			padding: 0.75em;
+			color: black;
+
+			&:active {
 				color: black;
-
-				&:active {
-					color: black;
-				}
 			}
 		}
 	}
 
 	// Tablet
 	@media (max-width: 800px) {
-		body {
+		:root {
 			font-size: 20px;
 
 			.work {
@@ -777,7 +794,7 @@
 
 	// Mobile
 	@media (max-width: 375px) {
-		body {
+		:root {
 			font-size: 24px;
 
 			.work {
