@@ -153,6 +153,7 @@
 			display: none;
 		}
 	}
+
 	#alert {
 		display: none;
 
@@ -164,18 +165,20 @@
 	#page-blocker {
 		width: 100%;
 		height: 100%;
-		position: fixed;
 		top: 0;
 		bottom: 0;
 		left: 0;
 		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 1000;
 		display: none;
 		visibility: hidden;
 		opacity: 0;
+		position: absolute;
 
 		&.blocked {
 			display: block;
+			z-index: 1000;
+
+			opacity: 10%;
 		}
 	}
 

@@ -11,8 +11,6 @@
 </svelte:head>
 
 <section>
-	<div class="page-blocker blocker-disabled" />
-
 	<div id="image">
 		<div id="introduction">
 			<h1>Dan Ofer</h1>
@@ -592,8 +590,14 @@
 		height: 1500px;
 
 		#introduction {
+			margin: 0;
 			width: 100%;
 			text-align: center;
+			color: white;
+
+			h1 {
+				margin: 0;
+			}
 		}
 	}
 
