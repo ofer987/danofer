@@ -33,5 +33,9 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.34.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"email-validator": "^2.0.4",
+		"recaptcha-v3": "^1.10.0"
+	}
 }

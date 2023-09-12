@@ -1,5 +1,9 @@
 <script>
 	import Icon from './Icon.svelte';
+	import ContactMe from './ContactMe.svelte';
+
+	export const ssr = true;
+	export const csr = true;
 </script>
 
 <svelte:head>
@@ -19,19 +23,7 @@
 			</div>
 		</div>
 
-		<form id="contact-me-form" class="contact-me-closed">
-			<img class="close" src="./src/routes/icons/close.svg" alt="close" />
-			<label id="name" for="name">Your name</label>
-			<input id="name" type="text" required={true} tabindex={1} />
-
-			<label id="email-address" for="email-address">Your email address</label>
-			<input id="email-address" type="text" required={true} tabindex={2} />
-
-			<label id="message" for="message">What do you want to tell me?</label>
-			<textarea id="message" type="textarea" required={true} rows="5" tabindex={3} />
-
-			<button class="contact-me-button" id="contact-me-submit-button" tabindex={4}>Submit</button>
-		</form>
+		<ContactMe />
 	</div>
 
 	<div class="work" id="thomson-reuters-digital-2">
@@ -675,19 +667,6 @@
 				}
 			}
 		}
-
-		input[type='button'] {
-			background-color: white;
-			border-color: white;
-			border-width: 0;
-			margin: 0;
-			padding: 0.75em;
-			color: black;
-
-			&:active {
-				color: black;
-			}
-		}
 	}
 
 	// Tablet
@@ -700,11 +679,6 @@
 					.responsibility {
 						.icons {
 							width: 40%;
-
-							img {
-								width: 3em;
-								height: 3em;
-							}
 						}
 
 						.description {
@@ -726,11 +700,6 @@
 					.responsibility {
 						.icons {
 							width: 100%;
-
-							img {
-								width: 2em;
-								height: 2em;
-							}
 						}
 
 						.description {
