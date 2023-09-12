@@ -202,7 +202,7 @@
 			<h3>Installation</h3>
 			<div class="responsibility installation">
 				<div class="icons">
-					<img class="experience-manager" src="./src/routes/icons/experience-manager.svg" />
+					<Icon klass="experience-manager" />
 					<Icon klass="docker" />
 					<Icon klass="bash" />
 				</div>
@@ -652,17 +652,6 @@
 					display: flex;
 					flex-flow: wrap;
 					flex-direction: row;
-
-					img {
-						width: 3em;
-						height: 3em;
-
-						cursor: pointer;
-					}
-
-					.icon {
-						padding: 10px;
-					}
 				}
 
 				.description {
