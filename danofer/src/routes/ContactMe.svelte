@@ -12,12 +12,13 @@
 	const SEND_MESSAGE_DOMAIN = 'https://api.danofer.com';
 	const SITE_KEY = '6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs';
 
+	export let closeContactMeForm: () => void;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
 	let emailAddressNotValid = false;
 
-	let contactMeOpened = false;
+	export let isContactMeOpened = false;
 	let isPageEnabled = true;
 
 	interface MessageResponse {
@@ -31,17 +32,16 @@
 	}
 
 	function openForm(): void {
-		debugger;
-		if (!contactMeOpened) {
+		if (!isContactMeOpened) {
 			disablePage();
 			enableForm();
 		}
 	}
 
 	function closeForm(): void {
-		debugger;
-		enablePage();
-		disableForm();
+		closeContactMeForm();
+		// enablePage();
+		// disableForm();
 	}
 
 	function enablePage(): void {
@@ -53,11 +53,11 @@
 	}
 
 	function enableForm(): void {
-		contactMeOpened = true;
+		isContactMeOpened = true;
 	}
 
 	function disableForm(): void {
-		contactMeOpened = false;
+		isContactMeOpened = false;
 	}
 
 	function submitForm(): void {
@@ -115,11 +115,11 @@
 		<button on:click={closeAlertMessage}>Close</button>
 	</div>
 
-	<button id="open-contact-me-form" on:click={openForm} class:contact-me-closed={contactMeOpened}
+	<button id="open-contact-me-form" on:click={openForm} class:contact-me-closed={!isContactMeOpened}
 		>Contact Me</button
 	>
 
-	<form id="contact-me-form" class:contact-me-opened={contactMeOpened}>
+	<form id="contact-me-form" class:contact-me-opened={isContactMeOpened}>
 		<button on:click={closeForm}>
 			<img class="close" src="./src/routes/icons/close.svg" alt="close" />
 		</button>
