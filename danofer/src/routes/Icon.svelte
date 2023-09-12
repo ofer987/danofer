@@ -12,7 +12,7 @@
 		'experience-manager': {
 			location:
 				'https://business.adobe.com/products/experience-manager/adobe-experience-manager.html',
-			altText: 'AEM',
+			altText: 'Adobe Experience Manager 6.5',
 			src: 'experience-manager.svg',
 			description: 'Adobe Experience Manager 6.5'
 		},
@@ -139,13 +139,13 @@
 		},
 		javascript: {
 			location: 'https://developer.mozilla.org/en-US/docs/Web/javascript',
-			src: 'JavaScript',
+			src: 'javascript.png',
 			altText: 'JavaScript'
 		}
 	};
 
-	function navigateToUrl() {
-		document.location.href = values[klass].location;
+	function url() {
+		return values[klass].location;
 	}
 
 	function sourceImage() {
@@ -159,9 +159,35 @@
 	}
 </script>
 
-<div on:click={navigateToUrl} on:keydown={navigateToUrl} role="presentation">
-	<img class="icon {klass}" src={sourceImage()} alt={alternativeText()} />
-</div>
+<a href={url()} target="_blank">
+	<div role="presentation">
+		<img class="icon {klass}" src={sourceImage()} alt={alternativeText()} target="_blank" />
+	</div>
+</a>
 
-<style>
+<style lang="scss">
+	img {
+		width: 3em;
+		height: 3em;
+
+		cursor: pointer;
+
+		&.icon {
+			padding: 10px;
+		}
+	}
+
+	@media (max-width: 800px) {
+		img {
+			width: 2em;
+			height: 2em;
+
+			&.icon {
+				padding: 10px;
+			}
+		}
+	}
+
+	@media (max-width: 375px) {
+	}
 </style>

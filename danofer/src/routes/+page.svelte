@@ -119,6 +119,7 @@
 			<div class="responsibility documentation">
 				<div class="icons">
 					<Icon klass="github" />
+					<Icon klass="selenium" />
 					<Icon klass="cucumber" />
 					<Icon klass="jenkins" />
 				</div>
