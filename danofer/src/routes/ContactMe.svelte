@@ -12,7 +12,7 @@
 	const SEND_MESSAGE_DOMAIN = 'https://api.danofer.com';
 	const SITE_KEY = '6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs';
 
-	export let closeContactMeForm: () => void;
+	export let closesAction: () => void;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
@@ -39,13 +39,10 @@
 	}
 
 	function closeForm(): void {
-		closeContactMeForm();
+		closesAction();
+		isContactMeOpened = false;
 		// enablePage();
 		// disableForm();
-	}
-
-	function enablePage(): void {
-		isPageEnabled = true;
 	}
 
 	function disablePage(): void {
@@ -66,8 +63,6 @@
 
 	function closeAlertMessage(): void {
 		emailAddressNotValid = false;
-		enablePage();
-		enableForm();
 	}
 
 	function isEmailAddressValid(value: string): boolean {

@@ -13,9 +13,8 @@
 		isContactMeOpened = true;
 	}
 
-	function disableContactMeForm(): void {
+	function enablePage(): void {
 		isPageEnabled = true;
-		isContactMeOpened = false;
 	}
 
 	function openContactMeForm(): void {
@@ -45,7 +44,7 @@
 		</div>
 	</div>
 
-	<ContactMe closeContactMeForm={disableContactMeForm} {isContactMeOpened} />
+	<ContactMe closesAction={enablePage} {isContactMeOpened} />
 
 	<section id="jobs" class:is-page-disabled={!isPageEnabled}>
 		<div class="work" id="thomson-reuters-digital-2">
