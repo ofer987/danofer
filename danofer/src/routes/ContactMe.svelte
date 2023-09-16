@@ -5,12 +5,12 @@
 	// import { load } from 'recaptcha-v3';
 	import { validate } from 'email-validator';
 
-	const FORM_OPENED = 'contact-me-opened';
-	const FORM_CLOSED = 'contact-me-closed';
-	const SEND_EMAIL = 'SEND_EMAIL';
-
-	const SEND_MESSAGE_DOMAIN = 'https://api.danofer.com';
-	const SITE_KEY = '6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs';
+	// const FORM_OPENED = 'contact-me-opened';
+	// const FORM_CLOSED = 'contact-me-closed';
+	// const SEND_EMAIL = 'SEND_EMAIL';
+	//
+	// const SEND_MESSAGE_DOMAIN = 'https://api.danofer.com';
+	// const SITE_KEY = '6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs';
 
 	export let closesAction: () => void;
 	let alertMessage = '';
@@ -18,7 +18,6 @@
 	let senderEmailAddress = '';
 	let emailAddressNotValid = false;
 
-	export let isContactMeOpened = false;
 	let isPageEnabled = true;
 
 	interface MessageResponse {
@@ -31,30 +30,8 @@
 		message: MessageResponse;
 	}
 
-	function openForm(): void {
-		if (!isContactMeOpened) {
-			disablePage();
-			enableForm();
-		}
-	}
-
 	function closeForm(): void {
 		closesAction();
-		isContactMeOpened = false;
-		// enablePage();
-		// disableForm();
-	}
-
-	function disablePage(): void {
-		isPageEnabled = false;
-	}
-
-	function enableForm(): void {
-		isContactMeOpened = true;
-	}
-
-	function disableForm(): void {
-		isContactMeOpened = false;
 	}
 
 	function submitForm(): void {
@@ -75,8 +52,7 @@
 
 			alertMessage = `The email address ${senderEmailAddress} is not valid`;
 		}
-		// const recaptcha = await load(SITE_KEY, { autoHideBadge: true });
-		// const token = await recaptcha.execute(SEND_EMAIL);
+
 		const token = '';
 
 		const apiOrigin = 'http://localhost:5000';
@@ -110,11 +86,7 @@
 		<button on:click={closeAlertMessage}>Close</button>
 	</div>
 
-	<button id="open-contact-me-form" on:click={openForm} class:contact-me-closed={!isContactMeOpened}
-		>Contact Me</button
-	>
-
-	<form id="contact-me-form" class:contact-me-opened={isContactMeOpened}>
+	<form id="contact-me-form">
 		<button on:click={closeForm}>
 			<img class="close" src="./src/routes/icons/close.svg" alt="close" />
 		</button>
@@ -143,10 +115,6 @@
 <style lang="scss">
 	button#open-contact-me-form {
 		display: block;
-
-		&.contact-me-closed {
-			display: none;
-		}
 	}
 
 	#alert {
@@ -205,7 +173,6 @@
 		text-align: left;
 		color: white;
 		background-color: rgba(0, 0, 0, 0.5);
-		display: none;
 
 		.close {
 			position: static;
@@ -230,10 +197,6 @@
 
 		textarea {
 			resize: vertical;
-		}
-
-		&.contact-me-opened {
-			display: block;
 		}
 	}
 

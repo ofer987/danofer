@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Icon from './Icon.svelte';
 	import ContactMe from './ContactMe.svelte';
 
-	export const ssr = true;
 	export const csr = true;
 
 	let isPageEnabled = true;
@@ -13,13 +13,22 @@
 		isContactMeOpened = true;
 	}
 
-	function enablePage(): void {
+	function disableContactMeForm(): void {
 		isPageEnabled = true;
+		isContactMeOpened = false;
 	}
 
 	function openContactMeForm(): void {
 		enableContactMeForm();
 	}
+
+	onMount(() => {
+		window.addEventListener('keydown', (event) => {
+			if (event.key == 'Escape' || event.key == 'Control') {
+				disableContactMeForm();
+			}
+		});
+	});
 </script>
 
 <svelte:head>
@@ -44,7 +53,9 @@
 		</div>
 	</div>
 
-	<ContactMe closesAction={enablePage} {isContactMeOpened} />
+	<div id="contact-me" class:contact-me-opened={isContactMeOpened}>
+		<ContactMe closesAction={disableContactMeForm} />
+	</div>
 
 	<section id="jobs" class:is-page-disabled={!isPageEnabled}>
 		<div class="work" id="thomson-reuters-digital-2">
@@ -751,6 +762,14 @@
 					}
 				}
 			}
+		}
+	}
+
+	#contact-me {
+		display: none;
+
+		&.contact-me-opened {
+			display: block;
 		}
 	}
 </style>
