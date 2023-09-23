@@ -2,8 +2,17 @@
 	import { onMount } from 'svelte';
 	import Icon from './Icon.svelte';
 	import ContactMe from './ContactMe.svelte';
+	import type { Secrets } from './+page.server';
 
-	export const csr = true;
+	export let data: Secrets;
+	export const ssr = true;
+	export const csr = false;
+
+	const recaptchaSiteKey = data.recaptchaSecretKey;
+	if (!recaptchaSiteKey) {
+		// console.error('Oh no RECAPTCHA is empty');
+		throw 'The RECAPTCHA_SECRET_KEY environment variable is missing!';
+	}
 
 	let isPageEnabled = true;
 	let isContactMeOpened = false;
@@ -54,7 +63,7 @@
 	</div>
 
 	<div id="contact-me" class:contact-me-opened={isContactMeOpened}>
-		<ContactMe closesAction={disableContactMeForm} />
+		<ContactMe closesAction={disableContactMeForm} {recaptchaSiteKey} />
 	</div>
 
 	<section id="jobs" class:is-page-disabled={!isPageEnabled}>

@@ -4,15 +4,12 @@
 
 	// import { load } from 'recaptcha-v3';
 	import { validate } from 'email-validator';
+	import { load } from 'recaptcha-v3';
 
-	// const FORM_OPENED = 'contact-me-opened';
-	// const FORM_CLOSED = 'contact-me-closed';
-	// const SEND_EMAIL = 'SEND_EMAIL';
-	//
-	// const SEND_MESSAGE_DOMAIN = 'https://api.danofer.com';
-	// const SITE_KEY = '6LfPAQEcAAAAAF8y_H96eJndrVs1Gm1aGtgO8oJs';
+	export const csr = true;
 
 	export let closesAction: () => void;
+	export let recaptchaSiteKey: string;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
@@ -53,7 +50,8 @@
 			alertMessage = `The email address ${senderEmailAddress} is not valid`;
 		}
 
-		const token = '';
+		const recaptcha = await load(recaptchaSiteKey, { autoHideBadge: true });
+		const token = await recaptcha.execute('SEND_EMAIL');
 
 		const apiOrigin = 'http://localhost:5000';
 		const url = `${apiOrigin}/messages/create`;
