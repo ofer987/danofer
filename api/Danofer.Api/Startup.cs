@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 using System.IO;
 using System.Text.Json;
@@ -27,10 +26,6 @@ namespace Danofer.Api
         {
             services.AddHttpClient();
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Danofer.Api", Version = "v1" });
-            });
 
             services.AddCors(options =>
             {
@@ -57,8 +52,6 @@ namespace Danofer.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Danofer.Api v1"));
 
                 app.UseCors(DevelopmentPolicy);
                 System.Console.WriteLine("Development mode");
