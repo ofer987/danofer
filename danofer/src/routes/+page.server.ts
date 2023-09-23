@@ -9,3 +9,5 @@ export function load(): Secrets {
 		recaptchaSecretKey: RECAPTCHA_SECRET_KEY
 	};
 }
+
+export const prerender = true;

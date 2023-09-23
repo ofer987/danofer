@@ -1,10 +1,63 @@
 <script lang="ts">
+	import aemIcon from '$lib/images/icons/experience-manager.svg';
+	import javaIcon from '$lib/images/icons/java.svg';
+	import jqueryIcon from '$lib/images/icons/jquery.svg';
+	import typeScriptIcon from '$lib/images/icons/typescript.svg';
+	import sassIcon from '$lib/images/icons/sass.svg';
+	import javaScriptIcon from '$lib/images/icons/javascript.png';
+	import reactIcon from '$lib/images/icons/react.svg';
+	import graphQLIcon from '$lib/images/icons/graphql.svg';
+	import rubyIcon from '$lib/images/icons/ruby.svg';
+	import postgreSQLIcon from '$lib/images/icons/postgresql.svg';
+	import gitHubIcon from '$lib/images/icons/github.svg';
+	import dockerIcon from '$lib/images/icons/docker-2.svg';
+	import bashIcon from '$lib/images/icons/code-2.svg';
+	import confluenceIcon from '$lib/images/icons/confluence.svg';
+	import aspIcon from '$lib/images/icons/asp.svg';
+	import sqlServerIcon from '$lib/images/icons/sql.svg';
+	import csharpIcon from '$lib/images/icons/csharp.svg';
+	import nodeJSIcon from '$lib/images/icons/node-js.svg';
+	import gitLabIcon from '$lib/images/icons/gitlab.svg';
+	import sendGridIcon from '$lib/images/icons/sendgrid.svg';
+	import cucumberIcon from '$lib/images/icons/cucumber.png';
+	import seleniumIcon from '$lib/images/icons/selenium.png';
+	import jenkinsIcon from '$lib/images/icons/jenkins.png';
+	import payPalIcon from '$lib/images/icons/paypal.svg';
+	import digitalOceanIcon from '$lib/images/icons/digitalocean.svg';
+
 	export let klass: string;
+
+	type icons =
+		| 'experience-manager.svg'
+		| 'java.svg'
+		| 'jquery.svg'
+		| 'typescript.svg'
+		| 'sass.svg'
+		| 'javascript.png'
+		| 'react.svg'
+		| 'graphql.svg'
+		| 'ruby.svg'
+		| 'postgresql.svg'
+		| 'github.svg'
+		| 'docker-2.svg'
+		| 'code-2.svg'
+		| 'confluence.svg'
+		| 'asp.svg'
+		| 'sql.svg'
+		| 'csharp.svg'
+		| 'node-js.svg'
+		| 'gitlab.svg'
+		| 'sendgrid.svg'
+		| 'cucumber.png'
+		| 'selenium.png'
+		| 'jenkins.png'
+		| 'paypal.svg'
+		| 'digitalocean.svg';
 
 	interface Value {
 		location: string;
 		altText: string;
-		src: string;
+		src: icons;
 		description?: string;
 	}
 
@@ -151,7 +204,61 @@
 	function sourceImage() {
 		const src = values[klass].src;
 
-		return `./src/routes/icons/${src}`;
+		// return `./src/routes/icons/${src}`;
+		switch (src) {
+			case 'experience-manager.svg':
+				return aemIcon;
+			case 'java.svg':
+				return javaIcon;
+			case 'jquery.svg':
+				return jqueryIcon;
+			case 'typescript.svg':
+				return typeScriptIcon;
+			case 'sass.svg':
+				return sassIcon;
+			case 'javascript.png':
+				return javaScriptIcon;
+			case 'react.svg':
+				return reactIcon;
+			case 'graphql.svg':
+				return graphQLIcon;
+			case 'ruby.svg':
+				return rubyIcon;
+			case 'postgresql.svg':
+				return postgreSQLIcon;
+			case 'github.svg':
+				return gitHubIcon;
+			case 'docker-2.svg':
+				return dockerIcon;
+			case 'code-2.svg':
+				return bashIcon;
+			case 'confluence.svg':
+				return confluenceIcon;
+			case 'asp.svg':
+				return aspIcon;
+			case 'sql.svg':
+				return sqlServerIcon;
+			case 'csharp.svg':
+				return csharpIcon;
+			case 'node-js.svg':
+				return nodeJSIcon;
+			case 'gitlab.svg':
+				return gitLabIcon;
+			case 'sendgrid.svg':
+				return sendGridIcon;
+			case 'cucumber.png':
+				return cucumberIcon;
+			case 'selenium.png':
+				return seleniumIcon;
+			case 'jenkins.png':
+				return jenkinsIcon;
+			case 'paypal.svg':
+				return payPalIcon;
+			case 'digitalocean.svg':
+				return digitalOceanIcon;
+			default:
+				throw 'icon could not be found!';
+		}
 	}
 
 	function alternativeText() {

@@ -5,8 +5,6 @@
 	import type { Secrets } from './+page.server';
 
 	export let data: Secrets;
-	export const ssr = true;
-	export const csr = false;
 
 	const recaptchaSiteKey = data.recaptchaSecretKey;
 	if (!recaptchaSiteKey) {

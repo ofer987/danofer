@@ -1,12 +1,8 @@
 <script lang="ts">
-	// export const ssr = false;
-	// export const csr = true;
-
-	// import { load } from 'recaptcha-v3';
 	import { validate } from 'email-validator';
 	import { load } from 'recaptcha-v3';
 
-	export const csr = true;
+	import closeIcon from '$lib/images/icons/close.svg';
 
 	export let closesAction: () => void;
 	export let recaptchaSiteKey: string;
@@ -86,7 +82,7 @@
 
 	<form id="contact-me-form">
 		<button on:click={closeForm} class="close-button">
-			<img class="close" src="./src/routes/icons/close.svg" alt="close" />
+			<img class="close" src={closeIcon} alt="close" />
 		</button>
 		<label id="name" for="name">Your name</label>
 		<input id="name" type="text" required={true} value={senderName} />
