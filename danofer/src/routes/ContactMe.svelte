@@ -87,7 +87,7 @@
 	</div>
 
 	<form id="contact-me-form">
-		<button on:click={closeForm}>
+		<button on:click={closeForm} class="close-button">
 			<img class="close" src="./src/routes/icons/close.svg" alt="close" />
 		</button>
 		<label id="name" for="name">Your name</label>
@@ -113,10 +113,6 @@
 </div>
 
 <style lang="scss">
-	button#open-contact-me-form {
-		display: block;
-	}
-
 	#alert {
 		display: none;
 
@@ -150,7 +146,7 @@
 		border-color: white;
 		border-width: 0;
 		margin: 0;
-		padding: 0.75em;
+		padding: 0.5em 0.75em;
 		color: black;
 
 		&:active {
@@ -174,10 +170,18 @@
 		color: white;
 		background-color: rgba(0, 0, 0, 0.5);
 
-		.close {
-			position: static;
-			float: right;
-			width: 1.25em;
+		.close-button {
+			background-color: transparent;
+			border: 0;
+			padding-left: 0;
+			display: block;
+			margin-bottom: 1em;
+
+			.close {
+				position: static;
+				float: right;
+				width: 1.25em;
+			}
 		}
 
 		label {
@@ -196,7 +200,11 @@
 		}
 
 		textarea {
+			padding: 0.5em;
+			font-size: 1em;
 			resize: vertical;
+			width: 25em;
+			border: 0;
 		}
 	}
 
