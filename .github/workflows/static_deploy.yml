@@ -30,7 +30,7 @@ jobs:
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i 'server.ssh' \
+            -i "./${SERVER_RSA}" \
             "root@${IP_ADDRESS}" mkdir -p -- /var/www/ofer_to
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
