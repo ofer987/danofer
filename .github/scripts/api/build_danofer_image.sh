@@ -9,7 +9,7 @@ scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i "../${SERVER_RSA}" \
-    "${CONFIGURATION_PATH}" "${server_user}@${IP_ADDRESS}:./";
+    "../${CONFIGURATION_PATH}" "${server_user}@${IP_ADDRESS}:./";
 
 # Copy Dockerfile
 scp \
