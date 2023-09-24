@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -ex;
+set -ex
 
-yarn;
-
-yarn build;
+yarn && yarn build

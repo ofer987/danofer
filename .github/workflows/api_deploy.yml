@@ -40,7 +40,7 @@ jobs:
         run: bash ../.github/scripts/api/build_danofer_image.sh
         working-directory: ./api
         env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
@@ -50,5 +50,5 @@ jobs:
         run: bash ../.github/scripts/api/run_danofer_image.sh
         working-directory: ./api
         env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"

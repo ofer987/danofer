@@ -26,5 +26,6 @@ jobs:
         working-directory: ./static
         run: bash ../.github/scripts/static/deploy.sh
         env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
           SERVER_RSA: "./server_rsa"
+          IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
