@@ -2,24 +2,24 @@ name: Deploy API Website
 
 on:
   push:
+    'releases/*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/releases/')
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: docker-practice/actions-setup-docker@master
 
-      - name: build-docker-image
+      - name: Build Docker Image
         working-directory: ./api
         run: bash ../.github/scripts/api/build_docker_image.sh
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
 
-      - name: push-docker-image
+      - name: Push Docker Image
         working-directory: ./api
         run: bash ../.github/scripts/api/push_docker_image.sh
         env:
@@ -33,10 +33,10 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/releases/')
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
 
-      - name: build-local-danofer-image
+      - name: Build Local ofer.to Image
         run: bash ../.github/scripts/api/build_danofer_image.sh
         working-directory: ./api
         env:
@@ -44,10 +44,10 @@ jobs:
           SERVER_RSA: "./server_rsa"
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-          SEND_GRID_API_KEY: ${{ secrets.SEND_GRID_API_KEY }}
-          RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+          SEND_GRID_API_KEY: ${{ secrets.PROD_SEND_GRID_API_KEY }}
+          RECAPTCHA_SECRET_KEY: ${{ secrets.PROD_RECAPTCHA_SECRET_KEY }}
 
-      - name: run-local-danofer-image
+      - name: Run Local ofer.to Image
         run: bash ../.github/scripts/api/run_danofer_image.sh
         working-directory: ./api
         env:
