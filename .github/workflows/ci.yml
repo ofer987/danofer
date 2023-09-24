@@ -7,7 +7,7 @@ on:
       - 'releases/*'
 
 jobs:
-  preparation:
+  create-tag:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/heads/releases/')
 
