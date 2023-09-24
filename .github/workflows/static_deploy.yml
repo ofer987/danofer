@@ -9,7 +9,7 @@ on:
       - 'releases/*'
 
 env:
-  SERVER_RSA: ${{ rsa_ssh }}
+  SERVER_RSA: 'rsa_ssh'
 
 jobs:
   build:

@@ -9,7 +9,7 @@ on:
       - 'releases/*'
 
 env:
-  SERVER_RSA: ${{ rsa_ssh }}
+  SERVER_RSA: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
