@@ -34,11 +34,12 @@ jobs:
           node-version: '18.17'
 
       - name: Compile
+        working-directory: ./danofer
         run: |
           yarn && yarn build
 
       - name: Deploy
-        working-directory: ./static
+        working-directory: ./danofer
         run: |
           mkdir -p -- /var/www/ofer_to
 
