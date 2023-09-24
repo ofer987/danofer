@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { validate } from 'email-validator';
-	import { load } from 'recaptcha-v3';
 
 	import closeIcon from '$lib/images/icons/close.svg';
 
 	export let closesAction: () => void;
-	export let recaptchaSiteKey: string;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
@@ -46,15 +44,11 @@
 			alertMessage = `The email address ${senderEmailAddress} is not valid`;
 		}
 
-		const recaptcha = await load(recaptchaSiteKey, { autoHideBadge: true });
-		const token = await recaptcha.execute('SEND_EMAIL');
-
 		const apiOrigin = 'http://localhost:5000';
 		const url = `${apiOrigin}/messages/create`;
 
 		const message = '';
 		const body = {
-			reCaptchaToken: token,
 			senderName: senderName,
 			senderEmailAddress: senderEmailAddress,
 			message: message

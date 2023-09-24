@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'semver'
+
+MAJOR = ENV['MAJOR']
+PATCH = ENV['MINOR']
+
+branches = `git tag --list`.split("\n")
+  .select { |item| item =~ %r{releases/#{MAJOR}\.\d+\.#{PATCH}} }
+  .map { |item| item.gsub('releases/', '') }
+  .uniq
+  .map { |item| item.split('.').map(&:to_i) }
+  .map { |values| SemVer.new(values[0], values[1], values[2]) }
+  .sort
+  .map { |item| "#{item.major}.#{item.minor}.#{item.patch}" }
+
+latest_bundle_emcm_web_version = branches[-1]
+puts latest_bundle_emcm_web_version.split('.')[1]

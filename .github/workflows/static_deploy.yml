@@ -2,7 +2,16 @@ name: Deploy Static Website
 
 on:
   push:
-    'releases/*'
+    # branches:
+    #   - 'releases/*'
+
+    tags:
+      - 'releases/*'
+
+env:
+  SERVER_RSA: 'rsa_ssh'
+  HTML_STATIC_PATH: '/var/www/danofer'
+  IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
 jobs:
   build:
@@ -11,20 +20,52 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Create RSA file
+        run: |
+          echo "${STATIC_SERVER_PRIVATE_KEY}" > ${SERVER_RSA};
+
+          # Remove its permissions
+          chmod g-rwx ${SERVER_RSA};
+          chmod o-rwx ${SERVER_RSA};
+        env:
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
       - name: Install Node.js 18
         uses: actions/setup-node@v3
         with:
           node-version: '18.17'
 
       - name: Compile
-        working-directory: ./static
-        run: bash ../.github/scripts/static/compile.sh
-        env:
-          GOOGLE_TAG_ID: ${{ secrets.GOOGLE_TAG_ID }}
+        working-directory: ./danofer
+        run: |
+          yarn && yarn build
+
+      - name: Create Static Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA} \
+            "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA} \
+            "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
+
+          set -e
 
       - name: Deploy
-        working-directory: ./static
-        run: bash ../.github/scripts/static/deploy.sh
-        env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
-          SERVER_RSA: "./server_rsa"
+        working-directory: ./danofer/build
+        run: |
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i "../../${SERVER_RSA}" \
+              -r \
+              index.html _app  \
+              "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"

@@ -2,7 +2,19 @@ name: Deploy API Website
 
 on:
   push:
-    'releases/*'
+    # branches:
+    #   - 'releases/*'
+
+    tags:
+      - 'releases/*'
+
+env:
+  SERVER_RSA: 'rsa_ssh'
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  IMAGE_NAME: 'danofer'
+  CONFIGURATION_PATH: 'configuration.json'
+  IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
 jobs:
   build:
@@ -12,44 +24,88 @@ jobs:
       - uses: actions/checkout@v3
       - uses: docker-practice/actions-setup-docker@master
 
+      - name: Create Version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+
       - name: Build Docker Image
         working-directory: ./api
-        run: bash ../.github/scripts/api/build_docker_image.sh
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        run: |
+          docker build \
+              --file Danofer.build.Dockerfile \
+              --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}" \
+              .
 
       - name: Push Docker Image
         working-directory: ./api
-        run: bash ../.github/scripts/api/push_docker_image.sh
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        run: |
+          docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}";
+
+          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}";
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/releases/')
-
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+
+      - name: Create RSA file
+        run: |
+          echo "${STATIC_SERVER_PRIVATE_KEY}" > ${SERVER_RSA};
+
+          # Remove its permissions
+          chmod g-rwx ${SERVER_RSA};
+          chmod o-rwx ${SERVER_RSA};
+        env:
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
+      - name: Create the configuration (e.g., SendGrid key et cetera)
+        run: |
+          .github/scripts/api/build_configuration > ${CONFIGURATION_PATH}
+
+      - name: Create Version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+
+      - name: Copy Files
+        run: |
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA} \
+              ${CONFIGURATION_PATH} \
+              "root@${IP_ADDRESS}:./";
+
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA} \
+              ./api/Danofer.run.Dockerfile \
+              "root@${IP_ADDRESS}:./";
+
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA} \
+              ./api/docker-compose.yml \
+              "root@${IP_ADDRESS}:./";
 
       - name: Build Local ofer.to Image
-        run: bash ../.github/scripts/api/build_danofer_image.sh
         working-directory: ./api
-        env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
-          SERVER_RSA: "./server_rsa"
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-          SEND_GRID_API_KEY: ${{ secrets.PROD_SEND_GRID_API_KEY }}
-          RECAPTCHA_SECRET_KEY: ${{ secrets.PROD_RECAPTCHA_SECRET_KEY }}
+        run: ../.github/scripts/api/build_danofer_image.sh
 
       - name: Run Local ofer.to Image
-        run: bash ../.github/scripts/api/run_danofer_image.sh
-        working-directory: ./api
-        env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PRIVATE_KEY }}
-          SERVER_RSA: "./server_rsa"
+        run: ./.github/scripts/api/run_danofer_image.sh

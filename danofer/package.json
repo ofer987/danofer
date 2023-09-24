@@ -39,7 +39,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"email-validator": "^2.0.4",
-		"recaptcha-v3": "^1.10.0"
+		"email-validator": "^2.0.4"
 	}
 }
