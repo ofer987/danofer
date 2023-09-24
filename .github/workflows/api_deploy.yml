@@ -58,7 +58,7 @@ jobs:
 
       - name: Create RSA file
         run: |
-          echo ${STATIC_SERVER_PRIVATE_KEY} > ${SERVER_RSA};
+          echo "${STATIC_SERVER_PRIVATE_KEY}" > ${SERVER_RSA};
 
           # Remove its permissions
           chmod g-rwx ${SERVER_RSA};
