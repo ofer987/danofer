@@ -25,5 +25,12 @@ jobs:
 
       - name: Create Tag
         run: .github/scripts/create_tag.sh
+        run: |
+          TAG_NAME="releases/${VERSION}";
+
+          git tag "${TAG_NAME}";
+          git push --tags "https://${GITHUB_TOKEN}@github.com/ofer987/danofer.git";
+
+          echo "::notify::${TAG_NAME} has been successfully created"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
