@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.OFER_TO_GITHUB_SECRET }}
           fetch-depth: 0
 
       - name: Setup Ruby
@@ -35,14 +36,12 @@ jobs:
         run: |
           TAG_NAME="releases/${VERSION}";
 
-          git tag "${TAG_NAME}";
-          git push --tags "https://${GITHUB_TOKEN}@github.com/ofer987/danofer.git";
+          git tag ${TAG_NAME};
+          git push --tags origin
           # TODO: remove later when you figured out how to work with tags
-          git push "https://${GITHUB_TOKEN}@github.com/ofer987/danofer.git" "HEAD:refs/heads/${TAG_NAME}"
+          # git push origin "HEAD:refs/heads/${TAG_NAME}"
 
           echo "::notice::${TAG_NAME} has been successfully created"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Failed to Create a New Tag
         if: ${{ failure() }}

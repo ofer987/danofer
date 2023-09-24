@@ -2,11 +2,11 @@ name: Deploy Static Website
 
 on:
   push:
-    branches:
-      - 'releases/*'
+    # branches:
+    #   - 'releases/*'
 
     tags:
-      - 'releases/*'
+      - 'refs/tags/releases/*'
 
 env:
   SERVER_RSA: 'rsa_ssh'
