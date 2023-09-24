@@ -2,7 +2,8 @@ name: Deploy API Website
 
 on:
   push:
-    - 'releases/*'
+    tags:
+      - 'releases/*'
 
 env:
   SERVER_RSA: ${{ rsa_ssh }}

@@ -2,7 +2,9 @@ name: Deploy Website
 
 on:
   push:
-    - 'releases/*'
+    branches:
+      # TODO: automatically create a release off the master branch
+      - 'releases/*'
 
 jobs:
   preparation:
