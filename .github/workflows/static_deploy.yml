@@ -41,7 +41,7 @@ jobs:
       - name: Deploy
         working-directory: ./danofer
         run: |
-          mkdir -p -- /var/www/ofer_to
+          ssh "root@${IP_ADDRESS}" mkdir -p -- /var/www/ofer_to
 
           # Deploy the static files to the remote server
           scp \
