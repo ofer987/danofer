@@ -16,7 +16,7 @@ ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "${server_user}@${server_ip}" \
+    "${server_user}@${OFER_TO_IP_ADDRESS}" \
     "docker stop ${container_name}";
 
 # Then remove it
@@ -24,7 +24,7 @@ ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "${server_user}@${server_ip}" \
+    "${server_user}@${OFER_TO_IP_ADDRESS}" \
     "docker system prune --force";
 
 # Then start up a new container
@@ -32,5 +32,5 @@ ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "${server_user}@${server_ip}" \
+    "${server_user}@${OFER_TO_IP_ADDRESS}" \
     "docker run --publish 5000:80 --detach --name ${container_name} ${image_name}";
