@@ -6,7 +6,7 @@ on:
     #   - 'releases/*'
 
     tags:
-      - 'refs/tags/releases/*'
+      - 'releases/*'
 
 env:
   SERVER_RSA: 'rsa_ssh'
