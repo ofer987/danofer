@@ -9,8 +9,6 @@ on:
 jobs:
   create-tag:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/releases/')
-
     steps:
       - uses: actions/checkout@v3
 
