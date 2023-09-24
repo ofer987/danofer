@@ -2,6 +2,7 @@ name: Deploy Website
 
 on:
   push:
+    - 'releases/*'
 
 jobs:
   preparation:

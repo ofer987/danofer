@@ -2,7 +2,7 @@ name: Deploy Static Website
 
 on:
   push:
-    'releases/*'
+    - 'releases/*'
 
 env:
   SERVER_RSA: ${{ rsa_ssh }}
