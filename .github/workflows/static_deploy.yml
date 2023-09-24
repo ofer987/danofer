@@ -45,7 +45,7 @@ jobs:
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i "../${SERVER_RSA}" \
+            -i "../../${SERVER_RSA}" \
             "root@${IP_ADDRESS}" mkdir -p -- /var/www/ofer_to
 
           # Deploy the static files to the remote server
