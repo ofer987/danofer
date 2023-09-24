@@ -8,21 +8,21 @@ server_user='root';
 scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
+    -i "../${SERVER_RSA}" \
     "${CONFIGURATION_PATH}" "${server_user}@${IP_ADDRESS}:./";
 
 # Copy Dockerfile
 scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
+    -i "../${SERVER_RSA}" \
     'Danofer.run.Dockerfile' "${server_user}@${IP_ADDRESS}:./";
 
 # Build the Docker image
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
+    -i "../${SERVER_RSA}" \
     "${server_user}@${IP_ADDRESS}" \
     "docker build \
         --file Danofer.run.Dockerfile \

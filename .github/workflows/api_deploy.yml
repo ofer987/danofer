@@ -90,7 +90,7 @@ jobs:
           IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
       - name: Run Local ofer.to Image
-        run: bash ../.github/scripts/api/run_danofer_image.sh
+        run: ../.github/scripts/api/run_danofer_image.sh
         working-directory: ./api
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}

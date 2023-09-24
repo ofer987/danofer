@@ -47,7 +47,7 @@ jobs:
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i ${SERVER_RSA} \
+              -i "../${SERVER_RSA}" \
               -r \
               index.html _app  \
               "root@${IP_ADDRESS}:/var/www/ofer_to"
@@ -56,7 +56,7 @@ jobs:
           # ssh \
           #     -o StrictHostKeyChecking=no \
           #     -o UserKnownHostsFile=/dev/null \
-          #     -i ${SERVER_RSA} \
+          #     -i "../${SERVER_RSA}" \
           #     "root@${IP_ADDRESS}" \
           #     service nginx restart
         env:

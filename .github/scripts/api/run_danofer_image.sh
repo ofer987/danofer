@@ -13,7 +13,7 @@ image_name="${container_name}:latest"
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
+    -i "../${SERVER_RSA}" \
     "${server_user}@${IP_ADDRESS}" \
     "docker stop ${container_name}";
 
@@ -21,7 +21,7 @@ ssh \
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
+    -i "../${SERVER_RSA}" \
     "${server_user}@${IP_ADDRESS}" \
     'docker system prune --force';
 
@@ -29,6 +29,6 @@ ssh \
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
+    -i "../${SERVER_RSA}" \
     "${server_user}@${IP_ADDRESS}" \
     "docker run --publish 5000:80 --detach --name ${container_name} ${image_name}";
