@@ -10,6 +10,7 @@ on:
 
 env:
   SERVER_RSA: 'rsa_ssh'
+  IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
 jobs:
   build:
@@ -25,6 +26,12 @@ jobs:
           # Remove its permissions
           chmod g-rwx ${SERVER_RSA};
           chmod o-rwx ${SERVER_RSA};
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i "./${SERVER_RSA}" \
+            "root@${IP_ADDRESS}" mkdir -p -- /var/www/ofer_to
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
@@ -63,5 +70,3 @@ jobs:
           #     -i "../${SERVER_RSA}" \
           #     "root@${IP_ADDRESS}" \
           #     service nginx restart
-        env:
-          IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
