@@ -28,4 +28,4 @@ ssh \
     -o UserKnownHostsFile=/dev/null \
     -i "../${SERVER_RSA}" \
     "${server_user}@${IP_ADDRESS}" \
-    "docker run --publish 5000:80 --detach --name ${container_name} ${IMAGE_NAME}:latest";
+    "docker run --publish 5000:80 --detach --name ${container_name} ${DOCKER_USERNAME}/${IMAGE_NAME}:latest";
