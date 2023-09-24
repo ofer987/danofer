@@ -2,12 +2,9 @@
 
 set -ex;
 
-script_directory="$(dirname ${BASH_SOURCE[0]})";
-
 # TODO: maybe use a less privileged user?
 server_user='root';
 container_name='danofer_run';
-image_name="${container_name}:latest"
 
 # First stop the existing container
 ssh \
@@ -31,4 +28,4 @@ ssh \
     -o UserKnownHostsFile=/dev/null \
     -i "../${SERVER_RSA}" \
     "${server_user}@${IP_ADDRESS}" \
-    "docker run --publish 5000:80 --detach --name ${container_name} ${image_name}";
+    "docker run --publish 5000:80 --detach --name ${container_name} ${IMAGE_NAME}:latest";

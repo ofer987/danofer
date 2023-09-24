@@ -29,5 +29,5 @@ ssh \
         --build-arg DOCKER_USERNAME=${DOCKER_USERNAME} \
         --build-arg IMAGE_NAME=${IMAGE_NAME} \
         --build-arg VERSION=${VERSION} \
-        --tag danofer_run:latest \
+        --tag "${IMAGE_NAME}:latest" \
         ./;";
