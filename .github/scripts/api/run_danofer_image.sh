@@ -3,7 +3,7 @@
 set -ex;
 
 script_directory="$(dirname ${BASH_SOURCE[0]})";
-server_ip="167.99.181.5";
+# TODO: maybe use a less privileged user?
 server_user="root";
 image_name="danofer_run:latest"
 container_name="danofer_run";
