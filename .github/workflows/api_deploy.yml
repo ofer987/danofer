@@ -3,6 +3,7 @@ name: Deploy API Website
 on:
   push:
     branches:
+      - 'releases/*'
 
     tags:
       - 'releases/*'

@@ -3,6 +3,7 @@ name: Deploy Static Website
 on:
   push:
     branches:
+      - 'releases/*'
 
     tags:
       - 'releases/*'
