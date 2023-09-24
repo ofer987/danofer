@@ -5,9 +5,6 @@ namespace Danofer.Api
 {
     public class Configuration
     {
-        [JsonPropertyName("recaptcha_secret_key")]
-        public string ReCaptchaSecretKey { get; init; } = string.Empty;
-
         [JsonPropertyName("send_grid_api_key")]
         public string SendGridApiKey { get; init; } = string.Empty;
 

@@ -45,7 +45,6 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
           SEND_GRID_API_KEY: ${{ secrets.PROD_SEND_GRID_API_KEY }}
-          RECAPTCHA_SECRET_KEY: ${{ secrets.PROD_RECAPTCHA_SECRET_KEY }}
 
       - name: Run Local ofer.to Image
         run: bash ../.github/scripts/api/run_danofer_image.sh

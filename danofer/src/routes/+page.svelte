@@ -2,15 +2,6 @@
 	import { onMount } from 'svelte';
 	import Icon from './Icon.svelte';
 	import ContactMe from './ContactMe.svelte';
-	import type { Secrets } from './+page.server';
-
-	export let data: Secrets;
-
-	const recaptchaSiteKey = data.recaptchaSecretKey;
-	if (!recaptchaSiteKey) {
-		// console.error('Oh no RECAPTCHA is empty');
-		throw 'The RECAPTCHA_SECRET_KEY environment variable is missing!';
-	}
 
 	let isPageEnabled = true;
 	let isContactMeOpened = false;
@@ -61,7 +52,7 @@
 	</div>
 
 	<div id="contact-me" class:contact-me-opened={isContactMeOpened}>
-		<ContactMe closesAction={disableContactMeForm} {recaptchaSiteKey} />
+		<ContactMe closesAction={disableContactMeForm} />
 	</div>
 
 	<section id="jobs" class:is-page-disabled={!isPageEnabled}>
@@ -71,22 +62,23 @@
 				<h2 class="at">January 2021 – Present</h2>
 			</div>
 			<p>
-				I lead a team of software developers to make developing and deploying more efficient for
-				Thomson Reuters' marketing websites, such as https://www.thomsonreuters.com/en.html. We
-				build Continuous Integration environments that enforce linting for Java, TypeScript, and
-				SCSS; testing including code coverage. Our process is so rigorous that Thomson Reuters can
-				afford to hire short-term vendors to build features on demand, while maintaining high-levels
-				of software quality.
+				I lead a team of software developers to make developing and deploying more efficient
+				for Thomson Reuters' marketing websites, such as
+				https://www.thomsonreuters.com/en.html. We build Continuous Integration environments
+				that enforce linting for Java, TypeScript, and SCSS; testing including code
+				coverage. Our process is so rigorous that Thomson Reuters can afford to hire
+				short-term vendors to build features on demand, while maintaining high-levels of
+				software quality.
 			</p>
 
 			<p>
-				We built a release process using GitHub Actions to facilitate deployment by any vendor to
-				our Staging environments.
+				We built a release process using GitHub Actions to facilitate deployment by any
+				vendor to our Staging environments.
 			</p>
 
 			<p>
-				We use a testing framework built with Cucumber and Selenium to validate new deployments to
-				our Staging and Production environments to guard against regression.
+				We use a testing framework built with Cucumber and Selenium to validate new
+				deployments to our Staging and Production environments to guard against regression.
 			</p>
 			<div class="experience">
 				<h3>Adobe Experience Manager</h3>
@@ -103,11 +95,14 @@
 								<span> Use the Checkstyle Maven plugin for Java linting </span>
 							</li>
 							<li>
-								<span> Use Prettier and ESLint for TypeScript and SCSS linting </span>
+								<span>
+									Use Prettier and ESLint for TypeScript and SCSS linting
+								</span>
 							</li>
 							<li>
 								<span>
-									Use the JaCoCo plugin to ensure high test coverage (at least 81 per cent)
+									Use the JaCoCo plugin to ensure high test coverage (at least 81
+									per cent)
 								</span>
 							</li>
 							<li>
@@ -128,18 +123,20 @@
 						<ol>
 							<li>
 								<span>
-									Designed a release process that allows any vendor to easily deploy new software
+									Designed a release process that allows any vendor to easily
+									deploy new software
 								</span>
 							</li>
 							<li>
 								<span>
-									New software is vetted by both an automated Integration Testing Framework and
-									manually by Project Managers
+									New software is vetted by both an automated Integration Testing
+									Framework and manually by Project Managers
 								</span>
 							</li>
 							<li>
 								<span>
-									Code is reviewed by senior internal developers to using GitHub Pull Requests
+									Code is reviewed by senior internal developers to using GitHub
+									Pull Requests
 								</span>
 							</li>
 						</ol>
@@ -157,18 +154,21 @@
 					<div class="description">
 						<ol>
 							<li>
-								<span>High test coverage gives us confidence before a new release goes live </span>
-							</li>
-							<li>
-								<span>
-									Create a new automated test case when a new version breaks a web page to ensure it
-									does not repeat itself
+								<span
+									>High test coverage gives us confidence before a new release
+									goes live
 								</span>
 							</li>
 							<li>
 								<span>
-									Used Java for the test functionality (i.e., Steps), Cucumber for the test cases
-									(i.e., Features), and Selenium as the web driver
+									Create a new automated test case when a new version breaks a web
+									page to ensure it does not repeat itself
+								</span>
+							</li>
+							<li>
+								<span>
+									Used Java for the test functionality (i.e., Steps), Cucumber for
+									the test cases (i.e., Features), and Selenium as the web driver
 								</span>
 							</li>
 						</ol>
@@ -183,8 +183,8 @@
 				<h2 class="at">January 2019 – January 2021</h2>
 			</div>
 			<p>
-				I am a principal contributor who develops and deploys Thomson Reuters’ marketing websites on
-				the Adobe Experience Manager (AEM) platform. Accomplishments include
+				I am a principal contributor who develops and deploys Thomson Reuters’ marketing
+				websites on the Adobe Experience Manager (AEM) platform. Accomplishments include
 			</p>
 			<div class="experience">
 				<h3>Adobe Experience Manager</h3>
@@ -202,8 +202,8 @@
 						<ol>
 							<li>
 								<span>
-									Consulted on the architecture of new features together with project manager,
-									content authors, and third-party vendors
+									Consulted on the architecture of new features together with
+									project manager, content authors, and third-party vendors
 								</span>
 							</li>
 							<li>
@@ -215,7 +215,9 @@
 										href="https://tax.thomsonreuters.com/us/en/onvio">Onvio</a
 									>
 									and
-									<a href="https://tax.thomsonreuters.com/en/onesource">ONESOURCE</a>
+									<a href="https://tax.thomsonreuters.com/en/onesource"
+										>ONESOURCE</a
+									>
 								</span>
 							</li>
 							<li>
@@ -223,7 +225,8 @@
 									Transitioned the <a href="https://legal.thomsonreuters.com"
 										>Thomson Reuters Legal page</a
 									>
-									to use <a href="https://stenciljs.com">Stencil Web Components</a>
+									to use
+									<a href="https://stenciljs.com">Stencil Web Components</a>
 								</span>
 							</li>
 						</ol>
@@ -241,21 +244,24 @@
 						<ol>
 							<li>
 								<span>
-									Created a GitHub repository for creating Docker images consisting of an AEM 6.5
-									installation with the latest packages
+									Created a GitHub repository for creating Docker images
+									consisting of an AEM 6.5 installation with the latest packages
 								</span>
 							</li>
 							<li>
 								<span>
-									Placed the latest AEM packages (application and content) in an AWS S3 Bucket
+									Placed the latest AEM packages (application and content) in an
+									AWS S3 Bucket
 								</span>
 							</li>
 							<li>
 								<span>
-									Wrote <a href="https://github.com/features/actions">GitHub Action</a>
+									Wrote <a href="https://github.com/features/actions"
+										>GitHub Action</a
+									>
 									pipelines and
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automatically update
-									the Docker image and deploy it to JFrog Artifactory
+									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to
+									automatically update the Docker image and deploy it to JFrog Artifactory
 								</span>
 							</li>
 						</ol>
@@ -272,8 +278,9 @@
 						<ol>
 							<li>
 								<span>
-									Wrote documentation in both GitHub (for software developers) and on Confluence
-									(for managers, content authors, and third-party vendors.)
+									Wrote documentation in both GitHub (for software developers) and
+									on Confluence (for managers, content authors, and third-party
+									vendors.)
 								</span>
 							</li>
 							<li>
@@ -294,21 +301,25 @@
 						<ol>
 							<li>
 								<span>
-									Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+									Configured <a href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
 									with
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
-									to our Quality Assurance and Pre-production environments
+									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to
+									automate deployments to our Quality Assurance and Pre-production
+									environments
 								</span>
 							</li>
 							<li>
 								<span>
-									Set up migration scripts to automate migration of new frontend asset versions
+									Set up migration scripts to automate migration of new frontend
+									asset versions
 								</span>
 							</li>
 							<li>
 								<span>
-									Configured our Adobe Experience Manager platform to deploy to Adobe Managed
-									Services
+									Configured our Adobe Experience Manager platform to deploy to
+									Adobe Managed Services
 								</span>
 							</li>
 						</ol>
@@ -344,8 +355,8 @@
 				<h2 class="at">August 2017 – January 2019</h2>
 			</div>
 			<p>
-				Thomson Reuters operates a proprietary Software-as-a-Service (SaaS) platform for running
-				their customers' web applications.
+				Thomson Reuters operates a proprietary Software-as-a-Service (SaaS) platform for
+				running their customers' web applications.
 			</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -358,16 +369,20 @@
 					<div class="description">
 						<ol>
 							<li>
-								<span> Responsible for adding new web stacks (Java 8 and Node.js 6) </span>
-							</li>
-							<li>
 								<span>
-									Improved the stability of the system by creating a new automated testing framework
+									Responsible for adding new web stacks (Java 8 and Node.js 6)
 								</span>
 							</li>
 							<li>
 								<span>
-									Added a feature to target users to the server closest to their location
+									Improved the stability of the system by creating a new automated
+									testing framework
+								</span>
+							</li>
+							<li>
+								<span>
+									Added a feature to target users to the server closest to their
+									location
 								</span>
 							</li>
 						</ol>
@@ -410,14 +425,14 @@
 							</li>
 							<li>
 								<span>
-									No runtime (such as AngularJS and React). I want to avoid a runtime performance
-									penalty
+									No runtime (such as AngularJS and React). I want to avoid a
+									runtime performance penalty
 								</span>
 							</li>
 							<li>
 								<span>
-									No need to cache files because static assets are generated by Webpack, e.g, HTML,
-									CSS, and JavaScript files
+									No need to cache files because static assets are generated by
+									Webpack, e.g, HTML, CSS, and JavaScript files
 								</span>
 							</li>
 						</ol>
@@ -437,10 +452,12 @@
 						<ol>
 							<li>
 								<span>
-									Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+									Configured <a href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
 									with
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
-									to a Production environment hosted on DigitalOcean
+									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to
+									automate deployments to a Production environment hosted on DigitalOcean
 								</span>
 							</li>
 							<li>
@@ -449,19 +466,21 @@
 										href="https://en.wikipedia.org/wiki/SendGrid">SendGrid</a
 									>
 									as the provider, and
-									<a href="https://en.wikipedia.org/wiki/ReCAPTCHA">Google reCAPTCHA</a> to protect against
-									bots.
+									<a href="https://en.wikipedia.org/wiki/ReCAPTCHA"
+										>Google reCAPTCHA</a
+									> to protect against bots.
 								</span>
 							</li>
 							<li>
 								<span>
-									Built a .NET Core 5.0 application to verify whether user is human and not a bot
-									and send emails using SendGrid
+									Built a .NET Core 5.0 application to verify whether user is
+									human and not a bot and send emails using SendGrid
 								</span>
 							</li>
 							<li>
 								<span>
-									Used GitHub Secrets to store Google reCAPTCHA and SendGrid secret values
+									Used GitHub Secrets to store Google reCAPTCHA and SendGrid
+									secret values
 								</span>
 							</li>
 						</ol>
@@ -478,10 +497,13 @@
 						<ol>
 							<li>
 								<span>
-									Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+									Configured <a href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
 									with
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
-									to our Quality Assurance and Pre-production environments
+									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to
+									automate deployments to our Quality Assurance and Pre-production
+									environments
 								</span>
 							</li>
 						</ol>
@@ -496,10 +518,10 @@
 				<h2 class="at">December 2018 – Present</h2>
 			</div>
 			<p>
-				Software as a Service that analyses income versus expenses. Taking into account multiple
-				variables, it can predict its users future financial situation, giving them insights whether
-				they should purchase a home today with a smaller downpayment or in the future with a larger
-				downpayment
+				Software as a Service that analyses income versus expenses. Taking into account
+				multiple variables, it can predict its users future financial situation, giving them
+				insights whether they should purchase a home today with a smaller downpayment or in
+				the future with a larger downpayment
 			</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -517,30 +539,32 @@
 						<ol>
 							<li>
 								<span>
-									A C# 9.0 (.NET 5.0 application) ingests the financial into a Postgresql database
+									A C# 9.0 (.NET 5.0 application) ingests the financial into a
+									Postgresql database
 								</span>
 							</li>
 							<li>
 								<span>
-									Machine-learning software understands the nature of the financial data
+									Machine-learning software understands the nature of the
+									financial data
 								</span>
 							</li>
 							<li>
 								<span>
-									A Ruby application retrieves the financial data into predefined financial
-									statement files
+									A Ruby application retrieves the financial data into predefined
+									financial statement files
 								</span>
 							</li>
 							<li>
 								<span>
-									A C# 9.0 ASP.NET Core application exposes endpoints to retrieve the financial
-									application
+									A C# 9.0 ASP.NET Core application exposes endpoints to retrieve
+									the financial application
 								</span>
 							</li>
 							<li>
 								<span>
-									A web application (written in TypeScript using React components) to display the
-									financial analysis
+									A web application (written in TypeScript using React components)
+									to display the financial analysis
 								</span>
 							</li>
 						</ol>
@@ -554,7 +578,9 @@
 				<h2 class="position">Trike Apps</h2>
 				<h2 class="at">January 2017 – July 2017</h2>
 			</div>
-			<p>Trike Apps produces Bellroy's e-commerce platform to sell wallets and carry products</p>
+			<p>
+				Trike Apps produces Bellroy's e-commerce platform to sell wallets and carry products
+			</p>
 			<div class="experience">
 				<h3>Development</h3>
 				<div class="responsibility development">
@@ -576,14 +602,15 @@
 							</li>
 							<li>
 								<span>
-									Extended Bellroy’s templates (written in Liquid) to allow designers to perform A/B
-									testing
+									Extended Bellroy’s templates (written in Liquid) to allow
+									designers to perform A/B testing
 								</span>
 							</li>
 							<li>
 								<span>
-									Implemented an integration with PayPal, allowing users to pay using PayPal Express
-									Checkout without needing to leave Bellroy’s website
+									Implemented an integration with PayPal, allowing users to pay
+									using PayPal Express Checkout without needing to leave Bellroy’s
+									website
 								</span>
 							</li>
 						</ol>

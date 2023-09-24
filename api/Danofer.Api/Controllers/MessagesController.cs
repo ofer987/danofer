@@ -26,50 +26,40 @@ namespace Danofer.Api.Controllers
             var model = await ReadModel(Request.Body);
 
             // For debugging
-            _logger.LogInformation($"{nameof(model.ReCaptchaToken)}: {model.ReCaptchaToken}");
             _logger.LogInformation($"{nameof(model.SenderName)}: {model.SenderName}");
             _logger.LogInformation($"{nameof(model.SenderEmailAddress)}: {model.SenderEmailAddress}");
             _logger.LogInformation($"{nameof(model.Message)}: {model.Message}");
 
-            var isHuman = await model.IsHuman(_clientFactory.CreateClient("default"));
-            if (isHuman)
+            try
             {
-                try
-                {
-                    model.Validate();
-                }
-                catch (ArgumentException exception)
-                {
-                    return Problem(
+                model.Validate();
+            }
+            catch (ArgumentException exception)
+            {
+                return Problem(
                         title: exception.ParamName,
                         detail: $"Missing {exception.ParamName}",
                         statusCode: (int)HttpStatusCode.BadRequest
-                    );
-                }
+                        );
+            }
 
-                var isSuccess = await model.SendEmail(
-                    model.SenderName,
-                    model.SenderEmailAddress,
-                    model.Message
-                );
-                if (isSuccess)
+            var isSuccess = await model.SendEmail(
+                model.SenderName,
+                model.SenderEmailAddress,
+                model.Message
+            );
+            if (isSuccess)
+            {
+                return new OkObjectResult(new
                 {
-                    return new OkObjectResult(new {
-                        title = "email-sent",
-                        detail = "The email was sent"
-                    });
-                }
-
-                return Problem(
-                    title: "email-not-sent",
-                    detail: "The email was not sent",
-                    statusCode: (int)HttpStatusCode.BadRequest
-                );
+                    title = "email-sent",
+                    detail = "The email was sent"
+                });
             }
 
             return Problem(
-                title: "is-bot",
-                detail: "The user is a bot",
+                title: "email-not-sent",
+                detail: "The email was not sent",
                 statusCode: (int)HttpStatusCode.BadRequest
             );
         }
