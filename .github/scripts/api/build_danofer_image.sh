@@ -2,39 +2,28 @@
 
 set -ex;
 
-script_directory="$(dirname ${BASH_SOURCE[0]})";
-server_user="root";
-configuration_file="configuration.json";
-
-# Create the configuration
-ruby "${script_directory}/build_configuration" > "${configuration_file}";
-
-# Permit read/write access to server
-source "${script_directory}/../create_server_rsa.sh";
-
-# Create the VERSION variable
-source "${script_directory}/../create_version.sh";
+server_user='root';
 
 # Copy the configuration
 scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "${configuration_file}" "${server_user}@${OFER_TO_IP_ADDRESS}:./";
+    "${configuration_file}" "${server_user}@${IP_ADDRESS}:./";
 
 # Copy Dockerfile
 scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "Danofer.run.Dockerfile" "${server_user}@${OFER_TO_IP_ADDRESS}:./";
+    "Danofer.run.Dockerfile" "${server_user}@${IP_ADDRESS}:./";
 
 # Build the Docker image
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "${server_user}@${OFER_TO_IP_ADDRESS}" \
+    "${server_user}@${IP_ADDRESS}" \
     "docker build \
         --file Danofer.run.Dockerfile \
         --build-arg DOCKER_USERNAME=${DOCKER_USERNAME} \

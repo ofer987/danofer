@@ -4,6 +4,12 @@ on:
   push:
     'releases/*'
 
+env:
+  SERVER_RSA: ${{ ./rsa_ssh }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,32 +18,64 @@ jobs:
       - uses: actions/checkout@v3
       - uses: docker-practice/actions-setup-docker@master
 
+      - name: Create Version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+
       - name: Build Docker Image
         working-directory: ./api
-        run: bash ../.github/scripts/api/build_docker_image.sh
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        run: |
+          docker build \
+              --file Danofer.build.Dockerfile \
+              --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}" \
+              .
 
       - name: Push Docker Image
         working-directory: ./api
-        run: bash ../.github/scripts/api/push_docker_image.sh
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        run: |
+          docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}";
+
+          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}";
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/releases/')
-
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+
+      - name: Create RSA file
+        run: |
+          echo ${STATIC_SERVER_PRIVATE_KEY} > ${SERVER_RSA};
+
+          # Remove its permissions
+          chmod g-rwx ${SERVER_RSA};
+          chmod o-rwx ${SERVER_RSA};
+        env:
+          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
+      - name: Create the configuration (e.g., SendGrid key et cetera)
+        run: |
+          .github/scripts/api/build_configuration > ./configuration.json
+
+      - name: Create Version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
       - name: Build Local ofer.to Image
-        run: bash ../.github/scripts/api/build_danofer_image.sh
+        run: ../.github/scripts/api/build_danofer_image.sh
         working-directory: ./api
         env:
           STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
