@@ -3,8 +3,8 @@ name: Deploy Website
 on:
   push:
     branches:
-      # TODO: automatically create a release off the master branch
-      - 'releases/*'
+      # TODO: rename back to `master`
+      - 'master-svelte'
 
 jobs:
   create-tag:
@@ -14,17 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create Version
+      - name: Increment MINOR Version
         run: |
-          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
-          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
-          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+          MAJOR='0';
+          MINOR=$(.github/ruby_scripts/print_latest_minor_version);
+          NEXT_MINOR=$(( MINOR+1 ))
+          PATCH='0';
 
-          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          VERSION="${MAJOR}.${NEXT_MINOR}.${PATCH}";
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
-      - name: Create Tag
-        run: .github/scripts/create_tag.sh
+      - name: Create a New Tag
         run: |
           TAG_NAME="releases/${VERSION}";
 
@@ -34,3 +34,8 @@ jobs:
           echo "::notify::${TAG_NAME} has been successfully created"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Failed to Create a New Tag
+        if: ${{ failure() }}
+        run: |
+          echo '::error::Failed to create a new tag'
