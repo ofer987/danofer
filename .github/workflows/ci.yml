@@ -37,7 +37,8 @@ jobs:
 
           git tag "${TAG_NAME}";
           git push --tags "https://${GITHUB_TOKEN}@github.com/ofer987/danofer.git";
-          git push "https://${GITHUB_TOKEN}@github.com/ofer987/danofer.git" "HEAD:${TAG_NAME}"
+          # TODO: remove later when you figured out how to work with tags
+          git push "https://${GITHUB_TOKEN}@github.com/ofer987/danofer.git" "HEAD:refs/heads/${TAG_NAME}"
 
           echo "::notice::${TAG_NAME} has been successfully created"
         env:
