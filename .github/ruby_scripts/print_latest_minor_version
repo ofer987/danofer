@@ -3,11 +3,12 @@
 
 require 'semver'
 
-MAJOR = ARGV[0]
+MAJOR = ENV['MAJOR']
+PATCH = ENV['MINOR']
 
-branches = `git branch --list --remote`.split("\n")
-  .select { |item| item =~ %r{origin/releases/#{MAJOR}\.\d+\.\d+} }
-  .map { |item| item.gsub('origin/releases/', '') }
+branches = `git tag --list`.split("\n")
+  .select { |item| item =~ %r{releases/#{MAJOR}\.\d+\.#{PATCH}} }
+  .map { |item| item.gsub('releases/', '') }
   .uniq
   .map { |item| item.split('.').map(&:to_i) }
   .map { |values| SemVer.new(values[0], values[1], values[2]) }
