@@ -9,9 +9,6 @@ server_user='root';
 container_name='danofer_run';
 image_name="${container_name}:latest"
 
-# Permit read/write access to server
-source "${script_directory}/../create_server_rsa.sh";
-
 # First stop the existing container
 ssh \
     -o StrictHostKeyChecking=no \

@@ -9,14 +9,14 @@ scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "${configuration_file}" "${server_user}@${IP_ADDRESS}:./";
+    "${CONFIGURATION_PATH}" "${server_user}@${IP_ADDRESS}:./";
 
 # Copy Dockerfile
 scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA} \
-    "Danofer.run.Dockerfile" "${server_user}@${IP_ADDRESS}:./";
+    'Danofer.run.Dockerfile' "${server_user}@${IP_ADDRESS}:./";
 
 # Build the Docker image
 ssh \
