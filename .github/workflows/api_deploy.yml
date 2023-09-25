@@ -46,7 +46,6 @@ jobs:
           docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}";
 
           docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}";
-          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:latest";
 
   deploy:
     needs: [build]
