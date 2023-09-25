@@ -86,7 +86,22 @@ jobs:
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA} \
-              "${CONFIGURATION_PATH} ./api/Danofer.run.Dockerfile ./api/docker-compose.yml" "root@${IP_ADDRESS}:./";
+              ${CONFIGURATION_PATH} \
+              "root@${IP_ADDRESS}:./";
+
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA} \
+              ./api/Danofer.run.Dockerfile \
+              "root@${IP_ADDRESS}:./";
+
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA} \
+              ./api/docker-compose.yml \
+              "root@${IP_ADDRESS}:./";
 
       - name: Build Local ofer.to Image
         working-directory: ./api
