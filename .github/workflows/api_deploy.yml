@@ -89,9 +89,8 @@ jobs:
               "${CONFIGURATION_PATH} ./api/Danofer.run.Dockerfile ./api/docker-compose.yml" "root@${IP_ADDRESS}:./";
 
       - name: Build Local ofer.to Image
-        run: ../.github/scripts/api/build_danofer_image.sh
         working-directory: ./api
+        run: ../.github/scripts/api/build_danofer_image.sh
 
       - name: Run Local ofer.to Image
         run: ../.github/scripts/api/run_danofer_image.sh
-        working-directory: ./api

@@ -9,7 +9,7 @@ server_user='root';
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i "../${SERVER_RSA}" \
+    -i ${SERVER_RSA} \
     "${server_user}@${IP_ADDRESS}" \
     "docker compose down";
 
@@ -17,6 +17,6 @@ ssh \
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i "../${SERVER_RSA}" \
+    -i ${SERVER_RSA} \
     "${server_user}@${IP_ADDRESS}" \
     "docker compose up --detach";
