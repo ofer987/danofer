@@ -108,4 +108,4 @@ jobs:
         run: ../.github/scripts/api/build_danofer_image.sh
 
       - name: Run Local ofer.to Image
-        run: ../.github/scripts/api/run_danofer_image.sh
+        run: ./.github/scripts/api/run_danofer_image.sh
