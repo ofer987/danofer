@@ -9,7 +9,7 @@ scp \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i "../${SERVER_RSA}" \
-    "../${CONFIGURATION_PATH} Danofer.run.Dockerfile docker-compose.yml" "${server_user}@${IP_ADDRESS}:./";
+    "${CONFIGURATION_PATH} Danofer.run.Dockerfile docker-compose.yml" "${server_user}@${IP_ADDRESS}:./";
 
 # Build the Docker image
 ssh \
