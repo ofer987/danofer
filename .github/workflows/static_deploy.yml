@@ -40,10 +40,11 @@ jobs:
         run: |
           yarn && yarn build
 
-      - name: Create static directory
+      - name: Create Static Directory
         run: |
-          set +e;
+          set +e
 
+          ls -ltrA
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
