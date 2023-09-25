@@ -41,7 +41,6 @@ jobs:
           yarn && yarn build
 
       - name: Create Static Directory
-        working-directory: ./danofer/build
         run: |
           set +e
 
@@ -49,14 +48,14 @@ jobs:
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i "../../${SERVER_RSA}" \
-            "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}"
+            -i ${SERVER_RSA} \
+            "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i "../../${SERVER_RSA}" \
-            "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}"
+            -i ${SERVER_RSA} \
+            "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
 
       - name: Deploy
         working-directory: ./danofer/build
