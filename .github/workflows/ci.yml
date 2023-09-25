@@ -6,6 +6,10 @@ on:
       # TODO: rename back to `master`
       - 'master-svelte'
 
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
 jobs:
   create-tag:
     runs-on: ubuntu-latest
