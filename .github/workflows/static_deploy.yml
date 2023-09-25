@@ -47,13 +47,13 @@ jobs:
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA} \
+            -i "./${SERVER_RSA}" \
             "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}"
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA} \
+            -i "./${SERVER_RSA}" \
             "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}"
 
       - name: Deploy
