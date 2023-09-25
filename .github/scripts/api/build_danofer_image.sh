@@ -4,13 +4,6 @@ set -ex;
 
 server_user='root';
 
-# Copy configuration, Dockerfile and docker-compose
-scp \
-    -o StrictHostKeyChecking=no \
-    -o UserKnownHostsFile=/dev/null \
-    -i "../${SERVER_RSA}" \
-    "${CONFIGURATION_PATH} Danofer.run.Dockerfile docker-compose.yml" "${server_user}@${IP_ADDRESS}:./";
-
 # Build the Docker image
 ssh \
     -o StrictHostKeyChecking=no \

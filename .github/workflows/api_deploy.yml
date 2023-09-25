@@ -14,6 +14,7 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   IMAGE_NAME: 'danofer'
   CONFIGURATION_PATH: 'configuration.json'
+  IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
 jobs:
   build:
@@ -79,14 +80,18 @@ jobs:
           VERSION="${MAJOR}.${MINOR}.${PATCH}";
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
+      - name: Copy Files
+        run: |
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA} \
+              "${CONFIGURATION_PATH} ./api/Danofer.run.Dockerfile ./api/docker-compose.yml" "root@${IP_ADDRESS}:./";
+
       - name: Build Local ofer.to Image
         run: ../.github/scripts/api/build_danofer_image.sh
         working-directory: ./api
-        env:
-          IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
       - name: Run Local ofer.to Image
         run: ../.github/scripts/api/run_danofer_image.sh
         working-directory: ./api
-        env:
-          IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
