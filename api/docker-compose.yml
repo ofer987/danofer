@@ -1,6 +1,6 @@
 version: "3.9"
 services:
   danofer:
-    image: ofer987/danofer:latest
+    image: danofer_run:latest
     ports:
       - "5000:80"
