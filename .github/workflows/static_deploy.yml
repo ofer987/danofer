@@ -42,9 +42,9 @@ jobs:
 
       - name: Create Static Directory
         run: |
+          # In case the directory does not exist
           set +e
 
-          ls -ltrA
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
@@ -56,6 +56,8 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA} \
             "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
+
+          set -e
 
       - name: Deploy
         working-directory: ./danofer/build
