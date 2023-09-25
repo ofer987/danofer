@@ -40,15 +40,25 @@ jobs:
         run: |
           yarn && yarn build
 
-      - name: Deploy
-        working-directory: ./danofer/build
+      - name: Create static directory
         run: |
+          set +e;
+
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i "../../${SERVER_RSA}" \
+            -i ${SERVER_RSA} \
+            "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}"
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA} \
             "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}"
 
+      - name: Deploy
+        working-directory: ./danofer/build
+        run: |
           # Deploy the static files to the remote server
           scp \
               -o StrictHostKeyChecking=no \
@@ -57,11 +67,3 @@ jobs:
               -r \
               index.html _app  \
               "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"
-
-          # Restart NGINX just in case
-          # ssh \
-          #     -o StrictHostKeyChecking=no \
-          #     -o UserKnownHostsFile=/dev/null \
-          #     -i "../../${SERVER_RSA}" \
-          #     "root@${IP_ADDRESS}" \
-          #     service nginx restart
