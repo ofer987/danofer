@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+scp ~/work/danofer/nginx_confs/sites-available/static.conf root@ofer-to-01:/etc/nginx/sites-available
+# ssh root@ofer-to-01 -- ln -s /etc/nginx/sites-available/static.conf /etc/nginx/sites-enabled/static.conf
+scp ./dhparam.pem root@ofer-to-01:/etc/nginx/dhparam.pem
+scp ~/work/danofer/nginx_confs/nginx.conf root@ofer-to-01:/etc/nginx/
+scp -r ~/work/danofer/nginx_confs/nginxconfig.io root@ofer-to-01:/etc/nginx
+ssh root@ofer-to-01 -- systemctl restart nginx
