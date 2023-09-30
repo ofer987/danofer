@@ -10,7 +10,7 @@ on:
 
 env:
   SERVER_RSA: 'rsa_ssh'
-  HTML_STATIC_PATH: '/var/www/danofer'
+  HTML_STATIC_PATH: '/var/www/ofer.to'
   IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
 jobs:
