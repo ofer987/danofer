@@ -31,12 +31,11 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            <(echo "${TLS_CERTIFICATE}") <(echo "${TLS_PRIVATE_KEY}") "root@${OFER_TO_DOMAIN}:${TLS_CERTIFICATE_SERVER_PATH}"
+            <(echo "${TLS_CERTIFICATE}") <(echo "${TLS_PRIVATE_KEY}") "root@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
         env:
           TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
-          TLS_PRIVATE_KEY_SERVER_PATH: '/etc/letsencrypt/live/ofer.to/ofer_to.private.pem'
-          TLS_CERTIFICATE_SERVER_PATH: '/etc/letsencrypt/live/ofer.to/star_ofer_to.crt'
+          TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
       - name: Deploy NGINX Confs
         working-directory: ./nginx_confs
