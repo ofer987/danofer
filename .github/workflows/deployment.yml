@@ -11,7 +11,7 @@ concurrency:
 
 env:
   HTML_STATIC_PATH: '/var/www/ofer_to'
-  IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
+  OFER_TO_DOMAIN: 'ofer.to'
   SERVER_RSA_PATH: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -49,13 +49,13 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}
+            "root@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
+            "root@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
 
           set -e
 
@@ -68,7 +68,7 @@ jobs:
               -i "../../${SERVER_RSA_PATH}" \
               -r \
               index.html _app  \
-              "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"
+              "root@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
 
   build_api:
     runs-on: ubuntu-latest
@@ -135,21 +135,21 @@ jobs:
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
               ${CONFIGURATION_PATH} \
-              "root@${IP_ADDRESS}:./";
+              "root@${OFER_TO_DOMAIN}:./";
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
               ./api/Danofer.run.Dockerfile \
-              "root@${IP_ADDRESS}:./";
+              "root@${OFER_TO_DOMAIN}:./";
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
               ./api/docker-compose.yml \
-              "root@${IP_ADDRESS}:./";
+              "root@${OFER_TO_DOMAIN}:./";
 
       - name: Build Local ofer.to Image
         working-directory: ./api
@@ -208,4 +208,4 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${IP_ADDRESS}" systemctl restart nginx
+            "root@${OFER_TO_DOMAIN}" systemctl restart nginx
