@@ -12,6 +12,7 @@ runs:
   using: "composite"
   steps:
     - name: Create RSA file
+      shell: bash
       run: |
         echo "${PRIVATE_RSA_KEY_CONTENT}" > ${PRIVATE_RSA_KEY_PATH};
 
