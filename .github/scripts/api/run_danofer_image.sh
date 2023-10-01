@@ -10,7 +10,7 @@ ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA_PATH} \
-    "${server_user}@${IP_ADDRESS}" \
+    "${server_user}@${OFER_TO_DOMAIN}" \
     "docker compose down";
 
 # Then start up a new container
@@ -18,5 +18,5 @@ ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA_PATH} \
-    "${server_user}@${IP_ADDRESS}" \
+    "${server_user}@${OFER_TO_DOMAIN}" \
     "docker compose up --detach";
