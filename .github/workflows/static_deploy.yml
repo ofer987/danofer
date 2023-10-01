@@ -5,6 +5,10 @@ on:
     tags:
       - 'releases/*'
 
+concurrency:
+  group: deploy-static-website
+  cancel-in-progress: false
+
 env:
   SERVER_RSA_PATH: 'rsa_ssh'
   HTML_STATIC_PATH: '/var/www/ofer_to'
