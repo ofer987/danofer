@@ -1,0 +1,211 @@
+name: Deploy Website
+
+on:
+  push:
+    tags:
+      - 'releases/*'
+
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
+env:
+  HTML_STATIC_PATH: '/var/www/ofer_to'
+  IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
+  SERVER_RSA_PATH: 'rsa_ssh'
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  IMAGE_NAME: 'danofer'
+  CONFIGURATION_PATH: 'configuration.json'
+
+jobs:
+  deploy_static:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
+      - name: Install Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.17'
+
+      - name: Compile
+        working-directory: ./danofer
+        run: |
+          yarn && yarn build
+
+      - name: Create Static Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
+
+          set -e
+
+      - name: Deploy
+        working-directory: ./danofer/build
+        run: |
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i "../../${SERVER_RSA_PATH}" \
+              -r \
+              index.html _app  \
+              "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"
+
+  deploy_api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker-practice/actions-setup-docker@master
+
+      - name: Create Version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+
+      - name: Build Docker Image
+        working-directory: ./api
+        run: |
+          docker build \
+              --file Danofer.build.Dockerfile \
+              --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}" \
+              .
+
+      - name: Push Docker Image
+        working-directory: ./api
+        run: |
+          docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}";
+
+          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}";
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
+      - name: Create the configuration (e.g., SendGrid key et cetera)
+        run: |
+          .github/scripts/api/build_configuration > ${CONFIGURATION_PATH}
+
+      - name: Create Version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+
+      - name: Copy Files
+        run: |
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA_PATH} \
+              ${CONFIGURATION_PATH} \
+              "root@${IP_ADDRESS}:./";
+
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA_PATH} \
+              ./api/Danofer.run.Dockerfile \
+              "root@${IP_ADDRESS}:./";
+
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA_PATH} \
+              ./api/docker-compose.yml \
+              "root@${IP_ADDRESS}:./";
+
+      - name: Build Local ofer.to Image
+        working-directory: ./api
+        run: ../.github/scripts/api/build_danofer_image.sh
+
+      - name: Run Local ofer.to Image
+        run: ./.github/scripts/api/run_danofer_image.sh
+
+  nginx:
+    needs: ['deploy_static', 'deploy_api']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
+      - name: Deploy TLS Certificate and Private Key
+        run: |
+          echo "${TLS_CERTIFICATE}" > ${TLS_CERTIFICATE_FILENAME}
+          echo "${TLS_PRIVATE_KEY}" > ${TLS_PRIVATE_KEY_FILENAME}
+
+          scp \
+            -r \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${TLS_CERTIFICATE_FILENAME}" "${TLS_PRIVATE_KEY_FILENAME}" "root@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
+        env:
+          TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
+          TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
+          TLS_PRIVATE_KEY_FILENAME: './star_ofer_to.crt'
+          TLS_CERTIFICATE_FILENAME: './ofer_to.private.pem'
+          TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
+
+      - name: Deploy NGINX Confs
+        working-directory: ./nginx_confs
+        run: |
+          echo "${DH_PARAM_CONTENT}" > "${DH_PARAM_FILENAME}"
+
+          scp \
+            -r \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i "../${SERVER_RSA_PATH}" \
+            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
+        env:
+          DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
+          DH_PARAM_FILENAME: 'dhparam.pem'
+
+      - name: Restart NGINX
+        run: |
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${IP_ADDRESS}" systemctl restart nginx
