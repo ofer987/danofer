@@ -8,7 +8,7 @@ server_user='root';
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i "../${SERVER_RSA}" \
+    -i "../${SERVER_RSA_PATH}" \
     "${server_user}@${IP_ADDRESS}" \
     "docker build \
         --file Danofer.run.Dockerfile \
