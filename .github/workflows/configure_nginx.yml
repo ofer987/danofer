@@ -17,6 +17,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
