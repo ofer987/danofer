@@ -2,15 +2,11 @@ name: Deploy Static Website
 
 on:
   push:
-    # branches:
-    #   - 'releases/*'
-
     tags:
       - 'releases/*'
 
 env:
-  SERVER_RSA: 'rsa_ssh'
-  HTML_STATIC_PATH: '/var/www/ofer.to'
+  HTML_STATIC_PATH: '/var/www/ofer_to'
   IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
 jobs:
@@ -18,17 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Create RSA file
-        run: |
-          echo "${STATIC_SERVER_PRIVATE_KEY}" > ${SERVER_RSA};
-
-          # Remove its permissions
-          chmod g-rwx ${SERVER_RSA};
-          chmod o-rwx ${SERVER_RSA};
-        env:
-          STATIC_SERVER_PRIVATE_KEY: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -48,13 +34,13 @@ jobs:
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA} \
+            -i <("${STATIC_SERVER_PRIVATE_KEY}") \
             "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA} \
+            -i <("${STATIC_SERVER_PRIVATE_KEY}") \
             "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
 
           set -e
@@ -65,7 +51,7 @@ jobs:
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i "../../${SERVER_RSA}" \
+              -i <("${STATIC_SERVER_PRIVATE_KEY}") \
               -r \
               index.html _app  \
               "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"
