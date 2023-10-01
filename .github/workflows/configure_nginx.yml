@@ -45,14 +45,14 @@ jobs:
       - name: Deploy NGINX Confs
         working-directory: ./nginx_confs
         run: |
-          echo "${DH_PARAM_CONTENT}" > ${DH_PARAM_FILENAME}
+          echo "${DH_PARAM_CONTENT}" > "./${DH_PARAM_FILENAME}"
 
           scp \
             -r \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            ./nginx.conf ${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
+            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
           env:
             DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
             DH_PARAM_FILENAME: 'dhparam.pem'
