@@ -14,8 +14,8 @@ runs:
     - name: Create RSA file
       shell: bash
       run: |
-        echo "${PRIVATE_RSA_KEY_CONTENT}" > ${PRIVATE_RSA_KEY_PATH};
+        echo "${{ inputs.PRIVATE_RSA_KEY_CONTENT }}" > ${{ inputs.PRIVATE_RSA_KEY_PATH }};
 
         # Remove its permissions
-        chmod g-rwx ${SERVER_RSA};
-        chmod o-rwx ${SERVER_RSA};
+        chmod g-rwx ${{ inputs.PRIVATE_RSA_KEY_PATH }};
+        chmod o-rwx ${{ inputs.PRIVATE_RSA_KEY_PATH }};
