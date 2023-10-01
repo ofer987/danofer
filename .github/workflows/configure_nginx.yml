@@ -25,16 +25,11 @@ jobs:
       - name: Deploy TLS Certificate and Private Key
         run: |
           scp \
+            -r \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            <(echo "${TLS_CERTIFICATE}") "root@${OFER_TO_DOMAIN}:${TLS_CERTIFICATE_SERVER_PATH}"
-
-          scp \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            <("${TLS_PRIVATE_KEY}") "root@${OFER_TO_DOMAIN}:${TLS_PRIVATE_KEY_SERVER_PATH}"
+            <(echo "${TLS_CERTIFICATE}") <(echo "${TLS_PRIVATE_KEY}") "root@${OFER_TO_DOMAIN}:${TLS_CERTIFICATE_SERVER_PATH}"
         env:
           TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
