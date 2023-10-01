@@ -19,7 +19,7 @@ env:
   CONFIGURATION_PATH: 'configuration.json'
 
 jobs:
-  deploy_static:
+  build_and_deploy_static:
     runs-on: ubuntu-latest
 
     steps:
@@ -70,7 +70,7 @@ jobs:
               index.html _app  \
               "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"
 
-  deploy_api:
+  build_api:
     runs-on: ubuntu-latest
 
     steps:
@@ -101,8 +101,8 @@ jobs:
 
           docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}";
 
-  deploy:
-    needs: [build]
+  deploy_api:
+    needs: ['build_api']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -159,7 +159,7 @@ jobs:
         run: ./.github/scripts/api/run_danofer_image.sh
 
   nginx:
-    needs: ['deploy_static', 'deploy_api']
+    needs: ['build_and_deploy_static', 'deploy_api']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
