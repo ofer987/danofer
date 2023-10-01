@@ -67,7 +67,7 @@ jobs:
             -r \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
+            -i "../${SERVER_RSA_PATH}" \
             ./nginx.conf ./dhparam.pem ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
           #
           # scp ./sites-available/static.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
