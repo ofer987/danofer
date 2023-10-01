@@ -26,8 +26,9 @@ jobs:
 
       - name: Deploy TLS Certificate and Private Key
         run: |
-            echo "${TLS_CERTIFICATE}" > ${TLS_CERTIFICATE_FILENAME}
-            echo "${TLS_PRIVATE_KEY}" > ${TLS_PRIVATE_KEY_FILENAME}
+          echo "${TLS_CERTIFICATE}" > ${TLS_CERTIFICATE_FILENAME}
+          echo "${TLS_PRIVATE_KEY}" > ${TLS_PRIVATE_KEY_FILENAME}
+
           scp \
             -r \
             -o StrictHostKeyChecking=no \
