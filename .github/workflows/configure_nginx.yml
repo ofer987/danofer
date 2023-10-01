@@ -26,14 +26,19 @@ jobs:
 
       - name: Deploy TLS Certificate and Private Key
         run: |
+            echo "${TLS_CERTIFICATE}" > ${TLS_CERTIFICATE_FILENAME}
+            echo "${TLS_PRIVATE_KEY}" > ${TLS_PRIVATE_KEY_FILENAME}
           scp \
             -r \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            <(echo "${TLS_CERTIFICATE}") <(echo "${TLS_PRIVATE_KEY}") "root@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
+            "${TLS_CERTIFICATE_FILENAME}" "${TLS_PRIVATE_KEY_FILENAME}" "root@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
         env:
           TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
+          TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
+          TLS_PRIVATE_KEY_FILENAME: './star_ofer_to.crt'
+          TLS_CERTIFICATE_FILENAME: './ofer_to.private.pem'
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
           TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
