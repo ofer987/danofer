@@ -71,21 +71,21 @@ jobs:
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <("echo ${STATIC_SERVER_PRIVATE_KEY}") \
+              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
               ${CONFIGURATION_PATH} \
               "root@${IP_ADDRESS}:./";
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <("echo ${STATIC_SERVER_PRIVATE_KEY}") \
+              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
               ./api/Danofer.run.Dockerfile \
               "root@${IP_ADDRESS}:./";
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <("echo ${STATIC_SERVER_PRIVATE_KEY}") \
+              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
               ./api/docker-compose.yml \
               "root@${IP_ADDRESS}:./";
 
