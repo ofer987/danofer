@@ -40,7 +40,6 @@ jobs:
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
           TLS_PRIVATE_KEY_FILENAME: './star_ofer_to.crt'
           TLS_CERTIFICATE_FILENAME: './ofer_to.private.pem'
-          TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
           TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
       - name: Deploy NGINX Confs
