@@ -1,0 +1,74 @@
+name: Configure NGINX
+
+on:
+  push:
+    tags:
+      - 'releases/*'
+
+env:
+  SERVER_RSA_PATH: 'rsa_ssh'
+  OFER_TO_DOMAIN: 'ofer.to'
+
+jobs:
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
+      - name: Deploy TLS Certificate and Private Key
+        run: |
+          scp \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            <(echo "${TLS_CERTIFICATE}") "root@${OFER_TO_DOMAIN}:${TLS_CERTIFICATE_SERVER_PATH}"
+
+          scp \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            <("${TLS_PRIVATE_KEY}") "root@${OFER_TO_DOMAIN}:${TLS_PRIVATE_KEY_SERVER_PATH}"
+        env:
+          TLS_PRIVATE_KEY: ${{ PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
+          TLS_CERTIFICATE: ${{ PROD_TLS_CERTIFICATE }}
+          TLS_PRIVATE_KEY_SERVER_PATH: '/etc/letsencrypt/live/ofer.to/ofer_to.private.pem'
+          TLS_CERTIFICATE_SERVER_PATH: '/etc/letsencrypt/live/ofer.to/star_ofer_to.crt'
+
+      - name: Deploy NGINX Confs
+        working-directory: ./nginx_confs
+        run: |
+          # scp \
+          #   -o StrictHostKeyChecking=no \
+          #   -o UserKnownHostsFile=/dev/null \
+          #   -i ${SERVER_RSA_PATH} \
+          #   ./sites-available/static.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
+          #
+          # scp \
+          #   -o StrictHostKeyChecking=no \
+          #   -o UserKnownHostsFile=/dev/null \
+          #   -i ${SERVER_RSA_PATH} \
+          #   ./sites-available/api.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
+          #
+          # scp \
+          #   -o StrictHostKeyChecking=no \
+          #   -o UserKnownHostsFile=/dev/null \
+          #   -i ${SERVER_RSA_PATH} \
+          #   ./dhparam.pem "root@${OFER_TO_DOMAIN}:/etc/nginx/dhparam.pem"
+
+          scp \
+            -r \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            ./nginx.conf ./dhparam.pem ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
+          #
+          # scp ./sites-available/static.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
+          # scp ./sites-available/api.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
+          #
+          # scp ./dhparam.pem "root@${OFER_TO_DOMAIN}:/etc/nginx/dhparam.pem"
+          # scp ./nginx.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/"
+          # scp -r ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
