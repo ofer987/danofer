@@ -1,0 +1,20 @@
+name: Create Server RSA Key
+
+inputs:
+  PRIVATE_RSA_KEY_CONTENT:
+    description: The content of the private RSA key
+    required: true
+  PRIVATE_RSA_KEY_PATH:
+    description: The path for where the private RSA key will be stored
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create RSA file
+      run: |
+        echo "${PRIVATE_RSA_KEY_CONTENT}" > ${PRIVATE_RSA_KEY_PATH};
+
+        # Remove its permissions
+        chmod g-rwx ${SERVER_RSA};
+        chmod o-rwx ${SERVER_RSA};

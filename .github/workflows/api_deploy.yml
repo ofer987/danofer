@@ -6,6 +6,7 @@ on:
       - 'releases/*'
 
 env:
+  SERVER_RSA_PATH: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   IMAGE_NAME: 'danofer'
@@ -48,10 +49,15 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Create the configuration (e.g., SendGrid key et cetera)
         run: |
@@ -71,21 +77,21 @@ jobs:
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
+              -i ${SERVER_RSA_PATH} \
               ${CONFIGURATION_PATH} \
               "root@${IP_ADDRESS}:./";
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
+              -i ${SERVER_RSA_PATH} \
               ./api/Danofer.run.Dockerfile \
               "root@${IP_ADDRESS}:./";
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
+              -i ${SERVER_RSA_PATH} \
               ./api/docker-compose.yml \
               "root@${IP_ADDRESS}:./";
 

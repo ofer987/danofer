@@ -6,6 +6,7 @@ on:
       - 'releases/*'
 
 env:
+  SERVER_RSA_PATH: 'rsa_ssh'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   IP_ADDRESS: ${{ secrets.OFER_TO_IP_ADDRESS }}
 
@@ -15,6 +16,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -34,13 +40,13 @@ jobs:
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
+            -i ${SERVER_RSA_PATH} \
             "root@${IP_ADDRESS}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
+            -i ${SERVER_RSA_PATH} \
             "root@${IP_ADDRESS}" mkdir -p -- ${HTML_STATIC_PATH}
 
           set -e
@@ -51,7 +57,7 @@ jobs:
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
-              -i <(echo "${STATIC_SERVER_PRIVATE_KEY}") \
+              -i "../../${SERVER_RSA_PATH}" \
               -r \
               index.html _app  \
               "root@${IP_ADDRESS}:${HTML_STATIC_PATH}"
