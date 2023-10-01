@@ -56,3 +56,11 @@ jobs:
         env:
           DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
           DH_PARAM_FILENAME: 'dhparam.pem'
+
+      - name: Restart NGINX
+        run: |
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${IP_ADDRESS}" systemctl restart nginx
