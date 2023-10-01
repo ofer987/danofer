@@ -45,34 +45,14 @@ jobs:
       - name: Deploy NGINX Confs
         working-directory: ./nginx_confs
         run: |
-          # scp \
-          #   -o StrictHostKeyChecking=no \
-          #   -o UserKnownHostsFile=/dev/null \
-          #   -i ${SERVER_RSA_PATH} \
-          #   ./sites-available/static.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
-          #
-          # scp \
-          #   -o StrictHostKeyChecking=no \
-          #   -o UserKnownHostsFile=/dev/null \
-          #   -i ${SERVER_RSA_PATH} \
-          #   ./sites-available/api.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
-          #
-          # scp \
-          #   -o StrictHostKeyChecking=no \
-          #   -o UserKnownHostsFile=/dev/null \
-          #   -i ${SERVER_RSA_PATH} \
-          #   ./dhparam.pem "root@${OFER_TO_DOMAIN}:/etc/nginx/dhparam.pem"
+          echo "${DH_PARAM_CONTENT}" > ${DH_PARAM_FILENAME}
 
           scp \
             -r \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            ./nginx.conf ./dhparam.pem ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
-          #
-          # scp ./sites-available/static.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
-          # scp ./sites-available/api.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/sites-available"
-          #
-          # scp ./dhparam.pem "root@${OFER_TO_DOMAIN}:/etc/nginx/dhparam.pem"
-          # scp ./nginx.conf "root@${OFER_TO_DOMAIN}:/etc/nginx/"
-          # scp -r ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
+            ./nginx.conf ${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
+          env:
+            DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
+            DH_PARAM_FILENAME: 'dhparam.pem'
