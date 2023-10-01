@@ -1,20 +1,21 @@
-name: Deploy Website
+name: CI Pipeline
 
 on:
   push:
     branches:
       # TODO: rename back to `master`
       - 'master-svelte'
+      - 'tls_certs'
 
 concurrency:
-  group: deploy-website
+  group: ci-pipeline
   cancel-in-progress: false
 
 jobs:
-  create-tag:
+  create_tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.OFER_TO_GITHUB_SECRET }}
           fetch-depth: 0
