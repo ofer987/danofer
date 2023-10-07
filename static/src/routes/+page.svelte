@@ -59,7 +59,7 @@
 		<div class="work" id="thomson-reuters-digital-3">
 			<div class="heading">
 				<h2 class="position">Thomson Reuters - Site Reliability Tech Lead</h2>
-				<h2 class="at">January 2021 – Present</h2>
+				<h2 class="at">January 2022 – Present</h2>
 			</div>
 			<p>Our objective was to automate all manual processes.</p>
 			<div class="experience">
@@ -191,8 +191,8 @@
 
 		<div class="work" id="thomson-reuters-digital-2">
 			<div class="heading">
-				<h2 class="position">Thomson Reuters - Site Reliability Tech Lead</h2>
-				<h2 class="at">January 2021 – Present</h2>
+				<h2 class="position">Thomson Reuters - Site Reliability Senior Developer</h2>
+				<h2 class="at">January 2021 – January 2022</h2>
 			</div>
 			<p>
 				I lead a team of software developers to make developing and deploying more efficient for
@@ -785,6 +785,10 @@
 
 	.work {
 		margin: 3em 1em 3em 1em;
+
+		&#thomson-reuters-digital-3 {
+			@include work(lightgreen);
+		}
 
 		&#thomson-reuters-digital-2 {
 			@include work(violet);
