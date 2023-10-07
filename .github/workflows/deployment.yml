@@ -36,7 +36,7 @@ jobs:
           node-version: '18.17'
 
       - name: Compile
-        working-directory: ./danofer
+        working-directory: ./static
         run: |
           yarn && yarn build
 
@@ -60,7 +60,7 @@ jobs:
           set -e
 
       - name: Deploy
-        working-directory: ./danofer/build
+        working-directory: ./static/build
         run: |
           scp \
               -o StrictHostKeyChecking=no \
