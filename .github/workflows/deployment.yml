@@ -65,18 +65,18 @@ jobs:
       - name: Enable sites
         run: |
           # # Disable previous sites
-          # ssh \
-          #   -o StrictHostKeyChecking=no \
-          #   -o UserKnownHostsFile=/dev/null \
-          #   -i ${SERVER_RSA_PATH} \
-          #   "root@${OFER_TO_DOMAIN}" rm $(find /etc/nginx/sites-enabled -type l)
-          # Disable previous sites
-
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" find /etc/nginx/sites-enabled -type l
+            "root@${OFER_TO_DOMAIN}" rm $(find /etc/nginx/sites-enabled -type l)
+
+          # # Disable previous sites
+          # ssh \
+          #   -o StrictHostKeyChecking=no \
+          #   -o UserKnownHostsFile=/dev/null \
+          #   -i ${SERVER_RSA_PATH} \
+          #   "root@${OFER_TO_DOMAIN}" find /etc/nginx/sites-enabled -type l
 
           # Enable the static and api sites
           for file in 'static'; do
