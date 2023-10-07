@@ -1,0 +1,21 @@
+name: Create Server RSA Key
+
+inputs:
+  PRIVATE_RSA_KEY_CONTENT:
+    description: The content of the private RSA key
+    required: true
+  PRIVATE_RSA_KEY_PATH:
+    description: The path for where the private RSA key will be stored
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create RSA file
+      shell: bash
+      run: |
+        echo "${{ inputs.PRIVATE_RSA_KEY_CONTENT }}" > ${{ inputs.PRIVATE_RSA_KEY_PATH }};
+
+        # Remove its permissions
+        chmod g-rwx ${{ inputs.PRIVATE_RSA_KEY_PATH }};
+        chmod o-rwx ${{ inputs.PRIVATE_RSA_KEY_PATH }};

@@ -2,35 +2,21 @@
 
 set -ex;
 
-script_directory="$(dirname ${BASH_SOURCE[0]})";
-server_ip="167.99.181.5";
-server_user="root";
-image_name="danofer_run:latest"
-container_name="danofer_run";
-
-# Permit read/write access to server
-source "${script_directory}/../create_server_rsa.sh";
+# TODO: maybe use a less privileged user?
+server_user='root';
 
 # First stop the existing container
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
-    "${server_user}@${server_ip}" \
-    "docker stop ${container_name}";
-
-# Then remove it
-ssh \
-    -o StrictHostKeyChecking=no \
-    -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
-    "${server_user}@${server_ip}" \
-    "docker system prune --force";
+    -i ${SERVER_RSA_PATH} \
+    "${server_user}@${OFER_TO_DOMAIN}" \
+    "docker compose down";
 
 # Then start up a new container
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
-    -i ${SERVER_RSA} \
-    "${server_user}@${server_ip}" \
-    "docker run --publish 5000:80 --detach --name ${container_name} ${image_name}";
+    -i ${SERVER_RSA_PATH} \
+    "${server_user}@${OFER_TO_DOMAIN}" \
+    "docker compose up --detach";

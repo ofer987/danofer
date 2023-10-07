@@ -1,8 +1,5 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using SendGrid;
@@ -13,14 +10,8 @@ using Danofer.Api.Extensions;
 
 namespace Danofer.Api.Models
 {
-    public class MessagesModel : Model
+    public class MessagesModel : IModel
     {
-        public static string ReCaptchaUrl = "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}";
-        public static float Tolerance = 0.8F;
-
-        [JsonPropertyName("reCaptchaToken")]
-        public string ReCaptchaToken { get; init; } = string.Empty;
-
         [JsonPropertyName("senderName")]
         public string SenderName { get; init; } = string.Empty;
 
@@ -30,31 +21,7 @@ namespace Danofer.Api.Models
         [JsonPropertyName("message")]
         public string Message { get; init; } = string.Empty;
 
-        public string ReCaptchaSecret => Configuration.Config.ReCaptchaSecretKey;
         public string SendGridSecret => Configuration.Config.SendGridApiKey;
-
-        public async Task<bool> IsHuman(HttpClient httpClient)
-        {
-            var url = string.Format(ReCaptchaUrl, ReCaptchaSecret, ReCaptchaToken);
-            var response = await httpClient.GetAsync(url);
-
-            var responseStream = await response.Content.ReadAsStreamAsync();
-            var reCaptcha = await GetGoogleAnswer(responseStream);
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            if (!reCaptcha.Success)
-            {
-                return false;
-            }
-
-            if (reCaptcha.Score >= Tolerance)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         public async Task<bool> SendEmail(string senderName, string senderEmailAddress, string message)
         {
@@ -88,18 +55,6 @@ namespace Danofer.Api.Models
             {
                 throw new ArgumentException("The message should not be empty", nameof(Message));
             }
-        }
-
-        private async Task<ReCaptchaModel> GetGoogleAnswer(Stream stream)
-        {
-            var reCaptcha = await JsonSerializer.DeserializeAsync<ReCaptchaModel?>(stream);
-
-            if (reCaptcha is null)
-            {
-                throw new InvalidOperationException("Could not contact Google");
-            }
-
-            return reCaptcha;
         }
     }
 }

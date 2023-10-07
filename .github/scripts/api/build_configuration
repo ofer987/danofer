@@ -4,8 +4,7 @@
 require 'json'
 
 configuration = {
-  send_grid_api_key: ENV['SEND_GRID_API_KEY'],
-  recaptcha_secret_key: ENV['RECAPTCHA_SECRET_KEY']
+  send_grid_api_key: ENV['SEND_GRID_API_KEY']
 }
 
 puts configuration.to_json
