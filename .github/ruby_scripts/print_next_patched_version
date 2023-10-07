@@ -4,11 +4,8 @@
 require 'active_support'
 require 'semver'
 
-MAJOR = ENV['MAJOR']
-PATCH = ENV['MINOR']
-
-branches = `git tag --list`.split("\n")
-  .select { |item| item =~ %r{releases/#{MAJOR}\.\d+\.#{PATCH}} }
+versions = `git tag --list`.split("\n")
+  .select { |item| item =~ %r{releases/\d+\.\d+\.\d+} }
   .map { |item| item.gsub('releases/', '') }
   .uniq
   .map { |item| item.split('.').map(&:to_i) }
@@ -16,7 +13,13 @@ branches = `git tag --list`.split("\n")
   .sort
   .map { |item| "#{item.major}.#{item.minor}.#{item.patch}" }
 
-latest_bundle_emcm_web_version = branches[-1]
+version = versions[-1]
 
-return 0 if latest_bundle_emcm_web_version.nil?
-puts latest_bundle_emcm_web_version.split('.')[1]
+if version.nil?
+  puts '1.0.0'
+
+  exit
+end
+
+split_version = version.split('.')
+puts "#{split_version[0]}.#{split_version[1]}.#{split_version[2].to_i + 1}"
