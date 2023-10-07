@@ -202,6 +202,25 @@ jobs:
           DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
           DH_PARAM_FILENAME: 'dhparam.pem'
 
+      - name: Enable sites
+        working-directory: ./nginx_confs
+        run: |
+          # Disable previous sites
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${OFER_TO_DOMAIN}" rm $(find /etc/nginx/sites-enabled -type l)
+
+          # Enable the static and api sites
+          for file in ('static', 'api'); do
+            ssh \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA_PATH} \
+              "root@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
+          done
+
       - name: Restart NGINX
         run: |
           ssh \
