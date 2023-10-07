@@ -85,7 +85,7 @@ jobs:
             "root@${OFER_TO_DOMAIN}" find /etc/nginx/sites-enabled -type l
 
           # Enable the static and api sites
-          for file in 'static'; do
+          for file in 'static', 'api'; do
             ssh \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
