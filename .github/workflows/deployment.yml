@@ -71,26 +71,6 @@ jobs:
             -i ${SERVER_RSA_PATH} \
             "root@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
-          # # Disable previous sites
-          # ssh \
-          #   -o StrictHostKeyChecking=no \
-          #   -o UserKnownHostsFile=/dev/null \
-          #   -i ${SERVER_RSA_PATH} \
-          #   "root@${OFER_TO_DOMAIN}" rm -rf /etc/nginx/sites-enabled
-          #
-          # ssh \
-          #   -o StrictHostKeyChecking=no \
-          #   -o UserKnownHostsFile=/dev/null \
-          #   -i ${SERVER_RSA_PATH} \
-          #   "root@${OFER_TO_DOMAIN}" mkdir /etc/nginx/sites-enabled
-
-          # find previous enabled sites
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" find /etc/nginx/sites-enabled -type l
-
           # Enable the static and api sites
           for file in 'static' 'api'; do
             ssh \
