@@ -213,7 +213,7 @@ jobs:
             "root@${OFER_TO_DOMAIN}" rm $(find /etc/nginx/sites-enabled -type l)
 
           # Enable the static and api sites
-          for file in ('static', 'api'); do
+          for file in ('static'); do
             ssh \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
