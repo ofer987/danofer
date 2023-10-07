@@ -25,23 +25,24 @@ jobs:
         with:
           ruby-version: '3.1'
       - run: |
+          gem install --no-document --version 7.0.4.3 activesupport
           gem install --no-document --version 1.0.1 semver
 
       - name: Increment MINOR Version
         run: |
-          export MAJOR='0';
-          export PATCH='0';
-          MINOR=$(.github/ruby_scripts/print_latest_minor_version);
+          export MAJOR='1'
+          export PATCH='0'
+          MINOR=$(.github/ruby_scripts/print_latest_minor_version)
           NEXT_MINOR=$(( MINOR+1 ))
 
-          VERSION="${MAJOR}.${NEXT_MINOR}.${PATCH}";
+          VERSION="${MAJOR}.${NEXT_MINOR}.${PATCH}"
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
       - name: Create a New Tag
         run: |
-          TAG_NAME="releases/${VERSION}";
+          TAG_NAME="releases/${VERSION}"
 
-          git tag ${TAG_NAME};
+          git tag ${TAG_NAME}
           git push --tags origin
           # TODO: remove later when you figured out how to work with tags
           # git push origin "HEAD:refs/heads/${TAG_NAME}"

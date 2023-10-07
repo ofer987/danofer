@@ -79,11 +79,11 @@ jobs:
 
       - name: Create Version
         run: |
-          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
-          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
-          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')"
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')"
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')"
 
-          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          VERSION="${MAJOR}.${MINOR}.${PATCH}"
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
       - name: Build Docker Image
@@ -97,9 +97,9 @@ jobs:
       - name: Push Docker Image
         working-directory: ./api
         run: |
-          docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}";
+          docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
 
-          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}";
+          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}"
 
   deploy_api:
     needs: ['build_api']
@@ -121,11 +121,11 @@ jobs:
 
       - name: Create Version
         run: |
-          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')";
-          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')";
-          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')";
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')"
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')"
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')"
 
-          VERSION="${MAJOR}.${MINOR}.${PATCH}";
+          VERSION="${MAJOR}.${MINOR}.${PATCH}"
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
       - name: Copy Files
@@ -135,21 +135,21 @@ jobs:
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
               ${CONFIGURATION_PATH} \
-              "root@${OFER_TO_DOMAIN}:./";
+              "root@${OFER_TO_DOMAIN}:./"
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
               ./api/Danofer.run.Dockerfile \
-              "root@${OFER_TO_DOMAIN}:./";
+              "root@${OFER_TO_DOMAIN}:./"
 
           scp \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
               ./api/docker-compose.yml \
-              "root@${OFER_TO_DOMAIN}:./";
+              "root@${OFER_TO_DOMAIN}:./"
 
       - name: Build Local ofer.to Image
         working-directory: ./api
