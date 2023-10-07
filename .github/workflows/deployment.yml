@@ -70,7 +70,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" rm "$(find /etc/nginx/sites-enabled -type l)"
+            "root@${OFER_TO_DOMAIN}" rm -rf /etc/nginx/sites-enabled && mkdir -p -- /etc/nginx/sites-enabled
           set -e
 
           # # Disable previous sites
