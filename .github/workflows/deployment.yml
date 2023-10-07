@@ -203,7 +203,6 @@ jobs:
           DH_PARAM_FILENAME: 'dhparam.pem'
 
       - name: Enable sites
-        working-directory: ./nginx_confs
         run: |
           # Disable previous sites
           ssh \
