@@ -1,5 +1,6 @@
 <script lang="ts">
 	import aemIcon from '$lib/images/icons/experience-manager.svg';
+	import adobeCloudManagerIcon from '$lib/images/icons/adobe-cloud-manager.png';
 	import javaIcon from '$lib/images/icons/java.svg';
 	import jqueryIcon from '$lib/images/icons/jquery.svg';
 	import typeScriptIcon from '$lib/images/icons/typescript.svg';
@@ -24,11 +25,21 @@
 	import jenkinsIcon from '$lib/images/icons/jenkins.png';
 	import payPalIcon from '$lib/images/icons/paypal.svg';
 	import digitalOceanIcon from '$lib/images/icons/digitalocean.svg';
+	import awsIcon from '$lib/images/icons/aws.png';
+	import awsLambdaIcon from '$lib/images/icons/aws-lambda.png';
+	import awsS3Icon from '$lib/images/icons/aws-s3.png';
+	import datadogIcon from '$lib/images/icons/datadog.png';
+	import pythonIcon from '$lib/images/icons/python.png';
+	import googleLighthouseIcon from '$lib/images/icons/google-lighthouse.png';
+	import microsoftTeamsIcon from '$lib/images/icons/microsoft-teams.png';
+	import pagerDutyIcon from '$lib/images/icons/pager-duty.png';
+	import serviceNowIcon from '$lib/images/icons/service-now.png';
 
 	export let klass: string;
 
 	type icons =
 		| 'experience-manager.svg'
+		| 'adobe-cloud-manager.png'
 		| 'java.svg'
 		| 'jquery.svg'
 		| 'typescript.svg'
@@ -52,7 +63,16 @@
 		| 'selenium.png'
 		| 'jenkins.png'
 		| 'paypal.svg'
-		| 'digitalocean.svg';
+		| 'digitalocean.svg'
+		| 'aws.png'
+		| 'aws-lambda.png'
+		| 'aws-s3.png'
+		| 'datadog.png'
+    | 'python.png'
+    | 'google-lighthouse.png'
+		| 'microsoft-teams.png'
+		| 'pager-duty.png'
+    | 'service-now.png';
 
 	interface Value {
 		location: string;
@@ -68,6 +88,13 @@
 			altText: 'Adobe Experience Manager 6.5',
 			src: 'experience-manager.svg',
 			description: 'Adobe Experience Manager 6.5'
+		},
+		'adobe-cloud-manager': {
+			location:
+				'https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/onboarding/journey/cloud-manager.html',
+			altText: 'Adobe Cloud Manager',
+			src: 'adobe-cloud-manager.png',
+			description: 'Adobe Cloud Manager'
 		},
 		java: {
 			location: 'https://www.java.com',
@@ -194,7 +221,52 @@
 			location: 'https://developer.mozilla.org/en-US/docs/Web/javascript',
 			src: 'javascript.png',
 			altText: 'JavaScript'
-		}
+		},
+		aws: {
+			location: 'https://aws.amazon.com',
+			src: 'aws.png',
+			altText: 'Amazon Web Services'
+		},
+		'aws-lambda': {
+			location: 'https://aws.amazon.com/lambda/',
+			src: 'aws-lambda.png',
+			altText: 'AWS Lambda'
+		},
+		'aws-s3': {
+			location: 'https://aws.amazon.com/s3/',
+			src: 'aws-s3.png',
+			altText: 'AWS S3'
+		},
+		datadog: {
+			location: 'https://www.datadoghq.com',
+			src: 'datadog.png',
+			altText: 'Datadog'
+		},
+		python: {
+			location: 'https://www.python.org',
+			src: 'python.png',
+			altText: 'Python'
+		},
+		'google-lighthouse': {
+			location: 'https://developer.chrome.com/docs/lighthouse/overview/',
+			src: 'google-lighthouse.png',
+			altText: 'Google Lighthouse'
+		},
+		'microsoft-teams': {
+			location: 'https://www.microsoft.com/en-ca/microsoft-teams/log-in',
+			src: 'microsoft-teams.png',
+			altText: 'Google Lighthouse'
+		},
+		'pager-duty': {
+			location: 'https://www.pagerduty.com',
+			src: 'pager-duty.png',
+			altText: 'PagerDuty'
+		},
+		'service-now': {
+			location: 'https://www.servicenow.com',
+			src: 'service-now.png',
+			altText: 'ServiceNow'
+		},
 	};
 
 	function url() {
@@ -204,10 +276,11 @@
 	function sourceImage() {
 		const src = values[klass].src;
 
-		// return `./src/routes/icons/${src}`;
 		switch (src) {
 			case 'experience-manager.svg':
 				return aemIcon;
+			case 'adobe-cloud-manager.png':
+				return adobeCloudManagerIcon;
 			case 'java.svg':
 				return javaIcon;
 			case 'jquery.svg':
@@ -256,6 +329,24 @@
 				return payPalIcon;
 			case 'digitalocean.svg':
 				return digitalOceanIcon;
+			case 'aws.png':
+				return awsIcon;
+			case 'aws-lambda.png':
+				return awsLambdaIcon;
+			case 'aws-s3.png':
+				return awsS3Icon;
+			case 'datadog.png':
+				return datadogIcon;
+			case 'python.png':
+				return pythonIcon;
+      case 'google-lighthouse.png':
+        return googleLighthouseIcon;
+      case 'microsoft-teams.png':
+        return microsoftTeamsIcon
+      case 'pager-duty.png':
+        return pagerDutyIcon;
+      case 'service-now.png':
+        return serviceNowIcon;
 			default:
 				throw 'icon could not be found!';
 		}
