@@ -69,7 +69,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
+            "root@${OFER_TO_DOMAIN}" rm $(find /etc/nginx/sites-enabled -type l)
 
           # # Disable previous sites
           # ssh \
