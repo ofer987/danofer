@@ -8,6 +8,7 @@
 	let senderName = '';
 	let senderEmailAddress = '';
 	let emailAddressNotValid = false;
+	let message = '';
 
 	let isPageEnabled = true;
 
@@ -44,10 +45,10 @@
 			alertMessage = `The email address ${senderEmailAddress} is not valid`;
 		}
 
-		const apiOrigin = 'http://localhost:5000';
+		const apiOrigin = 'https://ofer.to';
 		const url = `${apiOrigin}/messages/create`;
 
-		const message = '';
+		// const message = '';
 		const body = {
 			senderName: senderName,
 			senderEmailAddress: senderEmailAddress,
@@ -79,13 +80,13 @@
 			<img class="close" src={closeIcon} alt="close" />
 		</button>
 		<label id="name" for="name">Your name</label>
-		<input id="name" type="text" required={true} value={senderName} />
+		<input id="name" type="text" required={true} bind:value={senderName} />
 
 		<label id="email-address" for="email-address">Your email address</label>
-		<input id="email-address" type="text" required={true} value={senderEmailAddress} />
+		<input id="email-address" type="text" required={true} bind:value={senderEmailAddress} />
 
 		<label id="message" for="message">What do you want to tell me?</label>
-		<textarea id="message" type="textarea" required={true} rows="5" />
+		<textarea id="message" type="textarea" required={true} rows="5" bind:value={message} />
 
 		<input
 			class="contact-me-button"
