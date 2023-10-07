@@ -35,331 +35,286 @@
 	import pagerDutyIcon from '$lib/images/icons/pager-duty.png';
 	import serviceNowIcon from '$lib/images/icons/service-now.png';
 
-	export let klass: string;
+	export let klass: icons;
 
 	type icons =
-		| 'experience-manager.svg'
-		| 'adobe-cloud-manager.png'
-		| 'java.svg'
-		| 'jquery.svg'
-		| 'typescript.svg'
-		| 'sass.svg'
-		| 'javascript.png'
-		| 'react.svg'
-		| 'graphql.svg'
-		| 'ruby.svg'
-		| 'postgresql.svg'
-		| 'github.svg'
-		| 'docker-2.svg'
-		| 'code-2.svg'
-		| 'confluence.svg'
-		| 'asp.svg'
-		| 'sql.svg'
-		| 'csharp.svg'
-		| 'node-js.svg'
-		| 'gitlab.svg'
-		| 'sendgrid.svg'
-		| 'cucumber.png'
-		| 'selenium.png'
-		| 'jenkins.png'
-		| 'paypal.svg'
-		| 'digitalocean.svg'
-		| 'aws.png'
-		| 'aws-lambda.png'
-		| 'aws-s3.png'
-		| 'datadog.png'
-    | 'python.png'
-    | 'google-lighthouse.png'
-		| 'microsoft-teams.png'
-		| 'pager-duty.png'
-    | 'service-now.png';
+		| 'adobe-experience-manager'
+		| 'adobe-cloud-manager'
+		| 'java'
+		| 'jquery'
+		| 'typescript'
+		| 'sass'
+		| 'javascript'
+		| 'react'
+		| 'graphql'
+		| 'ruby'
+		| 'postgresql'
+		| 'github'
+		| 'docker'
+		| 'bash'
+		| 'confluence'
+		| 'asp'
+		| 'sql'
+		| 'csharp'
+		| 'node-js'
+		| 'gitlab'
+		| 'sendgrid'
+		| 'cucumber'
+		| 'selenium'
+		| 'jenkins'
+		| 'paypal'
+		| 'digitalocean'
+		| 'aws'
+		| 'aws-lambda'
+		| 'aws-s3'
+		| 'datadog'
+		| 'python'
+		| 'google-lighthouse'
+		| 'microsoft-teams'
+		| 'pager-duty'
+		| 'service-now';
 
-	interface Value {
+	interface Attributes {
 		location: string;
 		altText: string;
-		src: icons;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		src: any;
 		description?: string;
 	}
 
-	const values: { [key: string]: Value } = {
-		'experience-manager': {
-			location:
-				'https://business.adobe.com/products/experience-manager/adobe-experience-manager.html',
-			altText: 'Adobe Experience Manager 6.5',
-			src: 'experience-manager.svg',
-			description: 'Adobe Experience Manager 6.5'
-		},
-		'adobe-cloud-manager': {
-			location:
-				'https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/onboarding/journey/cloud-manager.html',
-			altText: 'Adobe Cloud Manager',
-			src: 'adobe-cloud-manager.png',
-			description: 'Adobe Cloud Manager'
-		},
-		java: {
-			location: 'https://www.java.com',
-			src: 'java.svg',
-			altText: 'Java',
-			description: 'Java 11'
-		},
-		jquery: {
-			location: 'https://jquery.com',
-			src: 'jquery.svg',
-			altText: 'jQuery'
-		},
-		typescript: {
-			location: 'https://www.typescriptlang.org',
-			src: 'typescript.svg',
-			altText: 'TypeScript'
-		},
-		sass: {
-			location: 'https://sass-lang.com',
-			src: 'sass.svg',
-			altText: 'SASS',
-			description: 'CSS with Superpowers'
-		},
-		react: {
-			location: 'https://reactjs.org',
-			src: 'react.svg',
-			altText: 'React'
-		},
-		graphql: {
-			location: 'https://graphql.org',
-			src: 'graphql.svg',
-			altText: 'GraphQL'
-		},
-		ruby: {
-			location: 'https://www.ruby-lang.org',
-			src: 'ruby.svg',
-			altText: 'Ruby'
-		},
-		postgresql: {
-			location: 'https://www.postgresql.org',
-			src: 'postgresql.svg',
-			altText: 'PostgreSQL'
-		},
-		github: {
-			location: 'https://github.com',
-			src: 'github.svg',
-			altText: 'GitHub'
-		},
-		docker: {
-			location: 'https://www.docker.com',
-			src: 'docker-2.svg',
-			altText: 'Docker'
-		},
-		bash: {
-			location: 'https://www.gnu.org/software/bash/manual/bash.html',
-			src: 'code-2.svg',
-			altText: 'Bash Shell'
-		},
-		confluence: {
-			location: 'https://www.atlassian.com/software/confluence',
-			src: 'confluence.svg',
-			altText: 'Atlassian Confluence'
-		},
-		asp: {
-			location:
-				'https://docs.microsoft.com/en-us/iis/web-hosting/getting-started/deploying-a-classic-asp-server',
-			src: 'asp.svg',
-			altText: 'Microsoft ASP 3.0',
-			description: 'Microsoft ASP 3.0'
-		},
-		'sql-server': {
-			location: 'https://www.microsoft.com/en-us/sql-server',
-			src: 'sql.svg',
-			altText: 'SQL Server',
-			description: 'Microsoft SQL Server'
-		},
-		csharp: {
-			location: 'https://dotnet.microsoft.com/languages/csharp',
-			src: 'csharp.svg',
-			altText: 'C#',
-			description: 'Microsoft C# 10.0'
-		},
-		nodejs: {
-			src: 'node-js.svg',
-			location: 'https://nodejs.org',
-			altText: 'Node.js'
-		},
-		gitlab: {
-			location: 'https://about.gitlab.com',
-			src: 'gitlab.svg',
-			altText: 'GitLab'
-		},
-		sendgrid: {
-			location: 'https://sendgrid.com',
-			src: 'sendgrid.svg',
-			altText: 'SendGrid'
-		},
-		cucumber: {
-			location: 'https://cucumber.io/',
-			src: 'cucumber.png',
-			altText: 'Cucumber Behaviour-Driven Testing'
-		},
-		selenium: {
-			location: 'https://www.selenium.dev/',
-			src: 'selenium.png',
-			altText: 'Selenium'
-		},
-		jenkins: {
-			location: 'https://www.jenkins.io/',
-			src: 'jenkins.png',
-			altText: 'Jenkins CI'
-		},
-		paypal: {
-			location: 'https://www.paypal.com/',
-			src: 'paypal.svg',
-			altText: 'PayPal'
-		},
-		digitalocean: {
-			location: 'https://www.digitalocean.com/',
-			src: 'digitalocean.svg',
-			altText: 'Digital Ocean'
-		},
-		javascript: {
-			location: 'https://developer.mozilla.org/en-US/docs/Web/javascript',
-			src: 'javascript.png',
-			altText: 'JavaScript'
-		},
-		aws: {
-			location: 'https://aws.amazon.com',
-			src: 'aws.png',
-			altText: 'Amazon Web Services'
-		},
-		'aws-lambda': {
-			location: 'https://aws.amazon.com/lambda/',
-			src: 'aws-lambda.png',
-			altText: 'AWS Lambda'
-		},
-		'aws-s3': {
-			location: 'https://aws.amazon.com/s3/',
-			src: 'aws-s3.png',
-			altText: 'AWS S3'
-		},
-		datadog: {
-			location: 'https://www.datadoghq.com',
-			src: 'datadog.png',
-			altText: 'Datadog'
-		},
-		python: {
-			location: 'https://www.python.org',
-			src: 'python.png',
-			altText: 'Python'
-		},
-		'google-lighthouse': {
-			location: 'https://developer.chrome.com/docs/lighthouse/overview/',
-			src: 'google-lighthouse.png',
-			altText: 'Google Lighthouse'
-		},
-		'microsoft-teams': {
-			location: 'https://www.microsoft.com/en-ca/microsoft-teams/log-in',
-			src: 'microsoft-teams.png',
-			altText: 'Google Lighthouse'
-		},
-		'pager-duty': {
-			location: 'https://www.pagerduty.com',
-			src: 'pager-duty.png',
-			altText: 'PagerDuty'
-		},
-		'service-now': {
-			location: 'https://www.servicenow.com',
-			src: 'service-now.png',
-			altText: 'ServiceNow'
-		},
-	};
-
-	function url() {
-		return values[klass].location;
-	}
-
-	function sourceImage() {
-		const src = values[klass].src;
-
-		switch (src) {
-			case 'experience-manager.svg':
-				return aemIcon;
-			case 'adobe-cloud-manager.png':
-				return adobeCloudManagerIcon;
-			case 'java.svg':
-				return javaIcon;
-			case 'jquery.svg':
-				return jqueryIcon;
-			case 'typescript.svg':
-				return typeScriptIcon;
-			case 'sass.svg':
-				return sassIcon;
-			case 'javascript.png':
-				return javaScriptIcon;
-			case 'react.svg':
-				return reactIcon;
-			case 'graphql.svg':
-				return graphQLIcon;
-			case 'ruby.svg':
-				return rubyIcon;
-			case 'postgresql.svg':
-				return postgreSQLIcon;
-			case 'github.svg':
-				return gitHubIcon;
-			case 'docker-2.svg':
-				return dockerIcon;
-			case 'code-2.svg':
-				return bashIcon;
-			case 'confluence.svg':
-				return confluenceIcon;
-			case 'asp.svg':
-				return aspIcon;
-			case 'sql.svg':
-				return sqlServerIcon;
-			case 'csharp.svg':
-				return csharpIcon;
-			case 'node-js.svg':
-				return nodeJSIcon;
-			case 'gitlab.svg':
-				return gitLabIcon;
-			case 'sendgrid.svg':
-				return sendGridIcon;
-			case 'cucumber.png':
-				return cucumberIcon;
-			case 'selenium.png':
-				return seleniumIcon;
-			case 'jenkins.png':
-				return jenkinsIcon;
-			case 'paypal.svg':
-				return payPalIcon;
-			case 'digitalocean.svg':
-				return digitalOceanIcon;
-			case 'aws.png':
-				return awsIcon;
-			case 'aws-lambda.png':
-				return awsLambdaIcon;
-			case 'aws-s3.png':
-				return awsS3Icon;
-			case 'datadog.png':
-				return datadogIcon;
-			case 'python.png':
-				return pythonIcon;
-      case 'google-lighthouse.png':
-        return googleLighthouseIcon;
-      case 'microsoft-teams.png':
-        return microsoftTeamsIcon
-      case 'pager-duty.png':
-        return pagerDutyIcon;
-      case 'service-now.png':
-        return serviceNowIcon;
+	function getAttributes(klass: icons): Attributes {
+		switch (klass) {
+			case 'adobe-experience-manager':
+				return {
+					location:
+						'https://business.adobe.com/products/experience-manager/adobe-experience-manager.html',
+					altText: 'Adobe Experience Manager 6.5',
+					src: aemIcon,
+					description: 'Adobe Experience Manager 6.5'
+				};
+			case 'adobe-cloud-manager':
+				return {
+					location:
+						'https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/onboarding/journey/cloud-manager.html',
+					altText: 'Adobe Cloud Manager',
+					src: adobeCloudManagerIcon,
+					description: 'Adobe Cloud Manager'
+				};
+			case 'java':
+				return {
+					location: 'https://www.java.com',
+					src: javaIcon,
+					altText: 'Java',
+					description: 'Java 11'
+				};
+			case 'jquery':
+				return {
+					location: 'https://jquery.com',
+					src: jqueryIcon,
+					altText: 'jQuery'
+				};
+			case 'typescript':
+				return {
+					location: 'https://www.typescriptlang.org',
+					src: typeScriptIcon,
+					altText: 'TypeScript'
+				};
+			case 'sass':
+				return {
+					location: 'https://sass-lang.com',
+					src: sassIcon,
+					altText: 'SASS',
+					description: 'CSS with Superpowers'
+				};
+			case 'javascript':
+				return {
+					location: 'https://developer.mozilla.org/en-US/docs/Web/javascript',
+					src: javaScriptIcon,
+					altText: 'JavaScript'
+				};
+			case 'react':
+				return {
+					location: 'https://reactjs.org',
+					src: reactIcon,
+					altText: 'React'
+				};
+			case 'graphql':
+				return {
+					location: 'https://graphql.org',
+					src: graphQLIcon,
+					altText: 'GraphQL'
+				};
+			case 'ruby':
+				return {
+					location: 'https://www.ruby-lang.org',
+					src: rubyIcon,
+					altText: 'Ruby'
+				};
+			case 'postgresql':
+				return {
+					location: 'https://www.postgresql.org',
+					src: postgreSQLIcon,
+					altText: 'PostgreSQL'
+				};
+			case 'github':
+				return {
+					location: 'https://github.com',
+					src: gitHubIcon,
+					altText: 'GitHub'
+				};
+			case 'docker':
+				return {
+					location: 'https://www.docker.com',
+					src: dockerIcon,
+					altText: 'Docker'
+				};
+			case 'bash':
+				return {
+					location: 'https://www.gnu.org/software/bash/manual/bash.html',
+					src: bashIcon,
+					altText: 'Bash Shell'
+				};
+			case 'confluence':
+				return {
+					location: 'https://www.atlassian.com/software/confluence',
+					src: confluenceIcon,
+					altText: 'Atlassian Confluence'
+				};
+			case 'asp':
+				return {
+					location:
+						'https://docs.microsoft.com/en-us/iis/web-hosting/getting-started/deploying-a-classic-asp-server',
+					src: aspIcon,
+					altText: 'Microsoft ASP 3.0',
+					description: 'Microsoft ASP 3.0'
+				};
+			case 'sql':
+				return {
+					location: 'https://www.microsoft.com/en-us/sql-server',
+					src: sqlServerIcon,
+					altText: 'SQL Server',
+					description: 'Microsoft SQL Server'
+				};
+			case 'csharp':
+				return {
+					location: 'https://dotnet.microsoft.com/languages/csharp',
+					src: csharpIcon,
+					altText: 'C#',
+					description: 'Microsoft C# 10.0'
+				};
+			case 'node-js':
+				return {
+					src: nodeJSIcon,
+					location: 'https://nodejs.org',
+					altText: 'Node.js'
+				};
+			case 'gitlab':
+				return {
+					location: 'https://about.gitlab.com',
+					src: gitLabIcon,
+					altText: 'GitLab'
+				};
+			case 'sendgrid':
+				return {
+					location: 'https://sendgrid.com',
+					src: sendGridIcon,
+					altText: 'SendGrid'
+				};
+			case 'cucumber':
+				return {
+					location: 'https://cucumber.io/',
+					src: cucumberIcon,
+					altText: 'Cucumber Behaviour-Driven Testing'
+				};
+			case 'selenium':
+				return {
+					location: 'https://www.selenium.dev/',
+					src: seleniumIcon,
+					altText: 'Selenium'
+				};
+			case 'jenkins':
+				return {
+					location: 'https://www.jenkins.io/',
+					src: jenkinsIcon,
+					altText: 'jenkins ci'
+				};
+			case 'paypal':
+				return {
+					location: 'https://www.paypal.com/',
+					src: payPalIcon,
+					altText: 'PayPal'
+				};
+			case 'digitalocean':
+				return {
+					location: 'https://www.digitalocean.com/',
+					src: digitalOceanIcon,
+					altText: 'Digital Ocean'
+				};
+			case 'aws':
+				return {
+					location: 'https://aws.amazon.com',
+					src: awsIcon,
+					altText: 'Amazon Web Services'
+				};
+			case 'aws-lambda':
+				return {
+					location: 'https://aws.amazon.com/lambda/',
+					src: awsLambdaIcon,
+					altText: 'AWS Lambda'
+				};
+			case 'aws-s3':
+				return {
+					location: 'https://aws.amazon.com/s3/',
+					src: awsS3Icon,
+					altText: 'AWS S3'
+				};
+			case 'datadog':
+				return {
+					location: 'https://www.datadoghq.com',
+					src: datadogIcon,
+					altText: 'Datadog'
+				};
+			case 'python':
+				return {
+					location: 'https://www.python.org',
+					src: pythonIcon,
+					altText: 'Python'
+				};
+			case 'google-lighthouse':
+				return {
+					location: 'https://developer.chrome.com/docs/lighthouse/overview/',
+					src: googleLighthouseIcon,
+					altText: 'Google Lighthouse'
+				};
+			case 'microsoft-teams':
+				return {
+					location: 'https://www.microsoft.com/en-ca/microsoft-teams/log-in',
+					src: microsoftTeamsIcon,
+					altText: 'Google Lighthouse'
+				};
+			case 'pager-duty':
+				return {
+					location: 'https://www.pagerduty.com',
+					src: pagerDutyIcon,
+					altText: 'PagerDuty'
+				};
+			case 'service-now':
+				return {
+					location: 'https://www.servicenow.com',
+					src: serviceNowIcon,
+					altText: 'ServiceNow'
+				};
 			default:
 				throw 'icon could not be found!';
 		}
 	}
 
-	function alternativeText() {
-		return values[klass].altText;
-	}
+	const attributes = getAttributes(klass);
 </script>
 
-<a href={url()} target="_blank">
+<a href={attributes.location} target="_blank">
 	<div role="presentation">
-		<img class="icon {klass}" src={sourceImage()} alt={alternativeText()} target="_blank" />
+		<img class="icon {klass}" src={attributes.src} alt={attributes.altText} target="_blank" />
 	</div>
 </a>
 

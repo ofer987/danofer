@@ -94,7 +94,7 @@
 				<h3>Adobe Cloud Manager</h3>
 				<div class="responsibility cloud-manager">
 					<div class="icons">
-						<Icon klass="experience-manager" />
+						<Icon klass="adobe-experience-manager" />
 						<Icon klass="adobe-cloud-manager" />
 					</div>
 					<div class="description">
@@ -160,10 +160,14 @@
 								>
 							</li>
 							<li>
-								<span>Logs from automated testing and Google Lighthouse were sent to S3 Buckets</span>
+								<span
+									>Logs from automated testing and Google Lighthouse were sent to S3 Buckets</span
+								>
 							</li>
 							<li>
-								<span>Used the Datadog S3 Forwarder Lambda Function to send logs from S3 Buckets</span>
+								<span
+									>Used the Datadog S3 Forwarder Lambda Function to send logs from S3 Buckets</span
+								>
 							</li>
 							<li>
 								<span> Built Grok processors to process logs into Facets and Metrics </span>
@@ -216,7 +220,7 @@
 				<h3>Adobe Experience Manager</h3>
 				<div class="responsibility aem">
 					<div class="icons">
-						<Icon klass="experience-manager" />
+						<Icon klass="adobe-experience-manager" />
 						<Icon klass="java" />
 						<Icon klass="typescript" />
 						<Icon klass="sass" />
@@ -314,7 +318,7 @@
 				<h3>Adobe Experience Manager</h3>
 				<div class="responsibility aem">
 					<div class="icons">
-						<Icon klass="experience-manager" />
+						<Icon klass="adobe-experience-manager" />
 						<Icon klass="java" />
 						<Icon klass="jquery" />
 						<Icon klass="typescript" />
@@ -358,7 +362,7 @@
 				<h3>Installation</h3>
 				<div class="responsibility installation">
 					<div class="icons">
-						<Icon klass="experience-manager" />
+						<Icon klass="adobe-experience-manager" />
 						<Icon klass="docker" />
 						<Icon klass="bash" />
 					</div>
@@ -412,7 +416,7 @@
 				<div class="responsibility ci-cd">
 					<div class="icons">
 						<Icon klass="github" />
-						<Icon klass="experience-manager" />
+						<Icon klass="adobe-experience-manager" />
 						<Icon klass="bash" />
 					</div>
 					<div class="description">
@@ -445,7 +449,7 @@
 					<div class="icons">
 						<Icon klass="asp" />
 						<Icon klass="paypal" />
-						<Icon klass="sql-server" />
+						<Icon klass="sql" />
 					</div>
 					<div class="description">
 						<ol>
@@ -478,7 +482,7 @@
 					<div class="icons">
 						<Icon klass="csharp" />
 						<Icon klass="java" />
-						<Icon klass="nodejs" />
+						<Icon klass="node-js" />
 					</div>
 					<div class="description">
 						<ol>
@@ -526,7 +530,7 @@
 					<div class="icons">
 						<Icon klass="csharp" />
 						<Icon klass="java" />
-						<Icon klass="nodejs" />
+						<Icon klass="node-js" />
 					</div>
 					<div class="description">
 						<ol>
