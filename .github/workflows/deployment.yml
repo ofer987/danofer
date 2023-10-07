@@ -64,16 +64,20 @@ jobs:
 
       - name: Enable sites
         run: |
-          # # Disable previous sites
-          set +e
+          # Disable previous sites
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" rm -rf /etc/nginx/sites-enabled && mkdir -p -- /etc/nginx/sites-enabled
-          set -e
+            "root@${OFER_TO_DOMAIN}" rm -rf /etc/nginx/sites-enabled
 
-          # # Disable previous sites
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${OFER_TO_DOMAIN}" mkdir /etc/nginx/sites-enabled
+
+          # Disable previous sites
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
