@@ -44,7 +44,7 @@
 			alertMessage = `The email address ${senderEmailAddress} is not valid`;
 		}
 
-		const apiOrigin = 'https://api.ofer.to';
+		const apiOrigin = 'https://ofer.to';
 		const url = `${apiOrigin}/messages/create`;
 
 		const message = '';
