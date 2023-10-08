@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { validate } from 'email-validator';
+	import { validate as validateEmailAddress } from 'email-validator';
 	import { onMount } from 'svelte';
 
 	import closeIcon from '$lib/images/icons/close.svg';
 
 	type states = 'init' | 'sending' | 'success' | 'failure';
-	type inputStates = 'valid' | 'invalid';
 	type submitNames = 'Submit' | 'Submitting...' | 'Submitted';
 
 	export let closesAction: () => void;
@@ -14,34 +13,46 @@
 	let senderEmailAddress = '';
 	let message = '';
 	let state: states = 'init';
-	let inputState: inputStates = 'invalid';
 	let submitName: submitNames = 'Submit';
+
+	let isEmailAddressValid = false;
+	let isMessageValid = false;
+	let isNameValid = false;
+	let isFormValid = false;
 
 	let isPageEnabled = true;
 
 	function closeForm(): void {
 		state = 'init';
-		inputState = 'invalid';
 		submitName = 'Submit';
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
+
+		isEmailAddressValid = false;
+		isMessageValid = false;
+		isNameValid = false;
+		isFormValid = false;
 
 		closesAction();
 	}
 
 	function init(): void {
 		state = 'init';
-		inputState = 'invalid';
 		submitName = 'Submit';
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
 		alertMessage = '';
+
+		isEmailAddressValid = false;
+		isMessageValid = false;
+		isNameValid = false;
+		isFormValid = false;
 	}
 
 	function submitForm(): void {
-		if (!validateInputs()) {
+		if (!isFormValid) {
 			return;
 		}
 
@@ -49,34 +60,29 @@
 		sendMessage();
 	}
 
-	function isEmailAddressValid(value: string): boolean {
-		return validate(value);
-	}
+	function validate(): void {
+		isFormValid = true;
 
-	function validateInputs(): boolean {
-		if (senderName.trim() == '') {
-			inputState = 'invalid';
-			alertMessage = 'You forgot to write your name';
-
-			return false;
+		isNameValid = senderName.trim() != '';
+		console.log(`Name is valid: ${isNameValid}`);
+		if (!isNameValid) {
+			alertMessage = 'Enter Sender Name';
+			isFormValid = false;
 		}
 
-		if (message.trim() == '') {
-			inputState = 'invalid';
-			alertMessage = 'You forgot to write your message';
-
-			return false;
+		isMessageValid = message.trim() != '';
+		if (!isMessageValid) {
+			alertMessage = 'Enter a Message';
+			isFormValid = false;
 		}
 
-		if (!isEmailAddressValid(senderEmailAddress)) {
-			inputState = 'invalid';
-			alertMessage = `The email address ${senderEmailAddress} is not valid`;
-
-			return false;
+		isEmailAddressValid = validateEmailAddress(senderEmailAddress);
+		if (!isEmailAddressValid) {
+			alertMessage = 'Enter a Valid Email Address';
+			isFormValid = false;
 		}
 
-		inputState = 'valid';
-		return true;
+		console.log(`Form is valid: ${isFormValid}`);
 	}
 
 	async function sendMessage(): Promise<void> {
@@ -112,14 +118,18 @@
 	init();
 
 	onMount(() => {
-		window.addEventListener('keydown', (event) => {
+		window.addEventListener('keyup', (event) => {
 			if (event.key == 'Escape') {
 				closeForm();
 
 				return;
 			}
 
-			validateInputs();
+			validate();
+		});
+
+		window.addEventListener('mouseup', () => {
+			validate();
 		});
 	});
 </script>
@@ -130,42 +140,58 @@
 			<img class="close" src={closeIcon} alt="close" />
 		</button>
 
-		<div id="alert" class:display={inputState == 'invalid'}>
-			<div>{alertMessage}</div>
-		</div>
-
 		<label id="name" for="name">Your name</label>
-		<input id="name" type="text" required={true} bind:value={senderName} />
+		<input
+			class="required-inputs"
+			class:is-valid={isNameValid}
+			id="name"
+			type="text"
+			required={true}
+			bind:value={senderName}
+		/>
 
 		<label id="email-address" for="email-address">Your email address</label>
-		<input id="email-address" type="text" required={true} bind:value={senderEmailAddress} />
+		<input
+			class="required-inputs"
+			class:is-valid={isEmailAddressValid}
+			id="email-address"
+			type="text"
+			required={true}
+			bind:value={senderEmailAddress}
+		/>
 
 		<label id="message" for="message">What do you want to tell me?</label>
-		<textarea id="message" type="textarea" required={true} rows="5" bind:value={message} />
-
-		<input
-			class="contact-me-button"
-			disabled={inputState == 'invalid' || state == 'sending' || state == 'success'}
-			id="contact-me-submit-button"
-			type="button"
-			on:click={submitForm}
-			on:keydown={submitForm}
-			value={submitName}
+		<textarea
+			class="required-inputs"
+			class:is-valid={isMessageValid}
+			id="message"
+			type="textarea"
+			required={true}
+			rows="5"
+			bind:value={message}
 		/>
+
+		<div class="buttons">
+			<input
+				class="contact-me-button"
+				disabled={!isFormValid || state == 'sending' || state == 'success'}
+				id="contact-me-submit-button"
+				type="button"
+				on:click={submitForm}
+				on:keydown={submitForm}
+				value={submitName}
+			/>
+
+			<div id="alert" class:display={!isFormValid}>
+				<div>{alertMessage}</div>
+			</div>
+		</div>
 	</form>
 
 	<div id="page-blocker" class:blocked={!isPageEnabled} />
 </div>
 
 <style lang="scss">
-	#alert {
-		display: none;
-
-		&.display {
-			display: block;
-		}
-	}
-
 	#page-blocker {
 		width: 100%;
 		height: 100%;
@@ -186,22 +212,48 @@
 		}
 	}
 
-	input[type='button'] {
-		background-color: white;
-		border-color: white;
-		border-width: 0;
-		margin: 0;
-		padding: 0.5em 0.75em;
-		cursor: pointer;
+	.buttons {
+		width: 25em;
+		display: flex;
+		justify-content: space-between;
 
-		&:active {
-			color: black;
+		#alert {
+			color: red;
+			display: none;
+
+			&.display {
+				display: block;
+			}
 		}
 
-		&:disabled {
-			cursor: not-allowed;
-			color: grey;
-			background-color: black;
+		input[type='button'] {
+			background-color: white;
+			border-color: white;
+			border-width: 0;
+			margin: 0;
+			padding: 0.5em 0.75em;
+			cursor: pointer;
+
+			&:active {
+				color: black;
+			}
+
+			&:disabled {
+				cursor: not-allowed;
+				color: grey;
+				background-color: black;
+			}
+		}
+	}
+
+	input[type='text'],
+	textarea {
+		border-color: red;
+		border-width: 0.1em;
+		border-style: solid;
+
+		&.is-valid {
+			border-color: white;
 		}
 	}
 
@@ -242,7 +294,6 @@
 		input[type='text'],
 		textarea {
 			display: block;
-			border: 0;
 			padding: 0.5em;
 			margin-top: 0.25em;
 			margin-bottom: 1em;
@@ -255,7 +306,7 @@
 			font-size: 1em;
 			resize: vertical;
 			width: 25em;
-			border: 0;
+			/* border: 0; */
 		}
 	}
 
