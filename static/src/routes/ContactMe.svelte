@@ -46,8 +46,6 @@
 	}
 
 	function submitForm(): void {
-		init();
-
 		state = 'sending';
 		sendMessage();
 	}
