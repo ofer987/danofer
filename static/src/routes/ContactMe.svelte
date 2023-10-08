@@ -5,51 +5,46 @@
 	import closeIcon from '$lib/images/icons/close.svg';
 
 	type states = 'init' | 'sending' | 'success' | 'failure';
+	type inputStates = 'valid' | 'invalid';
 	type submitNames = 'Submit' | 'Submitting...' | 'Submitted';
 
 	export let closesAction: () => void;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
-	let inputNotValid = false;
 	let message = '';
 	let state: states = 'init';
+	let inputState: inputStates = 'invalid';
 	let submitName: submitNames = 'Submit';
 
 	let isPageEnabled = true;
 
-	interface MessageResponse {
-		title: string | null;
-		detail: string | null;
-	}
-
-	interface ServerResponse {
-		okay: boolean;
-		message: MessageResponse;
-	}
-
 	function closeForm(): void {
 		state = 'init';
+		inputState = 'invalid';
 		submitName = 'Submit';
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
-		inputNotValid = false;
 
 		closesAction();
 	}
 
 	function init(): void {
 		state = 'init';
+		inputState = 'invalid';
 		submitName = 'Submit';
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
-		inputNotValid = false;
 		alertMessage = '';
 	}
 
 	function submitForm(): void {
+		if (!validateInputs()) {
+			return;
+		}
+
 		state = 'sending';
 		sendMessage();
 	}
@@ -58,32 +53,33 @@
 		return validate(value);
 	}
 
-	async function sendMessage(): Promise<void> {
+	function validateInputs(): boolean {
 		if (senderName.trim() == '') {
-			inputNotValid = true;
-			state = 'failure';
+			inputState = 'invalid';
 			alertMessage = 'You forgot to write your name';
 
-			return;
+			return false;
 		}
 
 		if (message.trim() == '') {
-			inputNotValid = true;
-			state = 'failure';
+			inputState = 'invalid';
 			alertMessage = 'You forgot to write your message';
 
-			return;
+			return false;
 		}
 
 		if (!isEmailAddressValid(senderEmailAddress)) {
-			inputNotValid = true;
-			state = 'failure';
-
+			inputState = 'invalid';
 			alertMessage = `The email address ${senderEmailAddress} is not valid`;
 
-			return;
+			return false;
 		}
 
+		inputState = 'valid';
+		return true;
+	}
+
+	async function sendMessage(): Promise<void> {
 		const apiOrigin = 'https://api.ofer.to';
 		const url = `${apiOrigin}/messages/create`;
 
@@ -101,12 +97,12 @@
 				mode: 'cors'
 			});
 
-			if (response.ok) {
-				state = 'success';
-				submitName = 'Submitted';
+			if (!response.ok) {
+				throw response.body;
 			}
 
-			throw response.body;
+			state = 'success';
+			submitName = 'Submitted';
 		} catch (error) {
 			state = 'failure';
 			submitName = 'Submit';
@@ -119,7 +115,11 @@
 		window.addEventListener('keydown', (event) => {
 			if (event.key == 'Escape') {
 				closeForm();
+
+				return;
 			}
+
+			validateInputs();
 		});
 	});
 </script>
@@ -130,7 +130,7 @@
 			<img class="close" src={closeIcon} alt="close" />
 		</button>
 
-		<div id="alert" class:display={inputNotValid}>
+		<div id="alert" class:display={inputState == 'invalid'}>
 			<div>{alertMessage}</div>
 		</div>
 
@@ -145,7 +145,7 @@
 
 		<input
 			class="contact-me-button"
-			disabled={state == 'sending' || state == 'success'}
+			disabled={inputState == 'invalid' || state == 'sending' || state == 'success'}
 			id="contact-me-submit-button"
 			type="button"
 			on:click={submitForm}
