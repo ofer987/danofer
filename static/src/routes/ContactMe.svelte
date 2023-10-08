@@ -1,14 +1,18 @@
 <script lang="ts">
 	import { validate } from 'email-validator';
+	import { onMount } from 'svelte';
 
 	import closeIcon from '$lib/images/icons/close.svg';
+
+	type states = 'init' | 'sending' | 'success' | 'failure';
 
 	export let closesAction: () => void;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
-	let emailAddressNotValid = false;
+	let inputNotValid = false;
 	let message = '';
+	let state: states = 'init';
 
 	let isPageEnabled = true;
 
@@ -23,62 +27,106 @@
 	}
 
 	function closeForm(): void {
+		state = 'init';
+		senderName = '';
+		message = '';
+		senderEmailAddress = '';
+		inputNotValid = false;
+
 		closesAction();
 	}
 
-	function submitForm(): void {
-		sendMessage();
+	function init(): void {
+		state = 'init';
+		senderName = '';
+		message = '';
+		senderEmailAddress = '';
+		inputNotValid = false;
+		alertMessage = '';
 	}
 
-	function closeAlertMessage(): void {
-		emailAddressNotValid = false;
+	function submitForm(): void {
+		state = 'sending';
+		sendMessage();
 	}
 
 	function isEmailAddressValid(value: string): boolean {
 		return validate(value);
 	}
 
-	async function sendMessage(): Promise<ServerResponse> {
-		if (!isEmailAddressValid(senderEmailAddress)) {
-			emailAddressNotValid = true;
+	async function sendMessage(): Promise<void> {
+		if (senderName.trim() == '') {
+			inputNotValid = true;
+			state = 'failure';
+			alertMessage = 'You forgot to write your name';
 
-			alertMessage = `The email address ${senderEmailAddress} is not valid`;
+			return;
 		}
 
-		const apiOrigin = 'https://ofer.to';
+		if (message.trim() == '') {
+			inputNotValid = true;
+			state = 'failure';
+			alertMessage = 'You forgot to write your message';
+
+			return;
+		}
+
+		if (!isEmailAddressValid(senderEmailAddress)) {
+			inputNotValid = true;
+			state = 'failure';
+
+			alertMessage = `The email address ${senderEmailAddress} is not valid`;
+
+			return;
+		}
+
+		const apiOrigin = 'https://api.ofer.to';
 		const url = `${apiOrigin}/messages/create`;
 
-		// const message = '';
 		const body = {
 			senderName: senderName,
 			senderEmailAddress: senderEmailAddress,
 			message: message
 		};
 
-		var response = await fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(body),
-			mode: 'cors'
-		});
+		try {
+			const response = await fetch(url, {
+				method: 'POST',
+				body: JSON.stringify(body),
+				mode: 'cors'
+			});
 
-		return {
-			okay: response.ok,
-			message: JSON.parse(await response.text())
-		};
+			if (response.ok) {
+				state = 'success';
+			}
+
+			throw response.body;
+		} catch (error) {
+			state = 'failure';
+		}
 	}
+
+	init();
+
+	onMount(() => {
+		window.addEventListener('keydown', (event) => {
+			if (event.key == 'Escape') {
+				closeForm();
+			}
+		});
+	});
 </script>
 
 <div id="contact-me">
-	<div id="alert" class:display={emailAddressNotValid}>
-		<div>{alertMessage}</div>
-
-		<button on:click={closeAlertMessage}>Close</button>
-	</div>
-
 	<form id="contact-me-form">
 		<button on:click={closeForm} class="close-button">
 			<img class="close" src={closeIcon} alt="close" />
 		</button>
+
+		<div id="alert" class:display={inputNotValid}>
+			<div>{alertMessage}</div>
+		</div>
+
 		<label id="name" for="name">Your name</label>
 		<input id="name" type="text" required={true} bind:value={senderName} />
 
@@ -90,6 +138,7 @@
 
 		<input
 			class="contact-me-button"
+			disabled={state == 'sending' || state == 'success'}
 			id="contact-me-submit-button"
 			type="button"
 			on:click={submitForm}
@@ -136,10 +185,16 @@
 		border-width: 0;
 		margin: 0;
 		padding: 0.5em 0.75em;
-		color: black;
+		cursor: pointer;
 
 		&:active {
 			color: black;
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+			color: grey;
+			background-color: black;
 		}
 	}
 
