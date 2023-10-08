@@ -5,6 +5,7 @@
 	import closeIcon from '$lib/images/icons/close.svg';
 
 	type states = 'init' | 'sending' | 'success' | 'failure';
+	type submitNames = 'Submit' | 'Submitting...' | 'Submitted';
 
 	export let closesAction: () => void;
 	let alertMessage = '';
@@ -13,6 +14,7 @@
 	let inputNotValid = false;
 	let message = '';
 	let state: states = 'init';
+	let submitName: submitNames = 'Submit';
 
 	let isPageEnabled = true;
 
@@ -28,6 +30,7 @@
 
 	function closeForm(): void {
 		state = 'init';
+		submitName = 'Submit';
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
@@ -38,6 +41,7 @@
 
 	function init(): void {
 		state = 'init';
+		submitName = 'Submit';
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
@@ -90,6 +94,7 @@
 		};
 
 		try {
+			submitName = 'Submitting...';
 			const response = await fetch(url, {
 				method: 'POST',
 				body: JSON.stringify(body),
@@ -98,6 +103,7 @@
 
 			if (response.ok) {
 				state = 'success';
+				submitName = 'Submitted';
 			}
 
 			throw response.body;
@@ -143,7 +149,7 @@
 			type="button"
 			on:click={submitForm}
 			on:keydown={submitForm}
-			value="Submit"
+			value={submitName}
 		/>
 	</form>
 
