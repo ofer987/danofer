@@ -109,6 +109,7 @@
 			throw response.body;
 		} catch (error) {
 			state = 'failure';
+			submitName = 'Submit';
 		}
 	}
 
