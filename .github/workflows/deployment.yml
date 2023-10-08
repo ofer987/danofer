@@ -119,7 +119,7 @@ jobs:
         run: |
           .github/scripts/api/build_configuration > ${CONFIGURATION_PATH}
 
-          cat "Configuration: ${CONFIGURATION_PATH}"
+          echo "Configuration: $(cat ${CONFIGURATION_PATH})"
         env:
           SEND_GRID_API_KEY: ${{ secrets.OFER_TO_SEND_GRID_API_KEY }}
 
