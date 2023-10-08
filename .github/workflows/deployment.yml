@@ -119,7 +119,7 @@ jobs:
         run: |
           .github/scripts/api/build_configuration > ${CONFIGURATION_PATH}
         env:
-          SEND_GRID_API_KEY: ${{ secrets.SEND_GRID_API_KEY }}
+          SEND_GRID_API_KEY: ${{ secrets.OFER_TO_SEND_GRID_API_KEY }}
 
       - name: Create Version
         run: |
