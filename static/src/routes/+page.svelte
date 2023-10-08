@@ -19,14 +19,6 @@
 	function openContactMeForm(): void {
 		enableContactMeForm();
 	}
-
-	onMount(() => {
-		window.addEventListener('keydown', (event) => {
-			if (event.key == 'Escape' || event.key == 'Control') {
-				disableContactMeForm();
-			}
-		});
-	});
 </script>
 
 <svelte:head>
