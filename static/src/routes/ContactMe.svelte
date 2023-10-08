@@ -82,7 +82,7 @@
 			return;
 		}
 
-		const apiOrigin = 'https://ofer.to';
+		const apiOrigin = 'https://api.ofer.to';
 		const url = `${apiOrigin}/messages/create`;
 
 		const body = {
@@ -92,13 +92,17 @@
 		};
 
 		try {
-			await fetch(url, {
+			const response = await fetch(url, {
 				method: 'POST',
 				body: JSON.stringify(body),
 				mode: 'cors'
 			});
 
-			state = 'success';
+			if (response.ok) {
+				state = 'success';
+			}
+
+			throw response.body;
 		} catch (error) {
 			state = 'failure';
 		}
