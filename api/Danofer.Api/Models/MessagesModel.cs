@@ -25,10 +25,10 @@ namespace Danofer.Api.Models
 
         public async Task<bool> SendEmail(string senderName, string senderEmailAddress, string message)
         {
-            var subject = "Somebody contacted you from danofer.com";
-            var recipient = new EmailAddress("dan@ofer.to", "Dan Jakob Ofer");
+            var subject = "Somebody contacted you from ofer.to";
+            var recipient = new EmailAddress("dan@ofer.to", "Dan Ofer");
 
-            var sender = new EmailAddress("admin@ofer.to", "ofer.to");
+            var sender = new EmailAddress("dan@ofer.to", "Dan Ofer");
             var replyTo = new EmailAddress(senderEmailAddress, senderName);
             var email = MailHelper.CreateSingleEmail(sender, recipient, subject, message, string.Empty);
             email.SetReplyTo(replyTo);
