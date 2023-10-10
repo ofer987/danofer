@@ -11,6 +11,7 @@ concurrency:
 
 env:
   HTML_STATIC_PATH: '/var/www/ofer_to'
+  SMTP_RELATIVE_PATH: 'smtp'
   OFER_TO_DOMAIN: 'ofer.to'
   SERVER_RSA_PATH: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -19,6 +20,47 @@ env:
   CONFIGURATION_PATH: 'configuration.json'
 
 jobs:
+  set_up_smtp_server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add password to .env
+        run: |
+          echo "SMTP_PASSWORD='${SMTP_PASSWORD}'" >> ./smtp/.env
+        env:
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
+      - name: Create SMTP Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${OFER_TO_DOMAIN}" rm -rf ${SMTP_RELATIVE_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "root@${OFER_TO_DOMAIN}" mkdir -p -- ${SMTP_RELATIVE_PATH}
+
+          set -e
+
+      - name: Deploy SMTP (Postfix) Docker container
+        run: |
+          scp \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ${SERVER_RSA_PATH} \
+              -r \
+              ./smtp/docker-compose.yml ./smtp/.env \
+              "root@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}"
+
   build_and_deploy_static:
     runs-on: ubuntu-latest
 
