@@ -89,7 +89,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -110,13 +110,13 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
 
           set -e
 
@@ -129,7 +129,7 @@ jobs:
             -i "../../${SERVER_RSA_PATH}" \
             -r \
             index.html _app  \
-            "${USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
 
   build_api:
     runs-on: ubuntu-latest
