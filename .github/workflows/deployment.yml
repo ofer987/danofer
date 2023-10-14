@@ -201,7 +201,7 @@ jobs:
       - name: Add SMTP Password to ENV_FILE
         working-directory: ./docker
         run: |
-          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> ${ENV_FILE}
+          echo "SMTP_PASSWORD='${{ secrets.SMTP_PASSWORD }}'" >> ${ENV_FILE}
         env:
           ENV_FILE: '.smtp.env'
 
