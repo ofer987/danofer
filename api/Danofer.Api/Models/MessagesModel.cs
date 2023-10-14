@@ -21,13 +21,12 @@ namespace Danofer.Api.Models
         [JsonPropertyName("message")]
         public string Message { get; init; } = string.Empty;
 
-        public string SendGridSecret => Configuration.Config.SendGridApiKey;
-
         public bool SendEmail()
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
-            message.To.Add(new MailboxAddress(SenderName, SenderEmailAddress));
+            message.To.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
+            message.ReplyTo.Add(new MailboxAddress(SenderName, SenderEmailAddress));
 
             message.Subject = $"{SenderName} contacted you from ofer.to";
             message.Body = new TextPart("plain")
