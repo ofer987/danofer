@@ -155,7 +155,7 @@ jobs:
 
           VERSION="${MAJOR}.${MINOR}.${PATCH}"
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
-          echo "version=${VERSION}" >> ${GITHUB_OUTPUT}
+          echo "result=${VERSION}" >> ${GITHUB_OUTPUT}
 
       - name: Build Docker Image
         working-directory: ./api
