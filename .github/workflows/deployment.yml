@@ -65,7 +65,7 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
             -r \
-            ./smtp/docker-compose.yml ./smtp/.env \
+            ./smtp/docker-compose.yaml ./smtp/.env \
             "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}"
 
   build_and_deploy_static:
@@ -209,7 +209,7 @@ jobs:
         run: ../.github/scripts/api/build_danofer_image.sh
 
       - name: Run Local ofer.to Image
-        run: ./.github/scripts/run_docker_image.sh
+        run: ./.github/scripts/run_docker_image
         env:
           DOCKER_FILE: 'api.compose.yaml'
 
