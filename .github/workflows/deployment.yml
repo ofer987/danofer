@@ -10,6 +10,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  USERNAME: 'cicd'
+  NGINX_USERNAME: 'root'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   SMTP_RELATIVE_PATH: 'smtp'
   OFER_TO_DOMAIN: 'ofer.to'
@@ -26,6 +28,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+
       - name: Add password to .env
         run: |
           echo "SMTP_PASSWORD='${SMTP_PASSWORD}'" >> ./smtp/.env
@@ -41,25 +48,25 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" rm -rf ${SMTP_RELATIVE_PATH}
+            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${SMTP_RELATIVE_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" mkdir -p -- ${SMTP_RELATIVE_PATH}
+            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${SMTP_RELATIVE_PATH}
 
           set -e
 
       - name: Deploy SMTP (Postfix) Docker container
         run: |
           scp \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -i ${SERVER_RSA_PATH} \
-              -r \
-              ./smtp/docker-compose.yml ./smtp/.env \
-              "root@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}"
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            -r \
+            ./smtp/docker-compose.yml ./smtp/.env \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}"
 
   build_and_deploy_static:
     runs-on: ubuntu-latest
@@ -70,7 +77,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -91,13 +98,13 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
+            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
+            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
 
           set -e
 
@@ -105,12 +112,12 @@ jobs:
         working-directory: ./static/build
         run: |
           scp \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -i "../../${SERVER_RSA_PATH}" \
-              -r \
-              index.html _app  \
-              "root@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i "../../${SERVER_RSA_PATH}" \
+            -r \
+            index.html _app  \
+            "${USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
 
   build_api:
     runs-on: ubuntu-latest
@@ -132,9 +139,9 @@ jobs:
         working-directory: ./api
         run: |
           docker build \
-              --file Danofer.build.Dockerfile \
-              --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}" \
-              .
+            --file Danofer.build.Dockerfile \
+            --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}" \
+            .
 
       - name: Push Docker Image
         working-directory: ./api
@@ -155,7 +162,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Create the configuration (e.g., SendGrid key et cetera)
         run: |
@@ -177,35 +184,37 @@ jobs:
       - name: Copy Files
         run: |
           scp \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -i ${SERVER_RSA_PATH} \
-              ${CONFIGURATION_PATH} \
-              "root@${OFER_TO_DOMAIN}:./"
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            ${CONFIGURATION_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./"
 
           scp \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -i ${SERVER_RSA_PATH} \
-              ./api/Danofer.run.Dockerfile \
-              "root@${OFER_TO_DOMAIN}:./"
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            ./api/Danofer.run.Dockerfile \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./"
 
           scp \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -i ${SERVER_RSA_PATH} \
-              ./api/docker-compose.yml \
-              "root@${OFER_TO_DOMAIN}:./"
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            ./api/docker-compose.yaml \
+            "${USERNAME}@${OFER_TO_DOMAIN}:api.compose.yaml./"
 
       - name: Build Local ofer.to Image
         working-directory: ./api
         run: ../.github/scripts/api/build_danofer_image.sh
 
       - name: Run Local ofer.to Image
-        run: ./.github/scripts/api/run_danofer_image.sh
+        run: ./.github/scripts/run_docker_image.sh
+        env:
+          DOCKER_FILE: 'api.compose.yaml'
 
   nginx:
-    needs: ['build_and_deploy_static', 'deploy_api']
+    needs: ['set_up_smtp_server', 'build_and_deploy_static', 'deploy_api']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -225,7 +234,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${TLS_CERTIFICATE_FILENAME}" "${TLS_PRIVATE_KEY_FILENAME}" "root@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
+            "${TLS_CERTIFICATE_FILENAME}" "${TLS_PRIVATE_KEY_FILENAME}" "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
         env:
           TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
@@ -243,7 +252,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "root@${OFER_TO_DOMAIN}:/etc/nginx"
+            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
         env:
           DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
           DH_PARAM_FILENAME: 'dhparam.pem'
@@ -255,7 +264,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
           # Enable the static and api sites
           for file in 'static' 'api'; do
@@ -263,7 +272,7 @@ jobs:
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
-              "root@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
+              "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
           done
 
       - name: Restart NGINX
@@ -272,4 +281,4 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "root@${OFER_TO_DOMAIN}" systemctl restart nginx
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" systemctl restart nginx
