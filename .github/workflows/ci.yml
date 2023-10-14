@@ -5,6 +5,7 @@ on:
     branches:
       - 'master'
       - 'fix-api'
+      - 'use-docker-smtp-container'
 
 concurrency:
   group: ci-pipeline
