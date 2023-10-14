@@ -71,10 +71,11 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            ${DOCKER_FILE}
-            "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}/"
+            ${LOCAL_FILE} \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}/${DOCKER_FILE}"
         env:
-          DOCKER_FILE: 'api.compose.yaml'
+          LOCAL_FILE: './smtp/compose.yaml'
+          DOCKER_FILE: 'smtp.compose.yaml'
 
       - name: Run Local SMTP Image
         run: ./.github/scripts/run_docker_image
