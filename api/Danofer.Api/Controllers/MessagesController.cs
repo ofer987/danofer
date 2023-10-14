@@ -53,8 +53,10 @@ namespace Danofer.Api.Controllers
                     detail = "The email was sent"
                 });
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                _logger.LogError($"Error: {exception.Message} ({exception.GetType().FullName}): ${exception.Message}");
+
                 return Problem(
                     title: "email-not-sent",
                     detail: "The email was not sent",
