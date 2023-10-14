@@ -62,6 +62,12 @@ jobs:
         env:
           DIRECTORY: ${{ env.SMTP_RELATIVE_PATH }}
 
+      - name: Add Password to ENV_FILE
+        working-directory: ./smtp
+        run: |
+          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> "${ENV_FILE}"
+        ENV_FILE: '.env'
+
       - name: Deploy SMTP (Postfix) Docker container
         working-directory: ./smtp
         run: |
