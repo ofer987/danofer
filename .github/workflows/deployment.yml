@@ -68,7 +68,7 @@ jobs:
           scp \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
+            -i "../${SERVER_RSA_PATH}" \
             -r \
             ${DOCKER_FILE} ${ENV_FILE} \
             "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}"
@@ -208,7 +208,7 @@ jobs:
           scp \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
+            -i "../${SERVER_RSA_PATH}" \
             Danofer.run.Dockerfile ${DOCKER_FILE} \
             "${USERNAME}@${OFER_TO_DOMAIN}:./${API_RELATIVE_PATH}"
 
