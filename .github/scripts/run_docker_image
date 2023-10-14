@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -ex;
+
+# First stop the existing container
+ssh \
+  -o StrictHostKeyChecking=no \
+  -o UserKnownHostsFile=/dev/null \
+  -i ${RSA_PATH} \
+  "${USERNAME}@${OFER_TO_DOMAIN}" \
+  "docker compose --file='${DOCKER_COMPOSE_PATH}' down";
+
+# Then start up a new container
+ssh \
+  -o StrictHostKeyChecking=no \
+  -o UserKnownHostsFile=/dev/null \
+  -i ${RSA_PATH} \
+  "${USERNAME}@${OFER_TO_DOMAIN}" \
+  "docker compose --file='${DOCKER_COMPOSE_PATH}' up --detach";
