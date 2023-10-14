@@ -220,12 +220,18 @@ jobs:
 
       - name: Build Local ofer.to Image
         working-directory: ./api
-        run: ../.github/scripts/api/build_danofer_image.sh
+        run: |
+          echo "The Version is ${VERSION}"
+
+          ../.github/scripts/api/build_danofer_image.sh
         env:
           VERSION: ${{ needs.build_api.outputs.version }}
 
       - name: Run Local ofer.to Image
-        run: ./.github/scripts/run_docker_image
+        run: |
+          echo "The Version is ${VERSION}"
+
+          ./.github/scripts/run_docker_image
         env:
           DOCKER_COMPOSE_PATH: "${{ env.API_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
 
