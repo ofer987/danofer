@@ -13,18 +13,20 @@ env:
   USERNAME: 'cicd'
   NGINX_USERNAME: 'root'
   HTML_STATIC_PATH: '/var/www/ofer_to'
+  API_RELATIVE_PATH: 'api'
   SMTP_RELATIVE_PATH: 'smtp'
   OFER_TO_DOMAIN: 'ofer.to'
   SERVER_RSA_PATH: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  IMAGE_NAME: 'danofer'
+  API_IMAGE_NAME: 'danofer'
   CONFIGURATION_PATH: 'configuration.json'
 
 jobs:
   set_up_smtp_server:
     runs-on: ubuntu-latest
-
+    env:
+      DOCKER_FILE: 'compose.yaml'
     steps:
       - uses: actions/checkout@v4
 
@@ -48,39 +50,35 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${SMTP_RELATIVE_PATH}
+            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DIRECTORY}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${SMTP_RELATIVE_PATH}
+            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DIRECTORY}
 
           set -e
+        env:
+          DIRECTORY: ${{ env.SMTP_RELATIVE_PATH }}
 
       - name: Deploy SMTP (Postfix) Docker container
+        working-directory: ./smtp
         run: |
           scp \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            ./smtp/.env \
-            "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}/"
-
-          scp \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            ${LOCAL_FILE} \
-            "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}/${DOCKER_FILE}"
+            -r \
+            ${DOCKER_FILE} ${ENV_FILE} \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./${SMTP_RELATIVE_PATH}"
         env:
-          LOCAL_FILE: './smtp/compose.yaml'
-          DOCKER_FILE: 'smtp.compose.yaml'
+          ENV_FILE: '.env'
 
       - name: Run Local SMTP Image
         run: ./.github/scripts/run_docker_image
         env:
-          DOCKER_FILE: 'api.compose.yaml'
+          DOCKER_COMPOSE_PATH: "${{ env.SMTP_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
 
   build_and_deploy_static:
     runs-on: ubuntu-latest
@@ -135,12 +133,14 @@ jobs:
 
   build_api:
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.version.outputs.result }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker-practice/actions-setup-docker@master
 
       - name: Create Version
+        id: version
         run: |
           MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')"
           MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')"
@@ -148,13 +148,14 @@ jobs:
 
           VERSION="${MAJOR}.${MINOR}.${PATCH}"
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+          echo "version=${VERSION}" >> ${GITHUB_OUTPUT}
 
       - name: Build Docker Image
         working-directory: ./api
         run: |
           docker build \
             --file Danofer.build.Dockerfile \
-            --tag "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}" \
+            --tag "${DOCKER_USERNAME}/${API_IMAGE_NAME}:${VERSION}" \
             .
 
       - name: Push Docker Image
@@ -162,11 +163,13 @@ jobs:
         run: |
           docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
 
-          docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${VERSION}"
+          docker push "${DOCKER_USERNAME}/${API_IMAGE_NAME}:${VERSION}"
 
   deploy_api:
     needs: ['build_api']
     runs-on: ubuntu-latest
+    env:
+      DOCKER_FILE: 'docker-compose.yaml'
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
@@ -178,54 +181,47 @@ jobs:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
           PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
-      - name: Create the configuration (e.g., SendGrid key et cetera)
+      - name: Create API Directory
         run: |
-          .github/scripts/api/build_configuration > ${CONFIGURATION_PATH}
+          # In case the directory does not exist
+          set +e
 
-          echo "Configuration: $(cat ${CONFIGURATION_PATH})"
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DIRECTORY}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DIRECTORY}
+
+          set -e
         env:
-          SEND_GRID_API_KEY: ${{ secrets.SEND_GRID_API_KEY }}
-
-      - name: Create Version
-        run: |
-          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')"
-          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')"
-          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')"
-
-          VERSION="${MAJOR}.${MINOR}.${PATCH}"
-          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+          DIRECTORY: ${{ env.API_RELATIVE_PATH }}
 
       - name: Copy Files
+        working-directory: './api'
         run: |
           scp \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            ${CONFIGURATION_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}:./"
-
-          scp \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            ./api/Danofer.run.Dockerfile \
-            "${USERNAME}@${OFER_TO_DOMAIN}:./"
-
-          scp \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            ./api/docker-compose.yaml \
-            "${USERNAME}@${OFER_TO_DOMAIN}:api.compose.yaml./"
+            Danofer.run.Dockerfile ${DOCKER_FILE} \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./${API_RELATIVE_PATH}"
 
       - name: Build Local ofer.to Image
         working-directory: ./api
         run: ../.github/scripts/api/build_danofer_image.sh
+        env:
+          VERSION: ${{ needs.build_api.outputs.version }}
 
       - name: Run Local ofer.to Image
         run: ./.github/scripts/run_docker_image
         env:
-          DOCKER_FILE: 'api.compose.yaml'
+          DOCKER_COMPOSE_PATH: "${{ env.API_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
 
   nginx:
     needs: ['set_up_smtp_server', 'build_and_deploy_static', 'deploy_api']
