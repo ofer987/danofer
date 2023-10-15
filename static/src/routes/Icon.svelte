@@ -340,7 +340,4 @@
 			}
 		}
 	}
-
-	@media (max-width: 375px) {
-	}
 </style>

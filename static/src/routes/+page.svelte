@@ -25,11 +25,11 @@
 </svelte:head>
 
 <section class="main-section">
-	<div id="image" class:is-page-disabled={!isPageEnabled}>
-		<div id="introduction">
+	<div class="image" class:is-page-disabled={!isPageEnabled}>
+		<div class="name">
 			<h1>Dan Ofer</h1>
 
-			<p id="main">Software Developer Extraordinaire</p>
+			<p class="main">Software Developer Extraordinaire</p>
 			<div class="contact">
 				<button
 					class="contact-me-button"
@@ -44,6 +44,14 @@
 
 	<div id="contact-me" class:contact-me-opened={isContactMeOpened}>
 		<ContactMe closesAction={disableContactMeForm} />
+	</div>
+
+	<div class="mini-introduction" class:is-page-disabled={!isPageEnabled}>
+		<div class="name">
+			<h1>Dan Ofer</h1>
+
+			<p class="main">Software Developer Extraordinaire</p>
+		</div>
 	</div>
 
 	<section class="jobs" class:is-page-disabled={!isPageEnabled}>
@@ -763,7 +771,11 @@
 			font-weight: bold;
 		}
 
-		#image {
+		.mini-introduction {
+			display: none;
+		}
+
+		.image {
 			width: 100%;
 			background-image: url('./main.jpg');
 			background-size: cover;
@@ -774,7 +786,7 @@
 				opacity: 50%;
 			}
 
-			#introduction {
+			.name {
 				margin: 0;
 				width: 100%;
 				text-align: center;
@@ -793,6 +805,10 @@
 		}
 
 		.work {
+			&:first-child {
+				margin: 1em 1em 3em 1em;
+			}
+
 			margin: 3em 1em 3em 1em;
 
 			&#thomson-reuters-digital-3 {
@@ -869,6 +885,14 @@
 		}
 	}
 
+	#contact-me {
+		display: none;
+
+		&.contact-me-opened {
+			display: block;
+		}
+	}
+
 	// Tablet
 	@media (max-width: 800px) {
 		:root {
@@ -879,12 +903,15 @@
 			.work {
 				.experience {
 					.responsibility {
+						flex-direction: column;
+
 						.icons {
-							width: 40%;
+							width: 100%;
+							flex-direction: row;
 						}
 
 						.description {
-							width: 60%;
+							width: 100%;
 						}
 					}
 				}
@@ -898,48 +925,25 @@
 		}
 
 		.main-section {
-			flex-direction: row;
+			/* flex-direction: column; */
 
-			#image {
+			.image {
 				display: none;
 			}
 
-			.work {
-				.experience {
-					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
+			.mini-introduction {
+				display: block;
 
-					.responsibility {
-						flex-direction: column;
+				.name {
+					margin: 0;
+					width: 100%;
+					text-align: center;
 
-						.icons {
-							padding-left: 1em;
-							width: 100%;
-						}
-
-						.description {
-							width: 100%;
-
-							ol {
-								width: 100%;
-
-								li {
-									width: 100%;
-								}
-							}
-						}
+					h1 {
+						margin: 0;
 					}
 				}
 			}
-		}
-	}
-
-	#contact-me {
-		display: none;
-
-		&.contact-me-opened {
-			display: block;
 		}
 	}
 </style>
