@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Icon from './Icon.svelte';
 	import ContactMe from './ContactMe.svelte';
 
@@ -25,7 +24,7 @@
 	<title>Dan Ofer</title>
 </svelte:head>
 
-<section>
+<section class="main-section">
 	<div id="image" class:is-page-disabled={!isPageEnabled}>
 		<div id="introduction">
 			<h1>Dan Ofer</h1>
@@ -47,7 +46,7 @@
 		<ContactMe closesAction={disableContactMeForm} />
 	</div>
 
-	<section id="jobs" class:is-page-disabled={!isPageEnabled}>
+	<section class="jobs" class:is-page-disabled={!isPageEnabled}>
 		<div class="work" id="thomson-reuters-digital-3">
 			<div class="heading">
 				<h2 class="position">Thomson Reuters - Site Reliability Tech Lead</h2>
@@ -744,110 +743,125 @@
 			list-style-type: circle;
 			color: $color;
 
+			li {
+				padding: 0.5em 0;
+			}
+
 			span {
 				color: black;
 			}
 		}
 	}
 
-	#image {
-		width: 100%;
-		background-image: url('./main.jpg');
-		background-size: cover;
-		background-position: center;
-		height: 1500px;
+	.main-section {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 
-		&.is-page-disabled {
-			opacity: 50%;
+		h2.position {
+			font-size: 1.5em;
+			font-weight: bold;
 		}
 
-		#introduction {
-			margin: 0;
+		#image {
 			width: 100%;
-			text-align: center;
-			color: white;
+			background-image: url('./main.jpg');
+			background-size: cover;
+			background-position: center;
+			height: 1500px;
 
-			h1 {
+			&.is-page-disabled {
+				opacity: 50%;
+			}
+
+			#introduction {
 				margin: 0;
+				width: 100%;
+				text-align: center;
+				color: white;
+
+				h1 {
+					margin: 0;
+				}
 			}
 		}
-	}
 
-	section#jobs {
-		&.is-page-disabled {
-			opacity: 50%;
-		}
-	}
-
-	.work {
-		margin: 3em 1em 3em 1em;
-
-		&#thomson-reuters-digital-3 {
-			@include work(lightgreen);
+		section.jobs {
+			&.is-page-disabled {
+				opacity: 50%;
+			}
 		}
 
-		&#thomson-reuters-digital-2 {
-			@include work(violet);
-		}
+		.work {
+			margin: 3em 1em 3em 1em;
 
-		&#thomson-reuters-digital {
-			@include work(blueviolet);
-		}
+			&#thomson-reuters-digital-3 {
+				@include work(lightgreen);
+			}
 
-		&#thomson-reuters-finance-and-risk {
-			@include work(green);
-		}
+			&#thomson-reuters-digital-2 {
+				@include work(violet);
+			}
 
-		&#danofer-com {
-			@include work(turquoise);
-		}
+			&#thomson-reuters-digital {
+				@include work(blueviolet);
+			}
 
-		&#danofer-com {
-			@include work(darkorange);
-		}
+			&#thomson-reuters-finance-and-risk {
+				@include work(green);
+			}
 
-		&#financier {
-			@include work(#328636);
-		}
+			&#danofer-com {
+				@include work(turquoise);
+			}
 
-		&#trike-apps {
-			@include work(#24afca);
-		}
+			&#danofer-com {
+				@include work(darkorange);
+			}
 
-		.experience {
-			display: flex;
-			flex-flow: wrap;
-			flex-direction: column;
+			&#financier {
+				@include work(#328636);
+			}
 
-			.responsibility {
+			&#trike-apps {
+				@include work(#24afca);
+			}
+
+			.experience {
 				display: flex;
 				flex-flow: wrap;
-				flex-direction: row;
-				width: 100%;
+				flex-direction: column;
 
-				.icons {
-					width: 20%;
+				.responsibility {
 					display: flex;
 					flex-flow: wrap;
 					flex-direction: row;
-				}
+					width: 100%;
 
-				.description {
-					width: 80%;
-					text-align: justify;
+					.icons {
+						width: 20%;
+						display: flex;
+						flex-flow: wrap;
+						flex-direction: row;
+					}
 
-					a {
-						color: blue;
-						cursor: pointer;
-						text-decoration: none;
+					.description {
+						width: 80%;
+						text-align: justify;
 
-						&:visited,
-						&:hover,
-						&:focus,
-						&:active {
+						a {
 							color: blue;
 							cursor: pointer;
 							text-decoration: none;
+
+							&:visited,
+							&:hover,
+							&:focus,
+							&:active {
+								color: blue;
+								cursor: pointer;
+								text-decoration: none;
+							}
 						}
 					}
 				}
@@ -859,7 +873,9 @@
 	@media (max-width: 800px) {
 		:root {
 			font-size: 20px;
+		}
 
+		.main-section {
 			.work {
 				.experience {
 					.responsibility {
@@ -876,20 +892,42 @@
 		}
 	}
 
-	// Mobile
-	@media (max-width: 375px) {
+	@media (max-width: 390px) {
 		:root {
 			font-size: 24px;
+		}
+
+		.main-section {
+			flex-direction: row;
+
+			#image {
+				display: none;
+			}
 
 			.work {
 				.experience {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+
 					.responsibility {
+						flex-direction: column;
+
 						.icons {
+							padding-left: 1em;
 							width: 100%;
 						}
 
 						.description {
 							width: 100%;
+
+							ol {
+								width: 100%;
+
+								li {
+									width: 100%;
+								}
+							}
 						}
 					}
 				}
