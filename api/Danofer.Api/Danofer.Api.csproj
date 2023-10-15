@@ -8,7 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="EmailValidation" Version="1.0.5" />
-    <PackageReference Include="SendGrid" Version="9.24.1" />
+    <PackageReference Include="MailKit" Version="4.2.0" />
+    <PackageReference Include="MimeKit" Version="4.2.0" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 

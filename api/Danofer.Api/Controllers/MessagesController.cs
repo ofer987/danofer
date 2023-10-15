@@ -37,31 +37,32 @@ namespace Danofer.Api.Controllers
             catch (ArgumentException exception)
             {
                 return Problem(
-                        title: exception.ParamName,
-                        detail: $"Missing {exception.ParamName}",
-                        statusCode: (int)HttpStatusCode.BadRequest
-                        );
+                    title: exception.ParamName,
+                    detail: $"Missing {exception.ParamName}",
+                    statusCode: (int)HttpStatusCode.BadRequest
+                );
             }
 
-            var isSuccess = await model.SendEmail(
-                model.SenderName,
-                model.SenderEmailAddress,
-                model.Message
-            );
-            if (isSuccess)
+            try
             {
+                model.SendEmail();
+
                 return new OkObjectResult(new
                 {
                     title = "email-sent",
                     detail = "The email was sent"
                 });
             }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error: {exception.Message} ({exception.GetType().FullName}): ${exception.Message}");
 
-            return Problem(
-                title: "email-not-sent",
-                detail: "The email was not sent",
-                statusCode: (int)HttpStatusCode.BadRequest
-            );
+                return Problem(
+                    title: "email-not-sent",
+                    detail: "The email was not sent",
+                    statusCode: (int)HttpStatusCode.BadRequest
+                );
+            }
         }
     }
 }

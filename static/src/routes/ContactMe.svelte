@@ -1,114 +1,197 @@
 <script lang="ts">
-	import { validate } from 'email-validator';
+	import { validate as validateEmailAddress } from 'email-validator';
+	import { onMount } from 'svelte';
 
 	import closeIcon from '$lib/images/icons/close.svg';
+
+	type states = 'init' | 'sending' | 'success' | 'failure';
+	type submitNames = 'Submit' | 'Submitting...' | 'Submitted';
 
 	export let closesAction: () => void;
 	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
-	let emailAddressNotValid = false;
+	let message = '';
+	let state: states = 'init';
+	let submitName: submitNames = 'Submit';
+
+	let isEmailAddressValid = false;
+	let isMessageValid = false;
+	let isNameValid = false;
+	let isFormValid = false;
 
 	let isPageEnabled = true;
 
-	interface MessageResponse {
-		title: string | null;
-		detail: string | null;
-	}
-
-	interface ServerResponse {
-		okay: boolean;
-		message: MessageResponse;
-	}
-
 	function closeForm(): void {
+		state = 'init';
+		submitName = 'Submit';
+		senderName = '';
+		message = '';
+		senderEmailAddress = '';
+
+		isEmailAddressValid = false;
+		isMessageValid = false;
+		isNameValid = false;
+		isFormValid = false;
+
 		closesAction();
 	}
 
+	function init(): void {
+		state = 'init';
+		submitName = 'Submit';
+		senderName = '';
+		message = '';
+		senderEmailAddress = '';
+		alertMessage = '';
+
+		isEmailAddressValid = false;
+		isMessageValid = false;
+		isNameValid = false;
+		isFormValid = false;
+	}
+
 	function submitForm(): void {
+		if (!isFormValid) {
+			return;
+		}
+
+		state = 'sending';
 		sendMessage();
 	}
 
-	function closeAlertMessage(): void {
-		emailAddressNotValid = false;
-	}
+	function validate(): void {
+		isFormValid = true;
 
-	function isEmailAddressValid(value: string): boolean {
-		return validate(value);
-	}
-
-	async function sendMessage(): Promise<ServerResponse> {
-		if (!isEmailAddressValid(senderEmailAddress)) {
-			emailAddressNotValid = true;
-
-			alertMessage = `The email address ${senderEmailAddress} is not valid`;
+		isNameValid = senderName.trim() != '';
+		console.log(`Name is valid: ${isNameValid}`);
+		if (!isNameValid) {
+			alertMessage = 'Enter Sender Name';
+			isFormValid = false;
 		}
 
-		const apiOrigin = 'http://localhost:5000';
+		isMessageValid = message.trim() != '';
+		if (!isMessageValid) {
+			alertMessage = 'Enter a Message';
+			isFormValid = false;
+		}
+
+		isEmailAddressValid = validateEmailAddress(senderEmailAddress);
+		if (!isEmailAddressValid) {
+			alertMessage = 'Enter a Valid Email Address';
+			isFormValid = false;
+		}
+
+		console.log(`Form is valid: ${isFormValid}`);
+	}
+
+	async function sendMessage(): Promise<void> {
+		const apiOrigin = 'https://api.ofer.to';
 		const url = `${apiOrigin}/messages/create`;
 
-		const message = '';
 		const body = {
 			senderName: senderName,
 			senderEmailAddress: senderEmailAddress,
 			message: message
 		};
 
-		var response = await fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(body),
-			mode: 'cors'
+		try {
+			submitName = 'Submitting...';
+			const response = await fetch(url, {
+				method: 'POST',
+				body: JSON.stringify(body),
+				mode: 'cors'
+			});
+
+			if (!response.ok) {
+				throw response.body;
+			}
+
+			state = 'success';
+			submitName = 'Submitted';
+		} catch (error) {
+			state = 'failure';
+			submitName = 'Submit';
+		}
+	}
+
+	init();
+
+	onMount(() => {
+		window.addEventListener('keyup', (event) => {
+			if (event.key == 'Escape') {
+				closeForm();
+
+				return;
+			}
+
+			validate();
 		});
 
-		return {
-			okay: response.ok,
-			message: JSON.parse(await response.text())
-		};
-	}
+		window.addEventListener('mouseup', () => {
+			validate();
+		});
+	});
 </script>
 
 <div id="contact-me">
-	<div id="alert" class:display={emailAddressNotValid}>
-		<div>{alertMessage}</div>
-
-		<button on:click={closeAlertMessage}>Close</button>
-	</div>
-
 	<form id="contact-me-form">
 		<button on:click={closeForm} class="close-button">
 			<img class="close" src={closeIcon} alt="close" />
 		</button>
+
 		<label id="name" for="name">Your name</label>
-		<input id="name" type="text" required={true} value={senderName} />
+		<input
+			class="required-inputs"
+			class:is-valid={isNameValid}
+			id="name"
+			type="text"
+			required={true}
+			bind:value={senderName}
+		/>
 
 		<label id="email-address" for="email-address">Your email address</label>
-		<input id="email-address" type="text" required={true} value={senderEmailAddress} />
+		<input
+			class="required-inputs"
+			class:is-valid={isEmailAddressValid}
+			id="email-address"
+			type="text"
+			required={true}
+			bind:value={senderEmailAddress}
+		/>
 
 		<label id="message" for="message">What do you want to tell me?</label>
-		<textarea id="message" type="textarea" required={true} rows="5" />
-
-		<input
-			class="contact-me-button"
-			id="contact-me-submit-button"
-			type="button"
-			on:click={submitForm}
-			on:keydown={submitForm}
-			value="Submit"
+		<textarea
+			class="required-inputs"
+			class:is-valid={isMessageValid}
+			id="message"
+			type="textarea"
+			required={true}
+			rows="5"
+			bind:value={message}
 		/>
+
+		<div class="buttons">
+			<input
+				class="contact-me-button"
+				disabled={!isFormValid || state == 'sending' || state == 'success'}
+				id="contact-me-submit-button"
+				type="button"
+				on:click={submitForm}
+				on:keydown={submitForm}
+				value={submitName}
+			/>
+
+			<div id="alert" class:display={!isFormValid}>
+				<div>{alertMessage}</div>
+			</div>
+		</div>
 	</form>
 
 	<div id="page-blocker" class:blocked={!isPageEnabled} />
 </div>
 
 <style lang="scss">
-	#alert {
-		display: none;
-
-		&.display {
-			display: block;
-		}
-	}
-
 	#page-blocker {
 		width: 100%;
 		height: 100%;
@@ -129,16 +212,48 @@
 		}
 	}
 
-	input[type='button'] {
-		background-color: white;
-		border-color: white;
-		border-width: 0;
-		margin: 0;
-		padding: 0.5em 0.75em;
-		color: black;
+	.buttons {
+		width: 25em;
+		display: flex;
+		justify-content: space-between;
 
-		&:active {
-			color: black;
+		#alert {
+			color: red;
+			display: none;
+
+			&.display {
+				display: block;
+			}
+		}
+
+		input[type='button'] {
+			background-color: white;
+			border-color: white;
+			border-width: 0;
+			margin: 0;
+			padding: 0.5em 0.75em;
+			cursor: pointer;
+
+			&:active {
+				color: black;
+			}
+
+			&:disabled {
+				cursor: not-allowed;
+				color: grey;
+				background-color: black;
+			}
+		}
+	}
+
+	input[type='text'],
+	textarea {
+		border-color: red;
+		border-width: 0.1em;
+		border-style: solid;
+
+		&.is-valid {
+			border-color: white;
 		}
 	}
 
@@ -179,7 +294,6 @@
 		input[type='text'],
 		textarea {
 			display: block;
-			border: 0;
 			padding: 0.5em;
 			margin-top: 0.25em;
 			margin-bottom: 1em;
@@ -192,7 +306,7 @@
 			font-size: 1em;
 			resize: vertical;
 			width: 25em;
-			border: 0;
+			/* border: 0; */
 		}
 	}
 

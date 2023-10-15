@@ -1,9 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
-using SendGrid;
-using SendGrid.Helpers.Mail;
+using MailKit.Net.Smtp;
+using MimeKit;
+
 using EmailValidation;
 
 using Danofer.Api.Extensions;
@@ -21,22 +21,28 @@ namespace Danofer.Api.Models
         [JsonPropertyName("message")]
         public string Message { get; init; } = string.Empty;
 
-        public string SendGridSecret => Configuration.Config.SendGridApiKey;
-
-        public async Task<bool> SendEmail(string senderName, string senderEmailAddress, string message)
+        public bool SendEmail()
         {
-            var subject = "Somebody contacted you from danofer.com";
-            var recipient = new EmailAddress("dan@ofer.to", "Dan Jakob Ofer");
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
+            message.To.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
+            message.ReplyTo.Add(new MailboxAddress(SenderName, SenderEmailAddress));
 
-            var sender = new EmailAddress("admin@danofer.com", "Danofer.com");
-            var replyTo = new EmailAddress(senderEmailAddress, senderName);
-            var email = MailHelper.CreateSingleEmail(sender, recipient, subject, message, string.Empty);
-            email.SetReplyTo(replyTo);
+            message.Subject = $"{SenderName} contacted you from ofer.to";
+            message.Body = new TextPart("plain")
+            {
+                Text = Message
+            };
 
-            var client = new SendGridClient(SendGridSecret);
-            var response = await client.SendEmailAsync(email);
+            using (var client = new SmtpClient())
+            {
+                client.Connect("mailserver", 25, false);
 
-            return response.IsSuccessStatusCode;
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+            return true;
         }
 
         public void Validate()

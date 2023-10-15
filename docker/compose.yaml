@@ -1,0 +1,13 @@
+services:
+  mailserver:
+    image: juanluisbaptiste/postfix:latest
+    container_name: mailserver
+    env_file:
+      - ./.smtp.env
+    ports:
+      - "25:25"
+
+  danofer:
+    image: danofer_run:latest
+    ports:
+      - "5000:80"

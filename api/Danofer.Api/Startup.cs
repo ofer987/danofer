@@ -4,14 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using System.IO;
-using System.Text.Json;
-
 namespace Danofer.Api
 {
     public class Startup
     {
-        public static string DanoferPolicy = "CORS_POLICY_WWW_DANOFER_COM";
+        public static string ProductionPolicy = "CORS_POLICY_WWW_OFER_TO";
         public static string DevelopmentPolicy = "CORS_POLICY_LOCALHOST";
 
         public Startup(IConfiguration configuration)
@@ -34,14 +31,14 @@ namespace Danofer.Api
                     builder =>
                     {
                         builder
-                            .WithOrigins("http://localhost:8000");
+                            .WithOrigins("http://localhost:5173");
                     });
 
                 options.AddPolicy(
-                    DanoferPolicy,
+                    ProductionPolicy,
                     builder =>
                     {
-                        builder.WithOrigins("https://danofer.com", "https://www.danofer.com");
+                        builder.WithOrigins("https://ofer.to", "https://www.ofer.to");
                     });
             });
         }
@@ -58,7 +55,7 @@ namespace Danofer.Api
             }
             else
             {
-                app.UseCors(DanoferPolicy);
+                app.UseCors(ProductionPolicy);
                 System.Console.WriteLine("Production mode");
             }
 
@@ -67,15 +64,6 @@ namespace Danofer.Api
             {
                 endpoints.MapControllers();
             });
-
-            SetConfiguration();
-        }
-
-        private void SetConfiguration()
-        {
-            var text = File.ReadAllText("./configuration.json");
-
-            Danofer.Api.Configuration.Config = JsonSerializer.Deserialize<Danofer.Api.Configuration>(text);
         }
     }
 }

@@ -3,20 +3,30 @@
 set -ex;
 
 # TODO: maybe use a less privileged user?
-server_user='root';
+if [[ -z ${USERNAME} ]]; then
+  echo 'USERNAME is empty!'
+
+  exit 1
+fi
+
+if [[ -z ${DOCKER_FILE} ]]; then
+  echo 'DOCKER_FILE is empty!'
+
+  exit 1
+fi
 
 # First stop the existing container
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA_PATH} \
-    "${server_user}@${OFER_TO_DOMAIN}" \
-    "docker compose down";
+    "${USERNAME}@${OFER_TO_DOMAIN}" \
+    "docker compose down --file=${DOCKER_FILE}";
 
 # Then start up a new container
 ssh \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -i ${SERVER_RSA_PATH} \
-    "${server_user}@${OFER_TO_DOMAIN}" \
-    "docker compose up --detach";
+    "${USERNAME}@${OFER_TO_DOMAIN}" \
+    "docker compose up --file=${DOCKER_FILE} --detach";
