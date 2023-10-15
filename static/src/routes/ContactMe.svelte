@@ -66,13 +66,11 @@
 		isNameValid = senderName.trim() != '';
 		console.log(`Name is valid: ${isNameValid}`);
 		if (!isNameValid) {
-			alertMessage = 'Enter Sender Name';
 			isFormValid = false;
 		}
 
 		isMessageValid = message.trim() != '';
 		if (!isMessageValid) {
-			alertMessage = 'Enter a Message';
 			isFormValid = false;
 		}
 
@@ -110,6 +108,7 @@
 			state = 'success';
 			submitName = 'Submitted';
 		} catch (error) {
+			alertMessage = 'Failed to submit the message. Try again later!';
 			state = 'failure';
 			submitName = 'Submit';
 		}
@@ -147,6 +146,7 @@
 			id="name"
 			type="text"
 			required={true}
+			placeholder="Homer Simpson"
 			bind:value={senderName}
 		/>
 
@@ -157,6 +157,7 @@
 			id="email-address"
 			type="text"
 			required={true}
+			placeholder="name@example.com"
 			bind:value={senderEmailAddress}
 		/>
 
@@ -168,6 +169,7 @@
 			type="textarea"
 			required={true}
 			rows="5"
+			placeholder="What would you like to ask me"
 			bind:value={message}
 		/>
 
@@ -213,15 +215,20 @@
 	}
 
 	.buttons {
-		width: 25em;
 		display: flex;
 		justify-content: space-between;
+		flex-direction: column;
+
+		.contact-me-button {
+			width: 10em;
+		}
 
 		#alert {
 			color: red;
 			display: none;
 
 			&.display {
+				margin-top: 0.5em;
 				display: block;
 			}
 		}
@@ -251,6 +258,7 @@
 		border-color: red;
 		border-width: 0.1em;
 		border-style: solid;
+		font-family: monospace;
 
 		&.is-valid {
 			border-color: white;
