@@ -916,11 +916,11 @@
 			background-color: white;
 
 			.work {
-				margin: 0;
+				margin: 0 0 2em 0;
 				padding-right: 1.5em;
 
 				&:first-child {
-					margin-top: 1em;
+					margin: 1em 0em 2em 0em;
 					padding: 1em 1.5em 0.5em 0em;
 				}
 
