@@ -332,8 +332,8 @@
 
 	@media (max-width: 800px) {
 		img {
-			width: 2em;
-			height: 2em;
+			width: 3em;
+			height: 3em;
 
 			&.icon {
 				padding: 10px;
