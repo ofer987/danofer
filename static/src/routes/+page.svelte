@@ -181,11 +181,11 @@
 			</div>
 			<p>
 				I lead a team of software developers to make developing and deploying more efficient for
-				Thomson Reuters' marketing websites, such as https://www.thomsonreuters.com/en.html. We
-				build Continuous Integration environments that enforce linting for Java, TypeScript, and
-				SCSS; testing including code coverage. Our process is so rigorous that Thomson Reuters can
-				afford to hire short-term vendors to build features on demand, while maintaining high-levels
-				of software quality.
+				Thomson Reuters' marketing websites, such as www.thomsonreuters.com/en.html. We build
+				Continuous Integration environments that enforce linting for Java, TypeScript, and SCSS;
+				testing including code coverage. Our process is so rigorous that Thomson Reuters can afford
+				to hire short-term vendors to build features on demand, while maintaining high-levels of
+				software quality.
 			</p>
 
 			<p>
@@ -873,13 +873,16 @@
 						flex-direction: column;
 
 						.icons {
-							padding-left: 1em;
 							width: 100%;
 							flex-direction: row;
 						}
 
 						.description {
 							width: 100%;
+
+							ol {
+								padding-left: 0;
+							}
 						}
 					}
 				}
@@ -887,7 +890,7 @@
 		}
 	}
 
-	// Mobile
+	// Telephone
 	@media (max-width: 400px) {
 		:root {
 			font-size: 24px;
@@ -902,15 +905,16 @@
 
 			.work {
 				margin: 0;
+				padding-right: 1.5em;
 
 				&:first-child {
 					margin-top: 1em;
-					padding: 1em 0em 0.5em 0em;
+					padding: 1em 1.5em 0.5em 0em;
 				}
 
 				&:last-child {
 					margin: 0;
-					padding: 1em 0em 0.5em 0em;
+					padding: 1em 1.5em 0.5em 0em;
 				}
 
 				.experience {
@@ -918,7 +922,6 @@
 						flex-direction: column;
 
 						.icons {
-							padding-left: 1em;
 							width: 100%;
 							flex-direction: row;
 						}
