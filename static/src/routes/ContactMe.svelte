@@ -155,7 +155,7 @@
 			class="required-inputs"
 			class:is-valid={isEmailAddressValid}
 			id="email-address"
-			type="text"
+			type="email"
 			required={true}
 			placeholder="name@example.com"
 			bind:value={senderEmailAddress}
@@ -254,6 +254,7 @@
 	}
 
 	input[type='text'],
+	input[type='email'],
 	textarea {
 		border-color: red;
 		border-width: 0.1em;
@@ -300,6 +301,7 @@
 		}
 
 		input[type='text'],
+		input[type='email'],
 		textarea {
 			display: block;
 			padding: 0.5em;
@@ -332,6 +334,7 @@
 			}
 
 			input[type='text'],
+			input[type='email'],
 			textarea {
 				width: fit-content;
 			}
