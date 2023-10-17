@@ -61,6 +61,7 @@
 	}
 
 	function validate(): void {
+		alertMessage = '';
 		isFormValid = true;
 
 		isNameValid = senderName.trim() != '';
@@ -134,9 +135,8 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button on:click={closeForm} class="close-button btn btn-primary">
-					<img class="close" src={closeIcon} alt="close" />
-				</button>
+				<h5 class="modal-title">Contact Me</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
 			</div>
 			<div class="modal-body">
 				<form class="mb-3" id="contact-me-form">
@@ -192,9 +192,9 @@
 			</div>
 
 			<div class="modal-footer">
-				<div id="alert" class:display={!isFormValid}>
-					<div>{alertMessage}</div>
-				</div>
+				<p class="alert" class:form-not-valid={!isFormValid}>
+					{alertMessage}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -202,6 +202,27 @@
 </div>
 
 <style lang="scss">
+	.close-button {
+		background-color: transparent;
+		border: 0;
+		padding-left: 0;
+		display: block;
+		margin-bottom: 1em;
+
+		.close {
+			position: static;
+			float: right;
+			width: 1.25em;
+		}
+	}
+
+	p.alert {
+		display: none;
+
+		&.form-not-valid {
+			display: block;
+		}
+	}
 
 	.buttons {
 		display: flex;
@@ -212,15 +233,6 @@
 			width: 10em;
 		}
 
-		#alert {
-			color: red;
-			display: none;
-
-			&.display {
-				margin-top: 0.5em;
-				display: block;
-			}
-		}
 
 		input[type='button'] {
 			background-color: white;
@@ -252,81 +264,6 @@
 
 		&.is-valid {
 			border-color: white;
-		}
-	}
-
-	form#contact-me-form {
-		z-index: 2000;
-		overflow-y: scroll;
-
-		position: fixed;
-		padding: 0.5em;
-		top: 5em;
-		right: 5em;
-		bottom: 5em;
-		left: 5em;
-
-		font-size: 1.25em;
-		text-align: left;
-		color: white;
-		background-color: rgba(0, 0, 0, 0.5);
-
-		.close-button {
-			background-color: transparent;
-			border: 0;
-			padding-left: 0;
-			display: block;
-			margin-bottom: 1em;
-
-			.close {
-				position: static;
-				float: right;
-				width: 1.25em;
-			}
-		}
-
-		label {
-			font-size: 1em;
-		}
-
-		input[type='text'],
-		input[type='email'],
-		textarea {
-			display: block;
-			padding: 0.5em;
-			margin-top: 0.25em;
-			margin-bottom: 1em;
-			width: 20em;
-			font-size: 1em;
-		}
-
-		textarea {
-			padding: 0.5em;
-			font-size: 1em;
-			resize: vertical;
-			width: 25em;
-			/* border: 0; */
-		}
-	}
-
-	@media (max-width: 800px) {
-		form#contact-me-form {
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-
-			.close {
-				float: none;
-				display: block;
-				margin-bottom: 1em;
-			}
-
-			input[type='text'],
-			input[type='email'],
-			textarea {
-				width: fit-content;
-			}
 		}
 	}
 </style>
