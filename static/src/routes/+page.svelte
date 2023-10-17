@@ -181,11 +181,13 @@
 			</div>
 			<p>
 				I lead a team of software developers to make developing and deploying more efficient for
-				Thomson Reuters' marketing websites, such as www.thomsonreuters.com/en.html. We build
-				Continuous Integration environments that enforce linting for Java, TypeScript, and SCSS;
-				testing including code coverage. Our process is so rigorous that Thomson Reuters can afford
-				to hire short-term vendors to build features on demand, while maintaining high-levels of
-				software quality.
+				Thomson Reuters' marketing websites, such as <a
+					target="_blank"
+					href="https://www.thomsonreuters.com/en.html">Thomson Reuters' home page</a
+				>. We build Continuous Integration environments that enforce linting for Java, TypeScript,
+				and SCSS; testing including code coverage. Our process is so rigorous that Thomson Reuters
+				can afford to hire short-term vendors to build features on demand, while maintaining
+				high-levels of software quality.
 			</p>
 
 			<p>
@@ -324,16 +326,16 @@
 										href="https://tax.thomsonreuters.com/us/en/onvio">Onvio</a
 									>
 									and
-									<a href="https://tax.thomsonreuters.com/en/onesource">ONESOURCE</a>
+									<a target="blank" href="https://tax.thomsonreuters.com/en/onesource">ONESOURCE</a>
 								</span>
 							</li>
 							<li>
 								<span>
-									Transitioned the <a href="https://legal.thomsonreuters.com"
+									Transitioned the <a target="blank" href="https://legal.thomsonreuters.com"
 										>Thomson Reuters Legal page</a
 									>
 									to use
-									<a href="https://stenciljs.com">Stencil Web Components</a>
+									<a target="blank" href="https://stenciljs.com">Stencil Web Components</a>
 								</span>
 							</li>
 						</ol>
@@ -362,10 +364,12 @@
 							</li>
 							<li>
 								<span>
-									Wrote <a href="https://github.com/features/actions">GitHub Action</a>
+									Wrote <a target="blank" href="https://github.com/features/actions"
+										>GitHub Action</a
+									>
 									pipelines and
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automatically update
-									the Docker image and deploy it to JFrog Artifactory
+									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automatically
+									update the Docker image and deploy it to JFrog Artifactory
 								</span>
 							</li>
 						</ol>
@@ -404,10 +408,12 @@
 						<ol>
 							<li>
 								<span>
-									Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+									Configured <a target="blank" href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
 									with
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
-									to our Quality Assurance and Pre-production environments
+									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate
+									deployments to our Quality Assurance and Pre-production environments
 								</span>
 							</li>
 							<li>
@@ -547,20 +553,24 @@
 						<ol>
 							<li>
 								<span>
-									Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+									Configured <a target="blank" href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
 									with
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
-									to a Production environment hosted on DigitalOcean
+									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate
+									deployments to a Production environment hosted on DigitalOcean
 								</span>
 							</li>
 							<li>
 								<span>
 									Configured a section where users can contact me via email, using <a
+										target="blank"
 										href="https://en.wikipedia.org/wiki/SendGrid">SendGrid</a
 									>
 									as the provider, and
-									<a href="https://en.wikipedia.org/wiki/ReCAPTCHA">Google reCAPTCHA</a> to protect against
-									bots.
+									<a target="blank" href="https://en.wikipedia.org/wiki/ReCAPTCHA"
+										>Google reCAPTCHA</a
+									> to protect against bots.
 								</span>
 							</li>
 							<li>
@@ -588,10 +598,12 @@
 						<ol>
 							<li>
 								<span>
-									Configured <a href="https://github.com/features/actions">GitHub Actions</a>
+									Configured <a target="blank" href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
 									with
-									<a href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate deployments
-									to our Quality Assurance and Pre-production environments
+									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate
+									deployments to our Quality Assurance and Pre-production environments
 								</span>
 							</li>
 						</ol>
