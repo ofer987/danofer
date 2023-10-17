@@ -1,23 +1,6 @@
 <script lang="ts">
 	import Icon from './Icon.svelte';
 	import ContactMe from './ContactMe.svelte';
-
-	let isPageEnabled = true;
-	let isContactMeOpened = false;
-
-	function enableContactMeForm(): void {
-		isPageEnabled = false;
-		isContactMeOpened = true;
-	}
-
-	function disableContactMeForm(): void {
-		isPageEnabled = true;
-		isContactMeOpened = false;
-	}
-
-	function openContactMeForm(): void {
-		enableContactMeForm();
-	}
 </script>
 
 <svelte:head>
@@ -25,17 +8,23 @@
 </svelte:head>
 
 <section class="main-section">
-	<div class:is-page-disabled={!isPageEnabled}>
-		<img class="image img-flud" src="./main.jpg" alt="Dan walking with his three children" />
+	<div>
+		<img
+			id="family-image"
+			class="image img-flud"
+			src="./main.jpg"
+			alt="Dan walking with his three children"
+		/>
 		<div class="name">
 			<h1>Dan Ofer</h1>
 
 			<p class="main">Software Developer Extraordinaire</p>
 			<div class="contact">
 				<button
-					class="contact-me-button"
+					class="contact-me-button btn btn-primary"
 					id="contact-me-toggle-button"
-					on:click={openContactMeForm}
+					data-bs-toggle="modal"
+					data-bs-target="#contact-me"
 				>
 					Contact Me
 				</button>
@@ -43,12 +32,11 @@
 		</div>
 	</div>
 
-	<div id="contact-me" class:contact-me-opened={isContactMeOpened}>
-		<ContactMe closesAction={disableContactMeForm} />
+	<div>
+		<ContactMe />
 	</div>
 
-
-	<section class="jobs" class:is-page-disabled={!isPageEnabled}>
+	<section class="jobs">
 		<div class="work" id="thomson-reuters-digital-3">
 			<div class="heading">
 				<h2 class="position">Thomson Reuters - Site Reliability Tech Lead</h2>
@@ -717,8 +705,6 @@
 </section>
 
 <style lang="scss">
-	@import 'bootstrap/scss/bootstrap';
-
 	@mixin work($color: aqua) {
 		padding-left: 1em;
 		border-left: $color;
@@ -767,15 +753,10 @@
 			font-weight: bold;
 		}
 
-
 		.image {
 			width: 100%;
 			z-index: -1;
 			position: fixed;
-
-			&.is-page-disabled {
-				opacity: 50%;
-			}
 		}
 
 		.name {
@@ -790,15 +771,14 @@
 			}
 		}
 
-		section.jobs {
-			&.is-page-disabled {
-				opacity: 50%;
-			}
-		}
-
 		.work {
 			&:first-child {
 				margin: 0em 0em 10em 0em;
+				padding: 1em 0em 0.5em 0em;
+			}
+
+			&:last-child {
+				margin: 10em 0em 0em 0em;
 				padding: 1em 0em 0.5em 0em;
 			}
 
@@ -880,14 +860,6 @@
 		}
 	}
 
-	#contact-me {
-		display: none;
-
-		&.contact-me-opened {
-			display: block;
-		}
-	}
-
 	// Tablet
 	@media (max-width: 800px) {
 		:root {
@@ -901,6 +873,7 @@
 						flex-direction: column;
 
 						.icons {
+							padding-left: 1em;
 							width: 100%;
 							flex-direction: row;
 						}
@@ -914,28 +887,45 @@
 		}
 	}
 
-	@media (max-width: 390px) {
+	// Mobile
+	@media (max-width: 400px) {
 		:root {
 			font-size: 24px;
 		}
 
+		#family-image {
+			display: none;
+		}
+
 		.main-section {
-			/* flex-direction: column; */
+			background-color: white;
 
-			.image {
-				display: none;
-			}
+			.work {
+				margin: 0;
 
-			.mini-introduction {
-				display: block;
+				&:first-child {
+					margin-top: 1em;
+					padding: 1em 0em 0.5em 0em;
+				}
 
-				.name {
+				&:last-child {
 					margin: 0;
-					width: 100%;
-					text-align: center;
+					padding: 1em 0em 0.5em 0em;
+				}
 
-					h1 {
-						margin: 0;
+				.experience {
+					.responsibility {
+						flex-direction: column;
+
+						.icons {
+							padding-left: 1em;
+							width: 100%;
+							flex-direction: row;
+						}
+
+						.description {
+							width: 100%;
+						}
 					}
 				}
 			}
