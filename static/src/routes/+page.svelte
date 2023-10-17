@@ -49,7 +49,6 @@
 		<ContactMe closesAction={disableContactMeForm} />
 	</div>
 
-
 	<section class="jobs" class:is-page-disabled={!isPageEnabled}>
 		<div class="work" id="thomson-reuters-digital-3">
 			<div class="heading">
@@ -719,7 +718,6 @@
 </section>
 
 <style lang="scss">
-
 	@mixin work($color: aqua) {
 		padding-left: 1em;
 		border-left: $color;
@@ -768,12 +766,10 @@
 			font-weight: bold;
 		}
 
-
 		.image {
 			width: 100%;
 			z-index: -1;
 			position: fixed;
-
 		}
 
 		.name {
@@ -901,6 +897,7 @@
 						flex-direction: column;
 
 						.icons {
+							padding-left: 1em;
 							width: 100%;
 							flex-direction: row;
 						}
