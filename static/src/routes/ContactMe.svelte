@@ -64,7 +64,6 @@
 		isFormValid = true;
 
 		isNameValid = senderName.trim() != '';
-		console.log(`Name is valid: ${isNameValid}`);
 		if (!isNameValid) {
 			isFormValid = false;
 		}
@@ -79,8 +78,6 @@
 			alertMessage = 'Enter a Valid Email Address';
 			isFormValid = false;
 		}
-
-		console.log(`Form is valid: ${isFormValid}`);
 	}
 
 	async function sendMessage(): Promise<void> {
@@ -134,66 +131,68 @@
 </script>
 
 <div id="contact-me">
-	<form id="contact-me-form">
-		<button on:click={closeForm} class="close-button">
+	<form class="mb-3" id="contact-me-form">
+		<button on:click={closeForm} class="close-button btn btn-primary">
 			<img class="close" src={closeIcon} alt="close" />
 		</button>
 
-		<label id="name" for="name">Your name</label>
-		<input
-			class="required-inputs"
-			class:is-valid={isNameValid}
-			id="name"
-			type="text"
-			required={true}
-			placeholder="Homer Simpson"
-			bind:value={senderName}
-		/>
-
-		<label id="email-address" for="email-address">Your email address</label>
-		<input
-			class="required-inputs"
-			class:is-valid={isEmailAddressValid}
-			id="email-address"
-			type="email"
-			required={true}
-			placeholder="name@example.com"
-			bind:value={senderEmailAddress}
-		/>
-
-		<label id="message" for="message">What do you want to tell me?</label>
-		<textarea
-			class="required-inputs"
-			class:is-valid={isMessageValid}
-			id="message"
-			type="textarea"
-			required={true}
-			rows="5"
-			placeholder="What would you like to ask me"
-			bind:value={message}
-		/>
-
-		<div class="buttons">
+		<fieldset disabled={state == 'sending' || state == 'success'}>
+			<label class="form-label" id="name" for="name">Your name</label>
 			<input
-				class="contact-me-button"
-				disabled={!isFormValid || state == 'sending' || state == 'success'}
-				id="contact-me-submit-button"
-				type="button"
-				on:click={submitForm}
-				on:keydown={submitForm}
-				value={submitName}
+				class="required-inputs form-control"
+				class:is-valid={isNameValid}
+				id="name"
+				type="text"
+				required={true}
+				placeholder="Homer Simpson"
+				bind:value={senderName}
 			/>
 
-			<div id="alert" class:display={!isFormValid}>
-				<div>{alertMessage}</div>
+			<label class="form-label" id="email-address" for="email-address">Your email address</label>
+			<input
+				class="required-inputs form-control"
+				class:is-valid={isEmailAddressValid}
+				id="email-address"
+				type="email"
+				required={true}
+				placeholder="name@example.com"
+				bind:value={senderEmailAddress}
+			/>
+
+			<label class="form-label" id="message" for="message">What do you want to tell me?</label>
+			<textarea
+				class="required-inputs form-control"
+				class:is-valid={isMessageValid}
+				id="message"
+				type="textarea"
+				required={true}
+				rows="5"
+				placeholder="What would you like to ask me"
+				bind:value={message}
+			/>
+
+			<div class="buttons">
+				<button
+					class="contact-me-button btn btn-primary"
+					id="contact-me-submit-button"
+					type="button"
+					on:click={submitForm}
+					on:keydown={submitForm}>Submit</button
+				>
+
+				<div id="alert" class:display={!isFormValid}>
+					<div>{alertMessage}</div>
+				</div>
 			</div>
-		</div>
+		</fieldset>
 	</form>
 
 	<div id="page-blocker" class:blocked={!isPageEnabled} />
 </div>
 
 <style lang="scss">
+	@import 'bootstrap/scss/bootstrap';
+
 	#page-blocker {
 		width: 100%;
 		height: 100%;

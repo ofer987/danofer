@@ -25,7 +25,8 @@
 </svelte:head>
 
 <section class="main-section">
-	<div class="image" class:is-page-disabled={!isPageEnabled}>
+	<div class:is-page-disabled={!isPageEnabled}>
+		<img class="image img-flud" src="./main.jpg" alt="Dan walking with his three children" />
 		<div class="name">
 			<h1>Dan Ofer</h1>
 
@@ -46,13 +47,6 @@
 		<ContactMe closesAction={disableContactMeForm} />
 	</div>
 
-	<div class="mini-introduction" class:is-page-disabled={!isPageEnabled}>
-		<div class="name">
-			<h1>Dan Ofer</h1>
-
-			<p class="main">Software Developer Extraordinaire</p>
-		</div>
-	</div>
 
 	<section class="jobs" class:is-page-disabled={!isPageEnabled}>
 		<div class="work" id="thomson-reuters-digital-3">
@@ -723,6 +717,8 @@
 </section>
 
 <style lang="scss">
+	@import 'bootstrap/scss/bootstrap';
+
 	@mixin work($color: aqua) {
 		padding-left: 1em;
 		border-left: $color;
@@ -771,30 +767,26 @@
 			font-weight: bold;
 		}
 
-		.mini-introduction {
-			display: none;
-		}
 
 		.image {
 			width: 100%;
-			background-image: url('./main.jpg');
-			background-size: cover;
-			background-position: center;
-			height: 1500px;
+			z-index: -1;
+			position: fixed;
 
 			&.is-page-disabled {
 				opacity: 50%;
 			}
+		}
 
-			.name {
+		.name {
+			margin: 0;
+			width: 100%;
+			text-align: center;
+			color: black;
+			background-color: rgba(255, 255, 255, 0.95);
+
+			h1 {
 				margin: 0;
-				width: 100%;
-				text-align: center;
-				color: white;
-
-				h1 {
-					margin: 0;
-				}
 			}
 		}
 
@@ -806,10 +798,13 @@
 
 		.work {
 			&:first-child {
-				margin: 1em 1em 3em 1em;
+				margin: 0em 0em 10em 0em;
+				padding: 1em 0em 0.5em 0em;
 			}
 
-			margin: 3em 1em 3em 1em;
+			margin: 10em 0em 10em 0em;
+			padding: 0.5em 0em;
+			background-color: rgba(255, 255, 255, 0.95);
 
 			&#thomson-reuters-digital-3 {
 				@include work(lightgreen);
