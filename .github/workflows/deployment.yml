@@ -73,6 +73,7 @@ jobs:
             favicon.png \
             robots.txt \
             __data.json \
+            bootstrap.bundle.min.js.map \
             bootstrap.bundle.min.js \
             main.jpg \
             index.html \
