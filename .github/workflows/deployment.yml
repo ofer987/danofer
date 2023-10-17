@@ -70,7 +70,13 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i "../../${SERVER_RSA_PATH}" \
             -r \
-            index.html _app  \
+            favicon.png \
+            robots.txt \
+            __data.json \
+            bootstrap.bundle.min.js \
+            main.jpg \
+            index.html \
+            _app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
 
   build_api:
