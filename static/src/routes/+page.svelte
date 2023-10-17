@@ -33,8 +33,10 @@
 			<p class="main">Software Developer Extraordinaire</p>
 			<div class="contact">
 				<button
-					class="contact-me-button"
+					class="contact-me-button btn btn-primary"
 					id="contact-me-toggle-button"
+					data-bs-toggle="modal"
+					data-bs-target="#contact-me"
 					on:click={openContactMeForm}
 				>
 					Contact Me
@@ -43,7 +45,7 @@
 		</div>
 	</div>
 
-	<div id="contact-me" class:contact-me-opened={isContactMeOpened}>
+	<div class:contact-me-opened={isContactMeOpened}>
 		<ContactMe closesAction={disableContactMeForm} />
 	</div>
 
@@ -717,7 +719,6 @@
 </section>
 
 <style lang="scss">
-	@import 'bootstrap/scss/bootstrap';
 
 	@mixin work($color: aqua) {
 		padding-left: 1em;
@@ -773,9 +774,6 @@
 			z-index: -1;
 			position: fixed;
 
-			&.is-page-disabled {
-				opacity: 50%;
-			}
 		}
 
 		.name {
@@ -791,14 +789,16 @@
 		}
 
 		section.jobs {
-			&.is-page-disabled {
-				opacity: 50%;
-			}
 		}
 
 		.work {
 			&:first-child {
 				margin: 0em 0em 10em 0em;
+				padding: 1em 0em 0.5em 0em;
+			}
+
+			&:last-child {
+				margin: 10em 0em 0em 0em;
 				padding: 1em 0em 0.5em 0em;
 			}
 

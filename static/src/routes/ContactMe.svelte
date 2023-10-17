@@ -130,88 +130,78 @@
 	});
 </script>
 
-<div id="contact-me">
-	<form class="mb-3" id="contact-me-form">
-		<button on:click={closeForm} class="close-button btn btn-primary">
-			<img class="close" src={closeIcon} alt="close" />
-		</button>
+<div class="modal" id="contact-me">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button on:click={closeForm} class="close-button btn btn-primary">
+					<img class="close" src={closeIcon} alt="close" />
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="mb-3" id="contact-me-form">
+					<fieldset disabled={state == 'sending' || state == 'success'}>
+						<label class="form-label" id="name" for="name">Your name</label>
+						<input
+							class="required-inputs form-control"
+							class:is-valid={isNameValid}
+							id="name"
+							type="text"
+							required={true}
+							placeholder="Homer Simpson"
+							bind:value={senderName}
+						/>
 
-		<fieldset disabled={state == 'sending' || state == 'success'}>
-			<label class="form-label" id="name" for="name">Your name</label>
-			<input
-				class="required-inputs form-control"
-				class:is-valid={isNameValid}
-				id="name"
-				type="text"
-				required={true}
-				placeholder="Homer Simpson"
-				bind:value={senderName}
-			/>
+						<label class="form-label" id="email-address" for="email-address"
+							>Your email address</label
+						>
+						<input
+							class="required-inputs form-control"
+							class:is-valid={isEmailAddressValid}
+							id="email-address"
+							type="email"
+							required={true}
+							placeholder="name@example.com"
+							bind:value={senderEmailAddress}
+						/>
 
-			<label class="form-label" id="email-address" for="email-address">Your email address</label>
-			<input
-				class="required-inputs form-control"
-				class:is-valid={isEmailAddressValid}
-				id="email-address"
-				type="email"
-				required={true}
-				placeholder="name@example.com"
-				bind:value={senderEmailAddress}
-			/>
+						<label class="form-label" id="message" for="message">What do you want to tell me?</label
+						>
+						<textarea
+							class="required-inputs form-control"
+							class:is-valid={isMessageValid}
+							id="message"
+							type="textarea"
+							required={true}
+							rows="5"
+							placeholder="What would you like to ask me"
+							bind:value={message}
+						/>
 
-			<label class="form-label" id="message" for="message">What do you want to tell me?</label>
-			<textarea
-				class="required-inputs form-control"
-				class:is-valid={isMessageValid}
-				id="message"
-				type="textarea"
-				required={true}
-				rows="5"
-				placeholder="What would you like to ask me"
-				bind:value={message}
-			/>
+						<div class="buttons">
+							<button
+								class="contact-me-button btn btn-primary"
+								id="contact-me-submit-button"
+								type="button"
+								on:click={submitForm}
+								on:keydown={submitForm}>Submit</button
+							>
+						</div>
+					</fieldset>
+				</form>
+			</div>
 
-			<div class="buttons">
-				<button
-					class="contact-me-button btn btn-primary"
-					id="contact-me-submit-button"
-					type="button"
-					on:click={submitForm}
-					on:keydown={submitForm}>Submit</button
-				>
-
+			<div class="modal-footer">
 				<div id="alert" class:display={!isFormValid}>
 					<div>{alertMessage}</div>
 				</div>
 			</div>
-		</fieldset>
-	</form>
+		</div>
+	</div>
 
-	<div id="page-blocker" class:blocked={!isPageEnabled} />
 </div>
 
 <style lang="scss">
-	@import 'bootstrap/scss/bootstrap';
-
-	#page-blocker {
-		width: 100%;
-		height: 100%;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		background-color: rgba(0, 0, 0, 0.5);
-		display: none;
-		visibility: hidden;
-		opacity: 0;
-		position: absolute;
-
-		&.blocked {
-			display: block;
-			z-index: 1000;
-
-			opacity: 10%;
-		}
-	}
 
 	.buttons {
 		display: flex;
