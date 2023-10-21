@@ -125,7 +125,7 @@
 						<label class="form-label" id="name" for="name">Your name</label>
 						<input
 							class="required-inputs form-control"
-							class:is-valid={isNameValid}
+							class:valid={isNameValid}
 							id="name"
 							type="text"
 							required={true}
@@ -138,7 +138,7 @@
 						>
 						<input
 							class="required-inputs form-control"
-							class:is-valid={isEmailAddressValid}
+							class:valid={isEmailAddressValid}
 							id="email-address"
 							type="email"
 							required={true}
@@ -150,7 +150,7 @@
 						>
 						<textarea
 							class="required-inputs form-control"
-							class:is-valid={isMessageValid}
+							class:valid={isMessageValid}
 							id="message"
 							type="textarea"
 							required={true}
@@ -158,6 +158,14 @@
 							placeholder="What would you like to ask me"
 							bind:value={message}
 						/>
+						<div
+							class="alert alert-warning alert-dismissible fade show"
+							role="alert"
+							class:valid={isEmailAddressValid}
+						>
+							The email address should be in the format of name@example.com
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" />
+						</div>
 					</fieldset>
 				</form>
 			</div>
@@ -188,8 +196,19 @@
 		border-style: solid;
 		font-family: monospace;
 
-		&.is-valid {
+		&.valid {
 			border-color: white;
+		}
+	}
+
+	.alert {
+		&.valid {
+			display: none;
+			width: 0;
+			height: 0;
+			padding: 0;
+			margin: 0;
+			border: 0;
 		}
 	}
 </style>
