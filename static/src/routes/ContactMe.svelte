@@ -177,7 +177,7 @@
 						class="contact-me-button btn btn-primary"
 						id="contact-me-submit-button"
 						type="button"
-						disabled={!isFormValid}
+						disabled={!isFormValid || state == 'success'}
 						on:click={submitForm}
 						on:keydown={submitForm}>Submit</button
 					>
