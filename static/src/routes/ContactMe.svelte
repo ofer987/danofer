@@ -4,7 +4,6 @@
 
 	type states = 'init' | 'sending' | 'success' | 'failure';
 
-	let alertMessage = '';
 	let senderName = '';
 	let senderEmailAddress = '';
 	let message = '';
@@ -32,7 +31,6 @@
 		senderName = '';
 		message = '';
 		senderEmailAddress = '';
-		alertMessage = '';
 
 		isEmailAddressValid = false;
 		isMessageValid = false;
@@ -50,7 +48,6 @@
 	}
 
 	function validate(): void {
-		alertMessage = '';
 		isFormValid = true;
 
 		isNameValid = senderName.trim() != '';
@@ -65,7 +62,6 @@
 
 		isEmailAddressValid = validateEmailAddress(senderEmailAddress);
 		if (!isEmailAddressValid) {
-			alertMessage = 'Enter a Valid Email Address';
 			isFormValid = false;
 		}
 	}
@@ -93,8 +89,6 @@
 
 			state = 'success';
 		} catch (error) {
-			alertMessage = 'Failed to submit the message. Try again later!';
-
 			state = 'failure';
 		}
 	}
@@ -164,48 +158,28 @@
 							placeholder="What would you like to ask me"
 							bind:value={message}
 						/>
-
-						<div class="buttons">
-							<button
-								class="contact-me-button btn btn-primary"
-								id="contact-me-submit-button"
-								type="button"
-								on:click={submitForm}
-								on:keydown={submitForm}>Submit</button
-							>
-						</div>
 					</fieldset>
 				</form>
 			</div>
 
 			<div class="modal-footer">
-				<p class="alert" class:form-not-valid={!isFormValid}>
-					{alertMessage}
-				</p>
+				<div class="buttons">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button
+						class="contact-me-button btn btn-primary"
+						id="contact-me-submit-button"
+						type="button"
+						disabled={!isFormValid}
+						on:click={submitForm}
+						on:keydown={submitForm}>Submit</button
+					>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <style lang="scss">
-	p.alert {
-		display: none;
-
-		&.form-not-valid {
-			display: block;
-		}
-	}
-
-	.buttons {
-		display: flex;
-		justify-content: space-between;
-		flex-direction: column;
-
-		.contact-me-button {
-			width: 10em;
-		}
-	}
-
 	input[type='text'],
 	input[type='email'],
 	textarea {
