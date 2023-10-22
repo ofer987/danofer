@@ -1,9 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
 
-using MailKit.Net.Smtp;
-using MimeKit;
-
 using EmailValidation;
 
 using Danofer.Api.Extensions;
@@ -20,37 +17,6 @@ public class MessagesModel
 
     [JsonPropertyName("message")]
     public string Message { get; init; } = string.Empty;
-
-    public ISmtpConfiguration SmtpConfiugration { get; init; }
-
-    public MessagesModel(ISmtpConfiguration smtpConfiguration)
-    {
-        SmtpConfiugration = smtpConfiguration;
-    }
-
-    public bool SendEmail()
-    {
-        var message = new MimeMessage();
-        message.From.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
-        message.To.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
-        message.ReplyTo.Add(new MailboxAddress(SenderName, SenderEmailAddress));
-
-        message.Subject = $"{SenderName} contacted you from ofer.to";
-        message.Body = new TextPart("plain")
-        {
-            Text = Message
-        };
-
-        using (var client = new SmtpClient())
-        {
-            client.Connect(SmtpConfiugration.Domain, SmtpConfiugration.Port, false);
-
-            client.Send(message);
-            client.Disconnect(true);
-        }
-
-        return true;
-    }
 
     public void Validate()
     {

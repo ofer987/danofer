@@ -5,6 +5,10 @@ using System.Net.Http;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
+using MailKit.Net.Smtp;
+using MimeKit;
+
 using Danofer.Api.Models;
 
 namespace Danofer.Api.Controllers;
@@ -13,11 +17,13 @@ public class MessagesController : CorsJsonController<MessagesModel>
 {
     private readonly ILogger<MessagesController> _logger;
     private readonly IHttpClientFactory _clientFactory;
+    private readonly ISmtpConfiguration _SmtpConfiugration;
 
-    public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory)
+    public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory, ISmtpConfiguration smtpConfiguration)
     {
         _logger = logger;
         _clientFactory = clientFactory;
+        _SmtpConfiugration = smtpConfiguration;
     }
 
     [HttpPost("/messages/create")]
@@ -45,7 +51,7 @@ public class MessagesController : CorsJsonController<MessagesModel>
 
         try
         {
-            model.SendEmail();
+            SendEmail(model);
 
             return new OkObjectResult(new
             {
@@ -64,4 +70,29 @@ public class MessagesController : CorsJsonController<MessagesModel>
             );
         }
     }
+
+    private bool SendEmail(MessagesModel model)
+    {
+        var message = new MimeMessage();
+        message.From.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
+        message.To.Add(new MailboxAddress("Dan Ofer", "dan@ofer.to"));
+        message.ReplyTo.Add(new MailboxAddress(model.SenderName, model.SenderEmailAddress));
+
+        message.Subject = $"{model.SenderName} contacted you from ofer.to";
+        message.Body = new TextPart("plain")
+        {
+            Text = model.Message
+        };
+
+        using (var client = new SmtpClient())
+        {
+            client.Connect(_SmtpConfiugration.Domain, _SmtpConfiugration.Port, false);
+
+            client.Send(message);
+            client.Disconnect(true);
+        }
+
+        return true;
+    }
+
 }
