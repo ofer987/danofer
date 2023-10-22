@@ -5,16 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 using Danofer.Api.Models;
 
-namespace Danofer.Api.Controllers
+namespace Danofer.Api.Controllers;
+
+[ApiController]
+public abstract class CorsJsonController<T> : ControllerBase where T : MessagesModel
 {
-    [ApiController]
-    public abstract class CorsJsonController<T> : ControllerBase where T : IMessagesModel
+    protected async Task<T> ReadModel(Stream stream)
     {
-        protected async Task<T> ReadModel(Stream stream)
-        {
-            #nullable disable
-            return await JsonSerializer.DeserializeAsync<T>(stream);
-            #nullable restore
-        }
+#nullable disable
+        return await JsonSerializer.DeserializeAsync<T>(stream);
+#nullable restore
     }
 }

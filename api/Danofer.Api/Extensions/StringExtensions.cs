@@ -1,10 +1,9 @@
-namespace Danofer.Api.Extensions
+namespace Danofer.Api.Extensions;
+
+public static class StringExtensions
 {
-    public static class StringExtensions
+    public static bool IsNullOrWhiteSpace(this string self)
     {
-        public static bool IsNullOrWhiteSpace(this string self)
-        {
-            return string.IsNullOrWhiteSpace(self);
-        }
+        return string.IsNullOrWhiteSpace(self);
     }
 }
