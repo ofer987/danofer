@@ -10,7 +10,7 @@ using Danofer.Api.Extensions;
 
 namespace Danofer.Api.Models
 {
-    public class MessagesModel : IModel
+    public class MessagesModel : IMessagesModel
     {
         [JsonPropertyName("senderName")]
         public string SenderName { get; init; } = string.Empty;
@@ -20,6 +20,13 @@ namespace Danofer.Api.Models
 
         [JsonPropertyName("message")]
         public string Message { get; init; } = string.Empty;
+
+        public ISmtpConfiguration SmtpConfiugration { get; init; }
+
+        public MessagesModel(ISmtpConfiguration smtpConfiguration)
+        {
+            SmtpConfiugration = smtpConfiguration;
+        }
 
         public bool SendEmail()
         {
@@ -36,7 +43,7 @@ namespace Danofer.Api.Models
 
             using (var client = new SmtpClient())
             {
-                client.Connect("mailserver", 25, false);
+                client.Connect(SmtpConfiugration.Domain, SmtpConfiugration.Port, false);
 
                 client.Send(message);
                 client.Disconnect(true);

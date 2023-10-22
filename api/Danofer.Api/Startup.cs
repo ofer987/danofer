@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Danofer.Api.Models;
+
 namespace Danofer.Api
 {
     public class Startup
@@ -11,12 +13,14 @@ namespace Danofer.Api
         public static string ProductionPolicy = "CORS_POLICY_WWW_OFER_TO";
         public static string DevelopmentPolicy = "CORS_POLICY_LOCALHOST";
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            HostingEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -41,6 +45,15 @@ namespace Danofer.Api
                         builder.WithOrigins("https://ofer.to", "https://www.ofer.to");
                     });
             });
+
+            if (HostingEnvironment.IsDevelopment())
+            {
+                services.AddSingleton<ISmtpConfiguration, DevelopmentSmtpConfiguration>();
+            }
+            else
+            {
+                services.AddSingleton<ISmtpConfiguration, ProductionSmtpConfiguration>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,6 @@
 namespace Danofer.Api.Models
 {
-    public interface IModel
+    public interface IMessagesModel
     {
     }
 }
