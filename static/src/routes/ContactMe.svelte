@@ -67,7 +67,11 @@
 	}
 
 	async function sendMessage(): Promise<void> {
-		const apiOrigin = 'https://api.ofer.to';
+		const defaultOrigin = 'https://localhost:5001';
+		let apiOrigin = defaultOrigin;
+		if (import.meta.env.PROD) {
+			apiOrigin = 'https://api.ofer.to';
+		}
 		const url = `${apiOrigin}/messages/create`;
 
 		const body = {
