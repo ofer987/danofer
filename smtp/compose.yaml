@@ -4,5 +4,6 @@ services:
     container_name: mailserver
     env_file:
       - ./.smtp.env
+      - ./.smtp.password.env
     ports:
       - "25:25"
