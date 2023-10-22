@@ -158,25 +158,25 @@
 							placeholder="What would you like to ask me"
 							bind:value={message}
 						/>
-						<!-- Only display if email address is invalid --->
-						<div
-							class="alert alert-warning alert-dismissible fade show"
-							role="alert"
-							class:invalid={isEmailAddressValid}
-						>
-							The email address should be in the format of name@example.com
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" />
-						</div>
-
-						<div class="alert alert-warning" role="alert" class:invalid={state != 'failure'}>
-							Failed to send an email. Try again later
-						</div>
-
-						<div class="alert alert-primary" role="alert" class:invalid={state != 'success'}>
-							Email sent
-						</div>
 					</fieldset>
 				</form>
+
+				<div
+					class="alert alert-warning alert-dismissible fade show"
+					class:invalid={isEmailAddressValid}
+					role="alert"
+				>
+					The email address should be in the format of name@example.com
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" />
+				</div>
+
+				<div class="alert alert-warning" role="alert" class:invalid={state != 'failure'}>
+					Failed to send an email. Try again later
+				</div>
+
+				<div class="alert alert-primary" role="alert" class:invalid={state != 'success'}>
+					Email sent
+				</div>
 			</div>
 
 			<div class="modal-footer">
