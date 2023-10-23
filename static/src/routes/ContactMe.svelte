@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { validate as validateEmailAddress } from 'email-validator';
 	import { onMount } from 'svelte';
+	import { PUBLIC_API_SERVER } from '$env/static/public';
 
 	type states = 'init' | 'sending' | 'success' | 'failure';
 
@@ -67,12 +68,8 @@
 	}
 
 	async function sendMessage(): Promise<void> {
-		const defaultOrigin = 'https://localhost:5001';
-		let apiOrigin = defaultOrigin;
-		if (import.meta.env.PROD) {
-			apiOrigin = 'https://api.ofer.to';
-		}
-		const url = `${apiOrigin}/messages/create`;
+		const defaultOrigin = PUBLIC_API_SERVER;
+		const url = `${defaultOrigin}/messages/create`;
 
 		const body = {
 			senderName: senderName,
