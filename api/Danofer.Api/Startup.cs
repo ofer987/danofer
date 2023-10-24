@@ -12,6 +12,7 @@ public class Startup
 {
     public static string ProductionPolicy = "CORS_POLICY_WWW_OFER_TO";
     public static string DevelopmentPolicy = "CORS_POLICY_LOCALHOST";
+    public static string SMTP_OPTIONS = "SMTP";
 
     public Startup(IConfiguration configuration, IWebHostEnvironment env)
     {
@@ -47,9 +48,7 @@ public class Startup
         });
 
 
-        var smtpSettings = new SmtpSettings();;
-        Configuration.GetSection("SMTP").Bind(smtpSettings);
-        services.AddSingleton<SmtpSettings>(smtpSettings);
+        services.Configure<SmtpSettings>(Configuration.GetSection(SMTP_OPTIONS));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,6 +5,7 @@ using System.Net.Http;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using MailKit.Net.Smtp;
 using MimeKit;
@@ -17,13 +18,13 @@ public class MessagesController : CorsJsonController<MessagesModel>
 {
     private readonly ILogger<MessagesController> _logger;
     private readonly IHttpClientFactory _clientFactory;
-    private readonly SmtpSettings _SmtpConfiugration;
+    private readonly SmtpSettings _smtpSettings;
 
-    public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory, SmtpSettings smtpConfiguration)
+    public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory, IOptions<SmtpSettings> smtpSettingsOptions)
     {
         _logger = logger;
         _clientFactory = clientFactory;
-        _SmtpConfiugration = smtpConfiguration;
+        _smtpSettings = smtpSettingsOptions.Value;
     }
 
     [HttpPost("/messages/create")]
@@ -86,7 +87,7 @@ public class MessagesController : CorsJsonController<MessagesModel>
 
         using (var client = new SmtpClient())
         {
-            client.Connect(_SmtpConfiugration.Domain, _SmtpConfiugration.Port, false);
+            client.Connect(_smtpSettings.Domain, _smtpSettings.Port, false);
 
             client.Send(message);
             client.Disconnect(true);
