@@ -46,14 +46,10 @@ public class Startup
                 });
         });
 
-        if (HostingEnvironment.IsDevelopment())
-        {
-            services.AddSingleton<ISmtpConfiguration, DevelopmentSmtpConfiguration>();
-        }
-        else
-        {
-            services.AddSingleton<ISmtpConfiguration, ProductionSmtpConfiguration>();
-        }
+
+        var smtpSettings = new SmtpSettings();;
+        Configuration.GetSection("SMTP").Bind(smtpSettings);
+        services.AddSingleton<SmtpSettings>(smtpSettings);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

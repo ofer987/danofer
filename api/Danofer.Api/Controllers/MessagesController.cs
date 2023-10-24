@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
@@ -17,9 +17,9 @@ public class MessagesController : CorsJsonController<MessagesModel>
 {
     private readonly ILogger<MessagesController> _logger;
     private readonly IHttpClientFactory _clientFactory;
-    private readonly ISmtpConfiguration _SmtpConfiugration;
+    private readonly SmtpSettings _SmtpConfiugration;
 
-    public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory, ISmtpConfiguration smtpConfiguration)
+    public MessagesController(ILogger<MessagesController> logger, IHttpClientFactory clientFactory, SmtpSettings smtpConfiguration)
     {
         _logger = logger;
         _clientFactory = clientFactory;
