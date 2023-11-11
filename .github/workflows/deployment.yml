@@ -19,7 +19,7 @@ env:
   SERVER_RSA_PATH: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  API_IMAGE_NAME: 'danofer'
+  API_IMAGE_NAME: 'danofer_run'
 
 jobs:
   build_and_deploy_static:
@@ -103,7 +103,7 @@ jobs:
         working-directory: ./api
         run: |
           docker build \
-            --file Danofer.build.Dockerfile \
+            --file Danofer.run.Dockerfile \
             --tag "${DOCKER_USERNAME}/${API_IMAGE_NAME}:${VERSION}" \
             .
 
@@ -113,63 +113,64 @@ jobs:
           docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
 
           docker push "${DOCKER_USERNAME}/${API_IMAGE_NAME}:${VERSION}"
+          docker push "${DOCKER_USERNAME}/${API_IMAGE_NAME}:latest"
 
-  build_api_run:
-    needs: ['build_api']
-    runs-on: ubuntu-latest
-    env:
-      DOCKER_FILE: 'docker-compose.yaml'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
+  # build_api_run:
+  #   needs: ['build_api']
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     DOCKER_FILE: 'docker-compose.yaml'
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: 3.1
+  #
+  #     - uses: ./.github/create_server_rsa_key
+  #       with:
+  #         PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+  #         PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+  #
+  #     - name: Create API Directory
+  #       run: |
+  #         # In case the directory does not exist
+  #         set +e
+  #
+  #         ssh \
+  #           -o StrictHostKeyChecking=no \
+  #           -o UserKnownHostsFile=/dev/null \
+  #           -i ${SERVER_RSA_PATH} \
+  #           "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DIRECTORY}
+  #
+  #         ssh \
+  #           -o StrictHostKeyChecking=no \
+  #           -o UserKnownHostsFile=/dev/null \
+  #           -i ${SERVER_RSA_PATH} \
+  #           "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DIRECTORY}
+  #
+  #         set -e
+  #       env:
+  #         DIRECTORY: ${{ env.API_RELATIVE_PATH }}
+  #
+      # - name: Copy Files
+      #   working-directory: './api'
+      #   run: |
+      #     scp \
+      #       -o StrictHostKeyChecking=no \
+      #       -o UserKnownHostsFile=/dev/null \
+      #       -i "../${SERVER_RSA_PATH}" \
+      #       Danofer.run.Dockerfile \
+      #       "${USERNAME}@${OFER_TO_DOMAIN}:./${API_RELATIVE_PATH}"
 
-      - uses: ./.github/create_server_rsa_key
-        with:
-          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
-
-      - name: Create API Directory
-        run: |
-          # In case the directory does not exist
-          set +e
-
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DIRECTORY}
-
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DIRECTORY}
-
-          set -e
-        env:
-          DIRECTORY: ${{ env.API_RELATIVE_PATH }}
-
-      - name: Copy Files
-        working-directory: './api'
-        run: |
-          scp \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i "../${SERVER_RSA_PATH}" \
-            Danofer.run.Dockerfile \
-            "${USERNAME}@${OFER_TO_DOMAIN}:./${API_RELATIVE_PATH}"
-
-      - name: Build Local ofer.to Image
-        working-directory: ./api
-        run: |
-          ../.github/scripts/api/build_danofer_image.sh
-        env:
-          VERSION: ${{ needs.build_api.outputs.version }}
+      # - name: Build Local ofer.to Image
+      #   working-directory: ./api
+      #   run: |
+      #     ../.github/scripts/api/build_danofer_image.sh
+      #   env:
+      #     VERSION: ${{ needs.build_api.outputs.version }}
 
   run_api_and_smtp_docker_images:
-    needs: ['build_api_run']
+    needs: ['build_api']
     runs-on: ubuntu-latest
     env:
       DOCKER_FILE: 'compose.yaml'
