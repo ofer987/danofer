@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'aother-simplify-attempt'
 
 concurrency:
   group: ci-pipeline
