@@ -105,6 +105,7 @@ jobs:
           docker build \
             --file Danofer.run.Dockerfile \
             --tag "${DOCKER_USERNAME}/${API_IMAGE_NAME}:${VERSION}" \
+            --tag "${DOCKER_USERNAME}/${API_IMAGE_NAME}:latest" \
             .
 
       - name: Push Docker Image
