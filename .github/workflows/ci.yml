@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'simplify-docker-files'
 
 concurrency:
   group: ci-pipeline
