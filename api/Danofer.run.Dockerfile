@@ -9,7 +9,4 @@ RUN dotnet clean
 RUN dotnet build
 
 WORKDIR /source/Danofer.Api
-
-COPY configuration.json .
-
 CMD dotnet run --launch-profile "Danofer.Api-Production"
