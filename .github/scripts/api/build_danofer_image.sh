@@ -9,9 +9,6 @@ ssh \
   -i "../${SERVER_RSA_PATH}" \
   "${USERNAME}@${OFER_TO_DOMAIN}" \
   "docker build \
-    --file Danofer.run.Dockerfile \
-    --build-arg DOCKER_USERNAME=${DOCKER_USERNAME} \
-    --build-arg IMAGE_NAME=${API_IMAGE_NAME} \
-    --build-arg VERSION=${VERSION} \
+    --file api/Danofer.run.Dockerfile \
     --tag "${API_IMAGE_NAME}_run:latest" \
     ./;";
