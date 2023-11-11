@@ -158,7 +158,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            Danofer.run.Dockerfile ${DOCKER_FILE} \
+            Danofer.run.Dockerfile \
             "${USERNAME}@${OFER_TO_DOMAIN}:./${API_RELATIVE_PATH}"
 
       - name: Build Local ofer.to Image
