@@ -103,7 +103,7 @@ jobs:
         working-directory: ./api
         run: |
           docker build \
-            --file Danofer.build.Dockerfile \
+            --file Danofer.run.Dockerfile \
             --tag "${DOCKER_USERNAME}/${API_IMAGE_NAME}:${VERSION}" \
             .
 
@@ -160,13 +160,13 @@ jobs:
             -i "../${SERVER_RSA_PATH}" \
             Danofer.run.Dockerfile ${DOCKER_FILE} \
             "${USERNAME}@${OFER_TO_DOMAIN}:./${API_RELATIVE_PATH}"
-
-      - name: Build Local ofer.to Image
-        working-directory: ./api
-        run: |
-          ../.github/scripts/api/build_danofer_image.sh
-        env:
-          VERSION: ${{ needs.build_api.outputs.version }}
+      #
+      # - name: Build Local ofer.to Image
+      #   working-directory: ./api
+      #   run: |
+      #     ../.github/scripts/api/build_danofer_image.sh
+      #   env:
+      #     VERSION: ${{ needs.build_api.outputs.version }}
 
   run_api_and_smtp_docker_images:
     needs: ['build_api_run']
