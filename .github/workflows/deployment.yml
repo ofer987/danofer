@@ -2,10 +2,11 @@ name: Deploy Website
 
 on:
   push:
+    branches:
+      - 'simplify-docker-files'
+
     tags:
       - 'releases/*'
-
-  workflow_dispatch:
 
 concurrency:
   group: deploy-website
