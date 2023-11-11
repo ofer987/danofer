@@ -1,0 +1,12 @@
+{
+	"extends": "@tsconfig/node18/tsconfig.json",
+	"compilerOptions": {
+		"moduleResolution": "NodeNext",
+		"types": ["node"],
+		"lib": ["ES2022"],
+		"target": "es2022",
+		"resolveJsonModule": true,
+		"esModuleInterop": true
+	},
+	"include": ["index.ts"]
+}

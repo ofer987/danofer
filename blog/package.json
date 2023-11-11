@@ -1,0 +1,29 @@
+{
+	"name": "danofer-blog",
+	"version": "0.0.1",
+	"engines": {
+		"node": "^18.17"
+	},
+	"scripts": {
+		"compile": "tsc",
+		"execute": "node ./index.js",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write ."
+	},
+	"devDependencies": {
+		"@tsconfig/node18": "^18.2.2",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte": "^2.30.0",
+		"node-html-parser": "^6.1.11",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.10.1",
+		"title-case": "^4.1.2",
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"hackmd-to-html-cli": "^1.0.0"
+	}
+}
