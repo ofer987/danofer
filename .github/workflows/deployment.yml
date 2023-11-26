@@ -21,6 +21,7 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   API_IMAGE_NAME: 'danofer_run'
+  TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
 jobs:
   create_directories:
@@ -55,6 +56,31 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
             "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} -R
+
+          set -e
+
+      - name: Create TLS Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${TLS_ENCRYPTION_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${TLS_ENCRYPTION_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${TLS_ENCRYPTION_PATH} -R
 
           set -e
 
@@ -220,7 +246,6 @@ jobs:
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
           TLS_PRIVATE_KEY_FILENAME: './ofer_to.private.pem'
           TLS_CERTIFICATE_FILENAME: './star_ofer_to.crt'
-          TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
       - name: Deploy NGINX Confs
         working-directory: ./nginx_confs
