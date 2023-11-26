@@ -11,7 +11,7 @@ concurrency:
 
 env:
   USERNAME: 'cicd'
-  NGINX_USERNAME: 'root'
+  ROOT_USERNAME: 'root'
   NGINX_USERNAME: 'cicd'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   API_RELATIVE_PATH: 'api'
