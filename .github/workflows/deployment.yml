@@ -32,7 +32,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -53,19 +53,19 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} -R
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} -R
 
           set -e
 
@@ -85,7 +85,7 @@ jobs:
             main.jpg \
             index.html \
             _app \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
 
   build_api:
     runs-on: ubuntu-latest
@@ -183,7 +183,7 @@ jobs:
           DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
-  nginx:
+  setup_nginx:
     needs: ['build_and_deploy_static', 'run_api_and_smtp_docker_images']
     runs-on: ubuntu-latest
     steps:
@@ -192,7 +192,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Deploy TLS Certificate and Private Key
         run: |
@@ -222,7 +222,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "${ROOT_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
+            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
         env:
           DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
           DH_PARAM_FILENAME: 'dhparam.pem'
@@ -234,7 +234,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
           # Enable the static and api sites
           for file in 'static' 'api'; do
@@ -242,8 +242,19 @@ jobs:
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
-              "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
+              "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
           done
+
+  restart_nginx:
+    needs: ['setup_nginx']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Restart NGINX
         run: |
