@@ -58,6 +58,31 @@ jobs:
 
           set -e
 
+      - name: Create TLS Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${TLS_ENCRYPTION_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${TLS_ENCRYPTION_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${TLS_ENCRYPTION_PATH} -R
+
+          set -e
+
   build_and_deploy_static:
     needs: ['create_directories']
     runs-on: ubuntu-latest
