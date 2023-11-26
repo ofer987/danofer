@@ -1,6 +1,12 @@
 [
 	{
 		"title": "README",
-		"fileName": "README"
+		"fileName": "README",
+		"timeStamp": "2023-11-26"
+	},
+	{
+		"title": "Using CI / CD to automate deployments",
+		"fileName": "cicd",
+		"timeStamp": "2023-11-26"
 	}
 ]
