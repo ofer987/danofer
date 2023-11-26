@@ -12,6 +12,7 @@ concurrency:
 env:
   USERNAME: 'cicd'
   NGINX_USERNAME: 'root'
+  NGINX_USERNAME: 'cicd'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   API_RELATIVE_PATH: 'api'
   DOCKER_RELATIVE_PATH: 'docker'
@@ -52,13 +53,19 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
 
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} -R
 
           set -e
 
@@ -215,7 +222,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
+            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "${ROOT_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
         env:
           DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
           DH_PARAM_FILENAME: 'dhparam.pem'
@@ -227,7 +234,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
           # Enable the static and api sites
           for file in 'static' 'api'; do
@@ -235,7 +242,7 @@ jobs:
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ${SERVER_RSA_PATH} \
-              "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
+              "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
           done
 
       - name: Restart NGINX
@@ -244,4 +251,4 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" systemctl restart nginx
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" systemctl restart nginx
