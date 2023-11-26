@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'start-nginx-with-cicd'
 
 concurrency:
   group: ci-pipeline
