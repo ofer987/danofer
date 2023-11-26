@@ -21,6 +21,7 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   API_IMAGE_NAME: 'danofer_run'
+  TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
 jobs:
   create_directories:
@@ -245,7 +246,6 @@ jobs:
           TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
           TLS_PRIVATE_KEY_FILENAME: './ofer_to.private.pem'
           TLS_CERTIFICATE_FILENAME: './star_ofer_to.crt'
-          TLS_ENCRYPTION_PATH: '/etc/letsencrypt/live/ofer.to'
 
       - name: Deploy NGINX Confs
         working-directory: ./nginx_confs
