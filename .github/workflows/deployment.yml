@@ -11,7 +11,8 @@ concurrency:
 
 env:
   USERNAME: 'cicd'
-  NGINX_USERNAME: 'root'
+  ROOT_USERNAME: 'root'
+  NGINX_USERNAME: 'cicd'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   API_RELATIVE_PATH: 'api'
   DOCKER_RELATIVE_PATH: 'docker'
@@ -31,7 +32,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -59,6 +60,12 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} -R
 
           set -e
 
@@ -176,7 +183,7 @@ jobs:
           DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
-  nginx:
+  setup_nginx:
     needs: ['build_and_deploy_static', 'run_api_and_smtp_docker_images']
     runs-on: ubuntu-latest
     steps:
@@ -185,7 +192,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Deploy TLS Certificate and Private Key
         run: |
@@ -238,10 +245,21 @@ jobs:
               "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" ln -s "/etc/nginx/sites-available/${file}.conf" /etc/nginx/sites-enabled/${file}.conf
           done
 
+  restart_nginx:
+    needs: ['setup_nginx']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
+
       - name: Restart NGINX
         run: |
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" systemctl restart nginx
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" systemctl restart nginx
