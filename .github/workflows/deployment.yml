@@ -176,7 +176,6 @@ jobs:
             -r \
             ./index.html \
             ./favicon.png \
-            ./new.html \
             ./_app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${SUDOKU_STATIC_PATH}"
 
