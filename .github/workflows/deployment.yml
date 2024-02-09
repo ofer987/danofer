@@ -318,7 +318,7 @@ jobs:
             ./nginx.conf \
             ./${DH_PARAM_FILENAME} \
             ./sites-available \
-            ../sudoku/sites-available \
+            ../sudoku/nginx_confs/sites-available \
             ./nginxconfig.io \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
         env:
