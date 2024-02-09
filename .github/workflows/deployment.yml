@@ -174,9 +174,9 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i "../../${SERVER_RSA_PATH}" \
             -r \
-            ./index.html
-            ./favicon.png
-            ./new.html
+            ./index.html \
+            ./favicon.png \
+            ./new.html \
             ./_app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${SUDOKU_STATIC_PATH}"
 
