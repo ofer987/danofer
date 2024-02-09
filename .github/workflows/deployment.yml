@@ -14,6 +14,7 @@ env:
   ROOT_USERNAME: 'root'
   NGINX_USERNAME: 'cicd'
   HTML_STATIC_PATH: '/var/www/ofer_to'
+  SUDOKU_STATIC_PATH: '/var/www/sudoku'
   API_RELATIVE_PATH: 'api'
   DOCKER_RELATIVE_PATH: 'docker'
   OFER_TO_DOMAIN: 'ofer.to'
@@ -39,23 +40,39 @@ jobs:
           # In case the directory does not exist
           set +e
 
+          # Delete static www.ofer.to
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
             "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${HTML_STATIC_PATH}
 
+          # Create static www.ofer.to
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
             "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${HTML_STATIC_PATH}
 
+          # Delete static sudo.ofer.to
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} -R
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${SUDOKU_STATIC_PATH}
+
+          # Create static sudo.ofer.to
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${SUDOKU_STATIC_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} ${SUDOKU_STATIC_PATH} -R
 
           set -e
 
@@ -122,6 +139,47 @@ jobs:
             index.html \
             _app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
+
+  build_and_deploy_sudoku:
+    needs: ['create_directories']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+
+      - name: Install Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.17'
+
+      - name: Compile
+        working-directory: ./sudoku
+        run: |
+          yarn && yarn build
+
+      - name: Deploy
+        working-directory: ./sudoku/build
+        run: |
+          scp \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i "../../${SERVER_RSA_PATH}" \
+            -r \
+            favicon.png \
+            robots.txt \
+            __data.json \
+            bootstrap.bundle.min.js.map \
+            bootstrap.bundle.min.js \
+            main.jpg \
+            index.html \
+            _app \
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${SUDOKU_STATIC_PATH}"
 
   build_api:
     runs-on: ubuntu-latest
@@ -220,10 +278,12 @@ jobs:
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
   setup_nginx:
-    needs: ['build_and_deploy_static', 'run_api_and_smtp_docker_images']
+    needs: ['build_and_deploy_static', 'build_and_deploy_sudoku', 'run_api_and_smtp_docker_images']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - uses: ./.github/create_server_rsa_key
         with:
@@ -257,7 +317,12 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i "../${SERVER_RSA_PATH}" \
-            ./nginx.conf ./${DH_PARAM_FILENAME} ./sites-available ./nginxconfig.io "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
+            ./nginx.conf \
+            ./${DH_PARAM_FILENAME} \
+            ./sites-available \
+            ../sudoku/sites-available \
+            ./nginxconfig.io \
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:/etc/nginx"
         env:
           DH_PARAM_CONTENT: ${{ secrets.DH_PARAM }}
           DH_PARAM_FILENAME: 'dhparam.pem'
@@ -272,7 +337,7 @@ jobs:
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
           # Enable the static and api sites
-          for file in 'static' 'api'; do
+          for file in 'static' 'api' 'sudoku'; do
             ssh \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
