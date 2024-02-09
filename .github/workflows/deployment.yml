@@ -286,7 +286,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: 'true'
+          submodules: 'recursive'
 
       - uses: ./.github/create_server_rsa_key
         with:
