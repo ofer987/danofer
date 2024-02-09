@@ -174,14 +174,10 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i "../../${SERVER_RSA_PATH}" \
             -r \
-            favicon.png \
-            robots.txt \
-            __data.json \
-            bootstrap.bundle.min.js.map \
-            bootstrap.bundle.min.js \
-            main.jpg \
-            index.html \
-            _app \
+            ./index.html
+            ./favicon.png
+            ./new.html
+            ./_app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${SUDOKU_STATIC_PATH}"
 
   # build_api:
