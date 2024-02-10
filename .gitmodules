@@ -1,0 +1,3 @@
+[submodule "sudoku"]
+	path = sudoku
+	url = git@github.com:ofer987/sudoku.git
