@@ -335,7 +335,7 @@ jobs:
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
           # Enable the www, api, and sudoku sites
-          for file in 'www', 'sudoku', 'api'; do
+          for file in 'www' 'sudoku' 'api'; do
             ssh \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
