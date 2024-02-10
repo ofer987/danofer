@@ -84,7 +84,7 @@ jobs:
 
           set -e
 
-  build_and_deploy_static:
+  build_and_deploy_www:
     needs: ['create_directories']
     runs-on: ubuntu-latest
     steps:
@@ -220,7 +220,7 @@ jobs:
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
   setup_nginx:
-    needs: ['build_and_deploy_static', 'run_api_and_smtp_docker_images']
+    needs: ['build_and_deploy_www', 'run_api_and_smtp_docker_images']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -271,8 +271,8 @@ jobs:
             -i ${SERVER_RSA_PATH} \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
-          # Enable the static and api sites
-          for file in 'static' 'api'; do
+          # Enable the www and api sites
+          for file in 'www' 'api'; do
             ssh \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
