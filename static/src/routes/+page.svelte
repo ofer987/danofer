@@ -18,7 +18,7 @@
 		<div class="name">
 			<h1>Dan Ofer</h1>
 
-			<p class="main">Software Developer Extraordinaire</p>
+			<p class="main">Software Developer / Site-Reliability Engineer</p>
 			<div class="contact">
 				<button
 					class="contact-me-button btn btn-primary"
@@ -42,7 +42,7 @@
 				<h2 class="position">Thomson Reuters - Site Reliability Tech Lead</h2>
 				<h2 class="at">January 2022 – Present</h2>
 			</div>
-			<p>Our objective was to automate all manual processes.</p>
+			<p>Our objective is to automate all manual processes.</p>
 			<div class="experience">
 				<h3>GitHub Actions</h3>
 				<div class="responsibility github">
@@ -615,7 +615,7 @@
 		<div class="work" id="financier">
 			<div class="heading">
 				<h2 class="position">Financier</h2>
-				<h2 class="at">December 2018 – Present</h2>
+				<h2 class="at">December 2018 – December 2020</h2>
 			</div>
 			<p>
 				Software as a Service that analyses income versus expenses. Taking into account multiple
