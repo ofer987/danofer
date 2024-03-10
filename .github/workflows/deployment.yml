@@ -19,7 +19,6 @@ env:
   TRANSIT_API_IMAGE_NAME: 'transit_api'
   API_RELATIVE_PATH: 'api'
   DOCKER_RELATIVE_PATH: 'docker'
-  TRANSIT_DOCKER_RELATIVE_PATH: 'transit_docker'
   OFER_TO_DOMAIN: 'ofer.to'
   SERVER_RSA_PATH: 'rsa_ssh'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -90,6 +89,25 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
             "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} ${SUDOKU_STATIC_PATH} ${TRANSIT_STATIC_PATH} -R
+
+          set -e
+
+      - name: Create Docker Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DOCKER_RELATIVE_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DOCKER_RELATIVE_PATH}
 
           set -e
 
@@ -278,25 +296,6 @@ jobs:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
           PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
-      - name: Create Docker Directory
-        run: |
-          # In case the directory does not exist
-          set +e
-
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DOCKER_RELATIVE_PATH}
-
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DOCKER_RELATIVE_PATH}
-
-          set -e
-
       - name: Add SMTP Password to ENV_FILE
         working-directory: ./docker
         run: |
@@ -330,7 +329,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     env:
-      DOCKER_FILE: 'compose.yaml'
+      DOCKER_FILE: 'transit-compose.yaml'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -379,14 +378,14 @@ jobs:
             -i "../../${SERVER_RSA_PATH}" \
             -r \
             ${DOCKER_FILE} \
-            "${USERNAME}@${OFER_TO_DOMAIN}:./${TRANSIT_DOCKER_RELATIVE_PATH}"
+            "${USERNAME}@${OFER_TO_DOMAIN}:./${DOCKER_RELATIVE_PATH}"
 
       - name: Run Local transit-api.ofer.to
         working-directory: ./distance_calculator/DistanceCalculator
         run: |
           ../../.github/scripts/run_docker_image
         env:
-          DOCKER_COMPOSE_PATH: "${{ env.TRANSIT_DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
+          DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../../${{ env.SERVER_RSA_PATH }}"
 
   setup_nginx:
