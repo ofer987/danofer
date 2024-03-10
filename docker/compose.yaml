@@ -8,6 +8,6 @@ services:
       - "25:25"
 
   danofer:
-    image: danofer_run:latest
+    image: ofer987/danofer_run:latest
     ports:
       - "5000:80"
