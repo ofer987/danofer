@@ -5,9 +5,6 @@ on:
     tags:
       - 'releases/*'
 
-    branches:
-      - sudoku
-
 concurrency:
   group: deploy-website
   cancel-in-progress: true
@@ -18,6 +15,8 @@ env:
   NGINX_USERNAME: 'cicd'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   SUDOKU_STATIC_PATH: '/var/www/sudoku'
+  TRANSIT_STATIC_PATH: '/var/www/transit'
+  TRANSIT_API_IMAGE_NAME: 'transit_api'
   API_RELATIVE_PATH: 'api'
   DOCKER_RELATIVE_PATH: 'docker'
   OFER_TO_DOMAIN: 'ofer.to'
@@ -71,11 +70,44 @@ jobs:
             -i ${SERVER_RSA_PATH} \
             "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${SUDOKU_STATIC_PATH}
 
+          # Delete static transit.ofer.to
           ssh \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ${SERVER_RSA_PATH} \
-            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} ${SUDOKU_STATIC_PATH} -R
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${TRANSIT_STATIC_PATH}
+
+          # Create static transit.ofer.to
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${TRANSIT_STATIC_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${ROOT_USERNAME}@${OFER_TO_DOMAIN}" chown ${NGINX_USERNAME}:${NGINX_USERNAME} ${HTML_STATIC_PATH} ${SUDOKU_STATIC_PATH} ${TRANSIT_STATIC_PATH} -R
+
+          set -e
+
+      - name: Create Docker Directory
+        run: |
+          # In case the directory does not exist
+          set +e
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DOCKER_RELATIVE_PATH}
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DOCKER_RELATIVE_PATH}
 
           set -e
 
@@ -179,7 +211,44 @@ jobs:
             ./_app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${SUDOKU_STATIC_PATH}"
 
+  build_and_deploy_transit_www:
+    needs: ['create_directories']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+
+      - name: Install Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.17'
+
+      - name: Compile
+        working-directory: ./distance_calculator/www
+        run: |
+          yarn && yarn production-build
+
+      - name: Deploy
+        working-directory: ./distance_calculator/www/build
+        run: |
+          scp \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i "../../../${SERVER_RSA_PATH}" \
+            -r \
+            index.html \
+            favicon.png \
+            _app \
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${TRANSIT_STATIC_PATH}"
+
   build_api:
+    needs: ['create_directories']
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.result }}
@@ -228,25 +297,6 @@ jobs:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
           PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
-      - name: Create Docker Directory
-        run: |
-          # In case the directory does not exist
-          set +e
-
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" rm -rf ${DOCKER_RELATIVE_PATH}
-
-          ssh \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${USERNAME}@${OFER_TO_DOMAIN}" mkdir -p -- ${DOCKER_RELATIVE_PATH}
-
-          set -e
-
       - name: Add SMTP Password to ENV_FILE
         working-directory: ./docker
         run: |
@@ -272,11 +322,78 @@ jobs:
         run: |
           ../.github/scripts/run_docker_image
         env:
+          DOCKER_IMAGE_NAME: "${{ env.DOCKER_USERNAME }}/${{ env.API_IMAGE_NAME }}"
           DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
+  build_and_deploy_transit_docker:
+    needs: ['create_directories']
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.result }}
+    env:
+      DOCKER_FILE: 'transit-compose.yaml'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+      - uses: docker-practice/actions-setup-docker@master
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+
+      - name: Create Version
+        id: version
+        run: |
+          MAJOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\1/')"
+          MINOR="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\2/')"
+          PATCH="$(echo ${GITHUB_REF} | sed -E 's/.*([0-9]+)\.([0-9]+)\.([0-9]+)$/\3/')"
+
+          VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+          echo "result=${VERSION}" >> ${GITHUB_OUTPUT}
+
+      - name: Build Docker Image
+        working-directory: ./distance_calculator/DistanceCalculator
+        run: |
+          docker build \
+            --file Transit.Dockerfile \
+            --tag "${DOCKER_USERNAME}/${TRANSIT_API_IMAGE_NAME}:${VERSION}" \
+            --tag "${DOCKER_USERNAME}/${TRANSIT_API_IMAGE_NAME}:latest" \
+            .
+
+      - name: Push Docker Image
+        working-directory: ./distance_calculator/DistanceCalculator
+        run: |
+          docker login --username="${DOCKER_USERNAME}" --password="${DOCKER_PASSWORD}"
+
+          docker push "${DOCKER_USERNAME}/${TRANSIT_API_IMAGE_NAME}:${VERSION}"
+          docker push "${DOCKER_USERNAME}/${TRANSIT_API_IMAGE_NAME}:latest"
+
+      - name: Deploy Docker Compose file
+        working-directory: ./distance_calculator/DistanceCalculator
+        run: |
+          scp \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i "../../${SERVER_RSA_PATH}" \
+            -r \
+            ${DOCKER_FILE} \
+            "${USERNAME}@${OFER_TO_DOMAIN}:./${DOCKER_RELATIVE_PATH}"
+
+      - name: Run Local transit-api.ofer.to
+        working-directory: ./distance_calculator/DistanceCalculator
+        run: |
+          ../../.github/scripts/run_docker_image
+        env:
+          DOCKER_IMAGE_NAME: "${{ env.DOCKER_USERNAME }}/${{ env.TRANSIT_API_IMAGE_NAME }}"
+          DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
+          RSA_PATH: "../../${{ env.SERVER_RSA_PATH }}"
+
   setup_nginx:
-    needs: ['build_and_deploy_www', 'build_and_deploy_sudoku', 'run_api_and_smtp_docker_images']
+    needs: ['build_and_deploy_www', 'build_and_deploy_sudoku', 'build_and_deploy_transit_www', 'run_api_and_smtp_docker_images', 'build_and_deploy_transit_docker']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -334,8 +451,8 @@ jobs:
             -i ${SERVER_RSA_PATH} \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" "find /etc/nginx/sites-enabled -type l | xargs rm"
 
-          # Enable the www, api, and sudoku sites
-          for file in 'www' 'sudoku' 'api'; do
+          # Enable the www, api, sudoku, transit, and transit-api sites
+          for file in 'www' 'sudoku' 'api' 'transit-www' 'transit-api'; do
             ssh \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \

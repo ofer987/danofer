@@ -1,3 +1,6 @@
 [submodule "sudoku"]
 	path = sudoku
 	url = git@github.com:ofer987/sudoku.git
+[submodule "distance_calculator"]
+	path = distance_calculator
+	url = git@github.com:ofer987/distancecalculator.git
