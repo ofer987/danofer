@@ -248,6 +248,7 @@ jobs:
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${TRANSIT_STATIC_PATH}"
 
   build_api:
+    needs: ['create_directories']
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.result }}
@@ -325,6 +326,7 @@ jobs:
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
   build_and_deploy_transit_docker:
+    needs: ['create_directories']
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.result }}
