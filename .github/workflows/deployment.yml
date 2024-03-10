@@ -214,7 +214,7 @@ jobs:
       - name: Compile
         working-directory: ./distance_calculator/www
         run: |
-          yarn && yarn build
+          yarn && yarn production-build
 
       - name: Deploy
         working-directory: ./distance_calculator/www/build
@@ -224,13 +224,8 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -i "../../${SERVER_RSA_PATH}" \
             -r \
-            favicon.png \
-            robots.txt \
-            __data.json \
-            bootstrap.bundle.min.js.map \
-            bootstrap.bundle.min.js \
-            main.jpg \
             index.html \
+            favicon.png \
             _app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${TRANSIT_STATIC_PATH}"
 
