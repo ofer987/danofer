@@ -322,7 +322,7 @@ jobs:
         run: |
           ../.github/scripts/run_docker_image
         env:
-          DOCKER_IMAGE_NAME: "ofer987/danofer_run"
+          DOCKER_IMAGE_NAME: "${{ env.DOCKER_USERNAME }}/${{ env.API_IMAGE_NAME }}"
           DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../${{ env.SERVER_RSA_PATH }}"
 
@@ -388,7 +388,7 @@ jobs:
         run: |
           ../../.github/scripts/run_docker_image
         env:
-          DOCKER_IMAGE_NAME: "ofer987/transit_api"
+          DOCKER_IMAGE_NAME: "${{ env.DOCKER_USERNAME }}/${{ env.TRANSIT_API_IMAGE_NAME }}"
           DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../../${{ env.SERVER_RSA_PATH }}"
 
