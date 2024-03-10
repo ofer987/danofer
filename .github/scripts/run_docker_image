@@ -10,6 +10,14 @@ ssh \
   "${USERNAME}@${OFER_TO_DOMAIN}" \
   "docker compose --file='${DOCKER_COMPOSE_PATH}' down";
 
+# Retrieve latest image
+ssh \
+  -o StrictHostKeyChecking=no \
+  -o UserKnownHostsFile=/dev/null \
+  -i ${RSA_PATH} \
+  "${USERNAME}@${OFER_TO_DOMAIN}" \
+  "docker pull ${DOCKER_IMAGE_NAME}";
+
 # Then start up a new container
 ssh \
   -o StrictHostKeyChecking=no \
