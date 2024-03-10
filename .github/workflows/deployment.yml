@@ -222,7 +222,7 @@ jobs:
           scp \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i "../../${SERVER_RSA_PATH}" \
+            -i "../../../${SERVER_RSA_PATH}" \
             -r \
             index.html \
             favicon.png \
@@ -376,7 +376,7 @@ jobs:
           scp \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -i "../${SERVER_RSA_PATH}" \
+            -i "../../${SERVER_RSA_PATH}" \
             -r \
             ${DOCKER_FILE} \
             "${USERNAME}@${OFER_TO_DOMAIN}:./${TRANSIT_DOCKER_RELATIVE_PATH}"
