@@ -11,6 +11,7 @@
 	import rubyIcon from '$lib/images/icons/ruby.svg';
 	import postgreSQLIcon from '$lib/images/icons/postgresql.svg';
 	import gitHubIcon from '$lib/images/icons/github.svg';
+	import gitHubAvatarIcon from '$lib/images/icons/github_avatar.png';
 	import dockerIcon from '$lib/images/icons/docker-2.svg';
 	import bashIcon from '$lib/images/icons/code-2.svg';
 	import confluenceIcon from '$lib/images/icons/confluence.svg';
@@ -34,6 +35,7 @@
 	import microsoftTeamsIcon from '$lib/images/icons/microsoft-teams.png';
 	import pagerDutyIcon from '$lib/images/icons/pager-duty.png';
 	import serviceNowIcon from '$lib/images/icons/service-now.png';
+	import svelteIcon from '$lib/images/icons/svelte-logo.svg';
 
 	export let klass: icons;
 
@@ -50,6 +52,7 @@
 		| 'ruby'
 		| 'postgresql'
 		| 'github'
+		| 'github-avatar'
 		| 'docker'
 		| 'bash'
 		| 'confluence'
@@ -72,7 +75,8 @@
 		| 'google-lighthouse'
 		| 'microsoft-teams'
 		| 'pager-duty'
-		| 'service-now';
+		| 'service-now'
+		| 'svelte';
 
 	interface Attributes {
 		location: string;
@@ -155,6 +159,12 @@
 					location: 'https://www.postgresql.org',
 					src: postgreSQLIcon,
 					altText: 'PostgreSQL'
+				};
+			case 'github-avatar':
+				return {
+					location: 'https://github.com',
+					src: gitHubAvatarIcon,
+					altText: 'GitHub'
 				};
 			case 'github':
 				return {
@@ -303,6 +313,12 @@
 					location: 'https://www.servicenow.com',
 					src: serviceNowIcon,
 					altText: 'ServiceNow'
+				};
+			case 'svelte':
+				return {
+					location: 'https://svelte.dev',
+					src: svelteIcon,
+					altText: 'Svelte'
 				};
 			default:
 				throw 'icon could not be found!';
