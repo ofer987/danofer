@@ -36,6 +36,236 @@
 		<ContactMe />
 	</div>
 
+	<section class="hobbies">
+		<div class="work" id="transit">
+			<div class="heading">
+				<h2 class="position">Nearest Transit Stops</h2>
+				<h2 class="at">March 2024</h2>
+			</div>
+			<p>To know where the nearest Toronto Transit Commission's stops/stations are</p>
+			<div class="experience">
+				<h3>Development</h3>
+				<div class="responsibility development">
+					<div class="icons">
+						<Icon klass="csharp" />
+						<Icon klass="typescript" />
+						<!-- TODO: Add Svelte -->
+						<Icon klass="node-js" />
+						<Icon klass="sass" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span> Built using HTML, Sass, and TypeScript in Svelte </span>
+							</li>
+							<li>
+								<span>
+									A C# ASP.NET server retrieves all of the TTC's routes using
+									<pre>https://www.ttc.ca/ttcapi/routedetail/listroutes</pre>
+								</span>
+							</li>
+							<li>
+								<span
+									>Then retrieves each routes details using
+									<pre>https://www.ttc.ca/ttcapi/routedetail/get</pre>
+								</span>
+							</li>
+							<li>
+								<span
+									>A client-side application, in this case https://transit.ofer.to, displays the
+									nearest stops / stations within a 500-metre radius using the browser's <a
+										href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation"
+										target="_blank">Geolocation</a
+									>
+								</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="sudoku">
+			<div class="heading">
+				<h2 class="position">Sudoku</h2>
+				<h2 class="at">February 2024</h2>
+			</div>
+			<p>A have always wanted to build an online game</p>
+			<div class="experience">
+				<h3>Development</h3>
+				<div class="responsibility development">
+					<div class="icons">
+						<Icon klass="typescript" />
+						<!-- TODO: Add TypeScript -->
+						<Icon klass="node-js" />
+						<Icon klass="sass" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span> Built using HTML, Sass, and TypeScript </span>
+							</li>
+							<li>
+								<span>
+									Used <a href="https://www.npmjs.com/~mucahidyazar" target="_blank"
+										>Mucahid Yazar's</a
+									>
+									Sudoku
+									<a href="https://www.npmjs.com/package/node-sudoku" target="_blank"
+										>game generator</a
+									> solution
+								</span>
+							</li>
+							<li>
+								<span> Players can resume their games by copying the URL </span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="danofer-com">
+			<div class="heading">
+				<h2 class="position">This Personal website</h2>
+				<h2 class="at">October 2023 – November 2023</h2>
+			</div>
+			<p>A vanity excuse to learn how to build server-side rendered websites in Svelte</p>
+			<div class="experience">
+				<h3>Development</h3>
+				<div class="responsibility development">
+					<div class="icons">
+						<Icon klass="csharp" />
+						<Icon klass="java" />
+						<!-- TODO: Add Svelte -->
+						<Icon klass="node-js" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>
+									Built in <a href="https://svelte.dev" target="_blank">Svelte</a> using HTML, Sass,
+									and TypeScript
+								</span>
+							</li>
+							<li>
+								<span>
+									Avoid runtime penalties because pages are server-side rendered penalty
+								</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<h3>Microservice Architecture</h3>
+				<div class="responsibility architecture">
+					<div class="icons">
+						<Icon klass="csharp" />
+						<Icon klass="docker" />
+						<Icon klass="bash" />
+						<Icon klass="digitalocean" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span> Configured a section where users can contact me via email </span>
+							</li>
+							<li>
+								<span>
+									Emails are sent using the <a
+										href="https://github.com/juanluisbaptiste/docker-postfix"
+										target="_blank">postfix-docker</a
+									> Docker Container using a .NET Core 6.0 (LTS) application
+								</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<h3>Continuous Integration / Continuous Deployment</h3>
+				<div class="responsibility ci-cd">
+					<div class="icons">
+						<Icon klass="github" />
+						<Icon klass="bash" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>
+									Configured <a target="blank" href="https://github.com/features/actions"
+										>GitHub Actions</a
+									>
+									with
+									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate
+									deployments
+								</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="financier">
+			<div class="heading">
+				<h2 class="position">Financier</h2>
+				<h2 class="at">December 2018 – December 2020</h2>
+			</div>
+			<p>
+				Software as a Service that analyses income versus expenses. Taking into account multiple
+				variables, it can predict its users future financial situation, giving them insights whether
+				they should purchase a home today with a smaller downpayment or in the future with a larger
+				downpayment
+			</p>
+			<div class="experience">
+				<h3>Development</h3>
+				<div class="responsibility development">
+					<div class="icons">
+						<Icon klass="csharp" />
+						<Icon klass="typescript" />
+						<Icon klass="react" />
+						<Icon klass="sass" />
+						<Icon klass="graphql" />
+						<Icon klass="ruby" />
+						<Icon klass="postgresql" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>
+									A C# 9.0 (.NET 5.0 application) ingests the financial into a Postgresql database
+								</span>
+							</li>
+							<li>
+								<span>
+									Machine-learning software understands the nature of the financial data
+								</span>
+							</li>
+							<li>
+								<span>
+									A Ruby application retrieves the financial data into predefined financial
+									statement files
+								</span>
+							</li>
+							<li>
+								<span>
+									A C# 9.0 ASP.NET Core application exposes endpoints to retrieve the financial
+									application
+								</span>
+							</li>
+							<li>
+								<span>
+									A web application (written in TypeScript using React components) to display the
+									financial analysis
+								</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="jobs">
 		<div class="work" id="thomson-reuters-digital-3">
 			<div class="heading">
@@ -506,171 +736,6 @@
 			</div>
 		</div>
 
-		<div class="work" id="danofer-com">
-			<div class="heading">
-				<h2 class="position">Personal website</h2>
-				<h2 class="at">July 2021 – Present</h2>
-			</div>
-			<div class="experience">
-				<h3>Development</h3>
-				<div class="responsibility development">
-					<div class="icons">
-						<Icon klass="csharp" />
-						<Icon klass="java" />
-						<Icon klass="node-js" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span> Built using HTML, Sass, and TypeScript </span>
-							</li>
-							<li>
-								<span>
-									No runtime (such as AngularJS and React). I want to avoid a runtime performance
-									penalty
-								</span>
-							</li>
-							<li>
-								<span>
-									No need to cache files because static assets are generated by Webpack, e.g, HTML,
-									CSS, and JavaScript files
-								</span>
-							</li>
-						</ol>
-					</div>
-				</div>
-
-				<h3>Microservice Architecture</h3>
-				<div class="responsibility architecture">
-					<div class="icons">
-						<Icon klass="csharp" />
-						<Icon klass="docker" />
-						<Icon klass="bash" />
-						<Icon klass="sendgrid" />
-						<Icon klass="digitalocean" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span>
-									Configured <a target="blank" href="https://github.com/features/actions"
-										>GitHub Actions</a
-									>
-									with
-									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate
-									deployments to a Production environment hosted on DigitalOcean
-								</span>
-							</li>
-							<li>
-								<span>
-									Configured a section where users can contact me via email, using <a
-										target="blank"
-										href="https://en.wikipedia.org/wiki/SendGrid">SendGrid</a
-									>
-									as the provider, and
-									<a target="blank" href="https://en.wikipedia.org/wiki/ReCAPTCHA"
-										>Google reCAPTCHA</a
-									> to protect against bots.
-								</span>
-							</li>
-							<li>
-								<span>
-									Built a .NET Core 5.0 application to verify whether user is human and not a bot
-									and send emails using SendGrid
-								</span>
-							</li>
-							<li>
-								<span>
-									Used GitHub Secrets to store Google reCAPTCHA and SendGrid secret values
-								</span>
-							</li>
-						</ol>
-					</div>
-				</div>
-
-				<h3>Continuous Integration / Continuous Deployment</h3>
-				<div class="responsibility ci-cd">
-					<div class="icons">
-						<Icon klass="github" />
-						<Icon klass="bash" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span>
-									Configured <a target="blank" href="https://github.com/features/actions"
-										>GitHub Actions</a
-									>
-									with
-									<a target="blank" href="https://www.gnu.org/software/bash/">Bash scripts</a> to automate
-									deployments to our Quality Assurance and Pre-production environments
-								</span>
-							</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="work" id="financier">
-			<div class="heading">
-				<h2 class="position">Financier</h2>
-				<h2 class="at">December 2018 – December 2020</h2>
-			</div>
-			<p>
-				Software as a Service that analyses income versus expenses. Taking into account multiple
-				variables, it can predict its users future financial situation, giving them insights whether
-				they should purchase a home today with a smaller downpayment or in the future with a larger
-				downpayment
-			</p>
-			<div class="experience">
-				<h3>Development</h3>
-				<div class="responsibility development">
-					<div class="icons">
-						<Icon klass="csharp" />
-						<Icon klass="typescript" />
-						<Icon klass="react" />
-						<Icon klass="sass" />
-						<Icon klass="graphql" />
-						<Icon klass="ruby" />
-						<Icon klass="postgresql" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span>
-									A C# 9.0 (.NET 5.0 application) ingests the financial into a Postgresql database
-								</span>
-							</li>
-							<li>
-								<span>
-									Machine-learning software understands the nature of the financial data
-								</span>
-							</li>
-							<li>
-								<span>
-									A Ruby application retrieves the financial data into predefined financial
-									statement files
-								</span>
-							</li>
-							<li>
-								<span>
-									A C# 9.0 ASP.NET Core application exposes endpoints to retrieve the financial
-									application
-								</span>
-							</li>
-							<li>
-								<span>
-									A web application (written in TypeScript using React components) to display the
-									financial analysis
-								</span>
-							</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="work" id="trike-apps">
 			<div class="heading">
 				<h2 class="position">Trike Apps</h2>
@@ -814,7 +879,11 @@
 				@include work(green);
 			}
 
-			&#danofer-com {
+			&#sudoku {
+				@include work(lightblue);
+			}
+
+			&#transit {
 				@include work(turquoise);
 			}
 
