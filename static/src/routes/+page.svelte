@@ -16,9 +16,9 @@
 			alt="Dan walking with his three children"
 		/>
 		<div class="name">
-			<h1>Dan Ofer</h1>
+			<h1>Dan Jakob Ofer</h1>
 
-			<p class="main">Software Developer / Site-Reliability Engineer</p>
+			<p class="main">Father / Husband / Passionate Software Developer</p>
 			<div class="contact">
 				<button
 					class="contact-me-button btn btn-primary"
@@ -36,13 +36,23 @@
 		<ContactMe />
 	</div>
 
+	<section class="personal">
+		<div class="main">
+			The background photo was taken by my wife Edith when we were walking on the northern edge of
+			High Park in Toronto
+		</div>
+		<div class="main">
+			Some software developers claim they are "passionate". I can actually prove it.
+		</div>
+	</section>
+
 	<section class="hobbies">
 		<div class="work" id="transit">
 			<div class="heading">
 				<h2 class="position">Nearest Transit Stops</h2>
 				<h2 class="at">March 2024</h2>
 			</div>
-			<p>To know where the nearest Toronto Transit Commission's stops/stations are</p>
+			<p>To know where the nearest Toronto Transit Commission's stops/stations are located</p>
 			<div class="experience">
 				<h3>Development</h3>
 				<div class="responsibility development">
@@ -818,6 +828,16 @@
 				color: black;
 			}
 		}
+	}
+
+	.personal {
+		background-color: rgba(255, 255, 255, 0.95);
+
+		.main {
+			padding-left: 1.5em;
+		}
+
+		padding: 2em 0;
 	}
 
 	.main-section {
