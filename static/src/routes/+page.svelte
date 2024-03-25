@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from './Icon.svelte';
+	import GitHub from './GitHub.svelte';
 	import ContactMe from './ContactMe.svelte';
 </script>
 

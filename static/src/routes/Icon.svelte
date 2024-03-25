@@ -11,6 +11,7 @@
 	import rubyIcon from '$lib/images/icons/ruby.svg';
 	import postgreSQLIcon from '$lib/images/icons/postgresql.svg';
 	import gitHubIcon from '$lib/images/icons/github.svg';
+	import gitHubAvatarIcon from '$lib/images/icons/github_avatar.png';
 	import dockerIcon from '$lib/images/icons/docker-2.svg';
 	import bashIcon from '$lib/images/icons/code-2.svg';
 	import confluenceIcon from '$lib/images/icons/confluence.svg';
@@ -50,6 +51,7 @@
 		| 'ruby'
 		| 'postgresql'
 		| 'github'
+		| 'github-avatar'
 		| 'docker'
 		| 'bash'
 		| 'confluence'
@@ -155,6 +157,12 @@
 					location: 'https://www.postgresql.org',
 					src: postgreSQLIcon,
 					altText: 'PostgreSQL'
+				};
+			case 'github-avatar':
+				return {
+					location: 'https://github.com',
+					src: gitHubAvatarIcon,
+					altText: 'GitHub'
 				};
 			case 'github':
 				return {
