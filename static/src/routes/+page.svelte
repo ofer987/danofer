@@ -38,12 +38,14 @@
 	</div>
 
 	<section class="personal">
-		<div class="main">
+		<div class="caption">
 			The background photo was taken by my wife Edith when we were walking on the northern edge of
-			High Park in Toronto
+			High Park in Toronto in the Summer of 2022
 		</div>
+
 		<div class="main">
-			Some software developers claim they are "passionate". I can actually prove it.
+			Some software developers claim they are "passionate".
+			<br />I can actually prove it.
 		</div>
 	</section>
 
@@ -53,6 +55,7 @@
 				<h2 class="position">Nearest Transit Stops</h2>
 				<h2 class="at">March 2024</h2>
 			</div>
+			<GitHub text="Transit" url="https://github.com/ofer987/DistanceCalculator" />
 			<p>To know where the nearest Toronto Transit Commission's stops/stations are located</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -101,6 +104,7 @@
 				<h2 class="position">Sudoku</h2>
 				<h2 class="at">February 2024</h2>
 			</div>
+			<GitHub text="Sudoku" url="https://github.com/ofer987/sudoku" />
 			<p>A have always wanted to build an online game</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -141,6 +145,7 @@
 				<h2 class="position">This Personal website</h2>
 				<h2 class="at">October 2023 – November 2023</h2>
 			</div>
+			<GitHub text="ofer.to" url="https://github.com/ofer987/danofer" />
 			<p>A vanity excuse to learn how to build server-side rendered websites in Svelte</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -222,6 +227,7 @@
 				<h2 class="position">Financier</h2>
 				<h2 class="at">December 2018 – December 2020</h2>
 			</div>
+			<GitHub text="Financier" url="https://github.com/ofer987/financier" />
 			<p>
 				Software as a Service that analyses income versus expenses. Taking into account multiple
 				variables, it can predict its users future financial situation, giving them insights whether
@@ -834,11 +840,20 @@
 	.personal {
 		background-color: rgba(255, 255, 255, 0.95);
 
+		.caption {
+			padding-left: 2em;
+			font-size: 0.75em;
+			/* width: 25%; */
+			text-align: justify;
+		}
+
 		.main {
+			padding-top: 2em;
+			padding-bottom: 1em;
 			padding-left: 1.5em;
 		}
 
-		padding: 2em 0;
+		padding-top: 2em;
 	}
 
 	.main-section {
@@ -849,6 +864,11 @@
 		h2.position {
 			font-size: 1.5em;
 			font-weight: bold;
+		}
+
+		.caption {
+			/* background-color: rgba(255, 255, 255, 0.95); */
+			font-size: 0.75em;
 		}
 
 		.image {
