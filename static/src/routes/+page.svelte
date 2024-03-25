@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from './Icon.svelte';
 	import GitHub from './GitHub.svelte';
+	import LargeAnchor from './LargeAnchor.svelte';
 	import ContactMe from './ContactMe.svelte';
 </script>
 
@@ -56,6 +57,7 @@
 				<h2 class="at">March 2024</h2>
 			</div>
 			<GitHub text="Transit" url="https://github.com/ofer987/DistanceCalculator" />
+			<LargeAnchor url="https://transit.ofer.to" />
 			<p>To know where the nearest Toronto Transit Commission's stops/stations are located</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -105,6 +107,7 @@
 				<h2 class="at">February 2024</h2>
 			</div>
 			<GitHub text="Sudoku" url="https://github.com/ofer987/sudoku" />
+			<LargeAnchor url="https://sudo.ofer.to" />
 			<p>A have always wanted to build an online game</p>
 			<div class="experience">
 				<h3>Development</h3>
@@ -146,6 +149,7 @@
 				<h2 class="at">October 2023 – November 2023</h2>
 			</div>
 			<GitHub text="ofer.to" url="https://github.com/ofer987/danofer" />
+			<LargeAnchor url="https://www.ofer.to" />
 			<p>A vanity excuse to learn how to build server-side rendered websites in Svelte</p>
 			<div class="experience">
 				<h3>Development</h3>
