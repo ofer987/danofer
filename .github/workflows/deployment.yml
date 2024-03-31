@@ -405,7 +405,6 @@ jobs:
           PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       - name: Delete Dangling Docker Images
-        working-directory: ./nginx_confs
         run: |
           ssh \
             -o StrictHostKeyChecking=no \
