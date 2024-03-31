@@ -392,6 +392,25 @@ jobs:
           DOCKER_COMPOSE_PATH: "${{ env.DOCKER_RELATIVE_PATH }}/${{ env.DOCKER_FILE }}"
           RSA_PATH: "../../${{ env.SERVER_RSA_PATH }}"
 
+  prune_docker_images:
+    needs: ['build_and_deploy_www', 'build_and_deploy_sudoku', 'build_and_deploy_transit_www', 'run_api_and_smtp_docker_images', 'build_and_deploy_transit_docker']
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+
+      - name: Deploy NGINX Confs
+        working-directory: ./nginx_confs
+        run: |
+          ssh "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" -- docker image prune --force
+
   setup_nginx:
     needs: ['build_and_deploy_www', 'build_and_deploy_sudoku', 'build_and_deploy_transit_www', 'run_api_and_smtp_docker_images', 'build_and_deploy_transit_docker']
     runs-on: ubuntu-latest
