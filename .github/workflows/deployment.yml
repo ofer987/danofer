@@ -404,10 +404,14 @@ jobs:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
           PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
-      - name: Deploy NGINX Confs
+      - name: Delete Dangling Docker Images
         working-directory: ./nginx_confs
         run: |
-          ssh "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" -- docker image prune --force
+          ssh
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -i ${SERVER_RSA_PATH} \
+            "${NGINX_USERNAME}@${OFER_TO_DOMAIN}" -- docker image prune --force
 
   setup_nginx:
     needs: ['build_and_deploy_www', 'build_and_deploy_sudoku', 'build_and_deploy_transit_www', 'run_api_and_smtp_docker_images', 'build_and_deploy_transit_docker']
