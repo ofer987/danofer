@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'use-root-key'
 
 concurrency:
   group: ci-pipeline

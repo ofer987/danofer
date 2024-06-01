@@ -10,9 +10,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  USERNAME: 'cicd'
+  USERNAME: 'root'
   ROOT_USERNAME: 'root'
-  NGINX_USERNAME: 'cicd'
+  NGINX_USERNAME: 'root'
   HTML_STATIC_PATH: '/var/www/ofer_to'
   SUDOKU_STATIC_PATH: '/var/www/sudoku'
   TRANSIT_STATIC_PATH: '/var/www/transit'
@@ -145,7 +145,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -186,7 +186,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -222,7 +222,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Install Node.js 18
         uses: actions/setup-node@v3
@@ -295,7 +295,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Add SMTP Password to ENV_FILE
         working-directory: ./docker
@@ -342,7 +342,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Create Version
         id: version
@@ -402,7 +402,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Delete Dangling Docker Images
         run: |
@@ -423,7 +423,7 @@ jobs:
       - uses: ./.github/create_server_rsa_key
         with:
           PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.PROD_STATIC_SERVER_PRIVATE_KEY }}
 
       - name: Deploy TLS Certificate and Private Key
         run: |
