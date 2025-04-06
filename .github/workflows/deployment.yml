@@ -418,10 +418,10 @@ jobs:
         with:
           submodules: 'recursive'
 
-      # - uses: ./.github/create_server_rsa_key
-      #   with:
-      #     PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-      #     PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+      - uses: ./.github/create_server_rsa_key
+        with:
+          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
       # - name: Deploy TLS Certificate and Private Key
       #   run: |
