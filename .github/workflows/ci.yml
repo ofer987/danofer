@@ -23,7 +23,7 @@ jobs:
         with:
           ruby-version: '3.1'
       - run: |
-          gem install --no-document --version 7.0.4.3 activesupport
+          gem install --no-document --version 7.2.2.1 activesupport
           gem install --no-document --version 1.0.1 semver
 
       - name: Increment MINOR Version
