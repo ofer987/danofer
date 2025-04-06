@@ -172,6 +172,10 @@ jobs:
             bootstrap.bundle.min.js \
             main.jpg \
             index.html \
+            snake-lost.jpg \
+            snake-playing.jpg \
+            snake.html \
+            snake \
             _app \
             "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${HTML_STATIC_PATH}"
 
