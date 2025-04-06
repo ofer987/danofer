@@ -5,6 +5,8 @@ on:
     tags:
       - 'releases/*'
 
+  workflow_dispatch:
+
 concurrency:
   group: deploy-website
   cancel-in-progress: true
