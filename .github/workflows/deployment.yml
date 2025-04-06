@@ -418,27 +418,27 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - uses: ./.github/create_server_rsa_key
-        with:
-          PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
-          PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
+      # - uses: ./.github/create_server_rsa_key
+      #   with:
+      #     PRIVATE_RSA_KEY_PATH: ${{ env.SERVER_RSA_PATH }}
+      #     PRIVATE_RSA_KEY_CONTENT: ${{ secrets.CICD_SERVER_PRIVATE_KEY }}
 
-      - name: Deploy TLS Certificate and Private Key
-        run: |
-          echo "${TLS_CERTIFICATE}" > ${TLS_CERTIFICATE_FILENAME}
-          echo "${TLS_PRIVATE_KEY}" > ${TLS_PRIVATE_KEY_FILENAME}
-
-          scp \
-            -r \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -i ${SERVER_RSA_PATH} \
-            "${TLS_CERTIFICATE_FILENAME}" "${TLS_PRIVATE_KEY_FILENAME}" "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
-        env:
-          TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
-          TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
-          TLS_PRIVATE_KEY_FILENAME: './ofer_to.private.pem'
-          TLS_CERTIFICATE_FILENAME: './star_ofer_to.crt'
+      # - name: Deploy TLS Certificate and Private Key
+      #   run: |
+      #     echo "${TLS_CERTIFICATE}" > ${TLS_CERTIFICATE_FILENAME}
+      #     echo "${TLS_PRIVATE_KEY}" > ${TLS_PRIVATE_KEY_FILENAME}
+      #
+      #     scp \
+      #       -r \
+      #       -o StrictHostKeyChecking=no \
+      #       -o UserKnownHostsFile=/dev/null \
+      #       -i ${SERVER_RSA_PATH} \
+      #       "${TLS_CERTIFICATE_FILENAME}" "${TLS_PRIVATE_KEY_FILENAME}" "${NGINX_USERNAME}@${OFER_TO_DOMAIN}:${TLS_ENCRYPTION_PATH}"
+      #   env:
+      #     TLS_PRIVATE_KEY: ${{ secrets.PROD_TLS_CERTIFICATE_PRIVATE_KEY }}
+      #     TLS_CERTIFICATE: ${{ secrets.PROD_TLS_CERTIFICATE }}
+      #     TLS_PRIVATE_KEY_FILENAME: './ofer_to.private.pem'
+      #     TLS_CERTIFICATE_FILENAME: './star_ofer_to.crt'
 
       - name: Deploy NGINX Confs
         working-directory: ./nginx_confs
