@@ -36,6 +36,20 @@
 	import pagerDutyIcon from '$lib/images/icons/pager-duty.png';
 	import serviceNowIcon from '$lib/images/icons/service-now.png';
 	import svelteIcon from '$lib/images/icons/svelte-logo.svg';
+	import compilerIcon from '$lib/images/icons/compiler.png';
+	import claudeIcon from '$lib/images/icons/claude.png';
+	import ragChainsIcon from '$lib/images/icons/rag-chains.png';
+	import mcpServerIcon from '$lib/images/icons/mcp-servers.png';
+	import vibeCodingIcon from '$lib/images/icons/vibe-coding.webp';
+	import cLanguageIcon from '$lib/images/icons/c-lang.png';
+	import operatingSystemsIcon from '$lib/images/icons/operating-systems.png';
+	import hdlIcon from '$lib/images/icons/hdl.png';
+	import goLangIcon from '$lib/images/icons/golang.png';
+	import nand2tetrisIcon from '$lib/images/icons/nand2tetris.jpg';
+	import gccIcon from '$lib/images/icons/gcc.jpg';
+	import assemblyIcon from '$lib/images/icons/asm.png';
+	import sdl3Icon from '$lib/images/icons/sdl3.jpg';
+	import xcodeIcon from '$lib/images/icons/xcode.png';
 
 	export let klass: icons;
 
@@ -76,7 +90,21 @@
 		| 'microsoft-teams'
 		| 'pager-duty'
 		| 'service-now'
-		| 'svelte';
+		| 'svelte'
+		| 'compiler'
+		| 'claude'
+		| 'rag-chain'
+		| 'mcp-servers'
+		| 'vibe-coding'
+		| 'c-lang'
+		| 'operating-systems'
+		| 'hdl'
+		| 'go-lang'
+		| 'nand2tetris'
+		| 'gcc'
+		| 'assembly'
+		| 'sdl3'
+		| 'xcode';
 
 	interface Attributes {
 		location: string;
@@ -320,6 +348,90 @@
 					src: svelteIcon,
 					altText: 'Svelte'
 				};
+			case 'compiler':
+				return {
+					location: 'https://en.wikipedia.org/wiki/Compiler',
+					src: compilerIcon,
+					altText: 'Compiler'
+				};
+			case 'claude':
+				return {
+					location: 'https://docs.claude.com/en/docs/claude-code/overview',
+					src: claudeIcon,
+					altText: 'Claude'
+				};
+			case 'rag-chain':
+				return {
+					location: 'https://en.wikipedia.org/wiki/Retrieval-augmented_generation',
+					src: ragChainsIcon,
+					altText: 'Retrieval Augmented Generation (RAG) Chains'
+				};
+			case 'mcp-servers':
+				return {
+					location: 'https://modelcontextprotocol.io/docs/getting-started/intro',
+					src: mcpServerIcon,
+					altText: 'MCP Servers'
+				};
+			case 'vibe-coding':
+				return {
+					location: 'https://en.wikipedia.org/wiki/Vibe_coding',
+					src: vibeCodingIcon,
+					altText: 'Vibe Coding'
+				};
+			case 'c-lang':
+				return {
+					location: 'https://en.wikipedia.org/wiki/C_(programming_language)',
+					src: cLanguageIcon,
+					altText: 'The C Language'
+				};
+			case 'operating-systems':
+				return {
+					location: 'https://en.wikipedia.org/wiki/Operating_system',
+					src: operatingSystemsIcon,
+					altText: 'Operating Systems'
+				};
+			case 'hdl':
+				return {
+					location: 'https://en.wikipedia.org/wiki/Hardware_description_language',
+					src: hdlIcon,
+					altText: 'Hardware Description Language'
+				};
+			case 'go-lang':
+				return {
+					location: 'https://go.dev',
+					src: goLangIcon,
+					altText: 'The Go Programming Language'
+				};
+			case 'nand2tetris':
+				return {
+					location: 'https://www.nand2tetris.org',
+					src: nand2tetrisIcon,
+					altText: 'The Nand to Tetris Courses'
+				};
+			case 'gcc':
+				return {
+					location: 'https://gcc.gnu.org',
+					src: gccIcon,
+					altText: 'GCC, the GNU Compiler Collection'
+				};
+			case 'assembly':
+				return {
+					location: 'https://en.wikipedia.org/wiki/Assembly_language',
+					src: assemblyIcon,
+					altText: 'Assembly Languages'
+				};
+			case 'sdl3':
+				return {
+					location: 'https://wiki.libsdl.org/SDL3/FrontPage',
+					src: sdl3Icon,
+					altText: 'Simple DirectMedia Layer 3'
+				};
+			case 'xcode':
+				return {
+					location: 'https://developer.apple.com/xcode/',
+					src: xcodeIcon,
+					altText: 'Xcode'
+				};
 			default:
 				throw 'icon could not be found!';
 		}
@@ -336,7 +448,6 @@
 
 <style lang="scss">
 	img {
-		width: 3em;
 		height: 3em;
 
 		cursor: pointer;
