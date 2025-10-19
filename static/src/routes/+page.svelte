@@ -20,7 +20,10 @@
 		<div class="name">
 			<h1>Dan Jakob Ofer</h1>
 
-			<p class="main">Father / Husband / Passionate Software Developer</p>
+			<p class="main">
+				Father / Husband / Passionate Software Developer who uses AI to resolve problems (but
+				against vibe coding)
+			</p>
 			<div class="contact">
 				<button
 					class="contact-me-button btn btn-primary"
@@ -44,7 +47,7 @@
 			High Park in Toronto in the Summer of 2022
 		</div>
 
-		<h2>Hobbies</h2>
+		<h2>Personal Projects</h2>
 
 		<div class="main">
 			Some software developers claim they are "passionate".
@@ -53,6 +56,182 @@
 	</section>
 
 	<section class="hobbies">
+		<div class="work" id="nand2-to-tetris-part-2">
+			<div class="heading">
+				<h3 class="position">Virtual Machine and Jack Compiler</h3>
+				<h3 class="at">November 2024 to Present</h3>
+			</div>
+			<GitHub
+				text="Virtual Machine Compiler / Jack Language / Operating Systems"
+				url="https://github.com/ofer987/nand2tetris-part02"
+			/>
+			<LargeAnchor url="https://github.com/ofer987/nand2tetris-part02" />
+			<p>
+				Develop compilers and operating systems for the <a href="https://www.nand2tetris.org"
+					>nand2tetris project</a
+				>
+			</p>
+			<div class="experience">
+				<h4>Development</h4>
+				<div class="responsibility development">
+					<div class="icons">
+						<Icon klass="ruby" />
+						<!-- <Icon klass="hack-computer" /> -->
+						<!-- <Icon klass="operating-systems" /> -->
+						<!-- <Icon klass="compilers" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span
+									>Currently developing the Jack compiler that translates the Jack language to
+									virtual machines instructions, using the Ruby language</span
+								>
+							</li>
+							<li>
+								<span
+									>Developed a compiler that translates virtual machine instructions to
+									Hack-computer assembly, using the Ruby language</span
+								>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="nand2-to-tetris-part-1">
+			<div class="heading">
+				<h3 class="position">The Hack Computer and Assembly</h3>
+				<h3 class="at">September to November 2024</h3>
+			</div>
+			<GitHub text="The Hack Computer and Assembly" url="https://github.com/ofer987/nand2tetris" />
+			<LargeAnchor url="https://github.com/ofer987/nand2tetris" />
+			<p>
+				Design the Hack Computer and Develop an Assembler for the <a
+					href="https://www.nand2tetris.org">nand2tetris project</a
+				>
+			</p>
+			<div class="experience">
+				<h4>Development</h4>
+				<div class="responsibility development">
+					<div class="icons">
+						<Icon klass="ruby" />
+						<!-- <Icon klass="hack-computer" /> -->
+						<!-- <Icon klass="assembly" /> -->
+						<!-- <Icon klass="hdl" /> -->
+						<!-- <Icon klass="ruby" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span
+									>Designed the 16-bit Hack Computer with three registers and 24 kilobytes of memory
+									using a simplified Hardware Description Language (HDL)</span
+								>
+							</li>
+							<li>
+								<span
+									>Developed the assembler that converts assembly language to 16 bit instructions</span
+								>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="snake-sdl">
+			<div class="heading">
+				<h3 class="position">Snake with Graphics</h3>
+				<h3 class="at">April to May 2025</h3>
+			</div>
+			<GitHub text="Snake with Graphics" url="https://github.com/ofer987/snake-sdl" />
+			<LargeAnchor url="https://github.com/ofer987/snake-sdl" />
+			<p>For the love of the Nokia phone classic</p>
+			<div class="experience">
+				<h4>Development</h4>
+				<div class="responsibility development">
+					<div class="icons">
+						<!-- <Icon klass="c" /> -->
+						<!-- <Icon klass="sdl-3" /> -->
+						<!-- <Icon klass="xcode" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>Developed in Xcode in C using the SDL3 graphics engine</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="snake-terminal-in-c">
+			<div class="heading">
+				<h3 class="position">Snake with Terminal Graphics / developed in C</h3>
+				<h3 class="at">January to March 2025</h3>
+			</div>
+			<GitHub
+				text="Snake with Terminal Graphics / developed in C"
+				url="https://github.com/ofer987/c-code/tree/master/snake"
+			/>
+			<LargeAnchor url="https://github.com/ofer987/c-code/tree/master/snake" />
+			<p>For the love of the Nokia phone classic</p>
+			<div class="experience">
+				<h4>Development</h4>
+				<div class="responsibility development">
+					<div class="icons">
+						<!-- <Icon klass="c" /> -->
+						<!-- <Icon klass="gcc" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>Developed in C using the terminal graphics</span>
+							</li>
+							<li>
+								<span>Compiled using GCC</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="work" id="snake-terminal-in-go">
+			<div class="heading">
+				<h3 class="position">Snake with Terminal Graphics / developed in Go</h3>
+				<h3 class="at">May 2024</h3>
+			</div>
+			<GitHub
+				text="Snake with Terminal Graphics / developed in Go"
+				url="https://github.com/ofer987/chatgpt35-snake"
+			/>
+			<LargeAnchor url="https://github.com/ofer987/chatgpt35-snake" />
+			<p>For the love of the Nokia phone classic</p>
+			<div class="experience">
+				<h4>Development</h4>
+				<div class="responsibility development">
+					<div class="icons">
+						<!-- <Icon klass="go" /> -->
+						<!-- <Icon klass="gcc" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>Developed in Go using the terminal graphics</span>
+							</li>
+							<li>
+								<span>Used Go Coroutines to share memory using channels</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="work" id="transit">
 			<div class="heading">
 				<h3 class="position">Nearest Transit Stops</h3>
@@ -166,8 +345,8 @@
 						<ol>
 							<li>
 								<span>
-									Built in <a href="https://svelte.dev" target="_blank">Svelte</a> using HTML, Sass,
-									and TypeScript
+									Built in <a href="https://svelte.dev" target="_blank">Svelte</a>
+									using HTML, Sass, and TypeScript
 								</span>
 							</li>
 							<li>
@@ -301,6 +480,51 @@
 			</div>
 			<p>Our objective is to automate all manual processes.</p>
 			<div class="experience">
+				<h4>Artificial Intelligence</h4>
+				<div class="responsibility artificial-integllience">
+					<div class="icons">
+						<Icon klass="github" />
+						<!-- <Icon klass="claude" /> -->
+						<!-- <Icon klass="rag-chains" /> -->
+						<!-- <Icon klass="mcp-servers" /> -->
+						<!-- <Icon klass="vibe-coding" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span
+									>Summarize change release reports with Claude Opus using artificial intelligence</span
+								>
+							</li>
+							<li>
+								<span
+									>Vibe coded an authorization endpoint for a RAG-chain backed chatbot that uses
+									artificial intelligence
+								</span>
+							</li>
+							<li>
+								<span
+									>Find solutions to new problems by prompting Claude Sonnet using Claude Code</span
+								>
+							</li>
+							<li>
+								<span
+									>Review GitHub Pull Requests using GitHub Copilot (configured via <code
+										>./.github/copilot-instructions.md</code
+									>)</span
+								>
+							</li>
+							<li>
+								<span
+									>Review GitHub Pull Requests using Claude Code using Sonnet (configured via <code
+										>./CLAUDE.md</code
+									>) together with the GitHub MCP Server to improve both my own code and colleagues</span
+								>
+							</li>
+						</ol>
+					</div>
+				</div>
+
 				<h4>GitHub Actions</h4>
 				<div class="responsibility github">
 					<div class="icons">
@@ -379,7 +603,7 @@
 					</div>
 				</div>
 
-				<h4>Datadog Logging</h4>
+				<h4>Datadog</h4>
 				<div class="responsibility datadog">
 					<div class="icons">
 						<Icon klass="aws-s3" />
@@ -394,8 +618,21 @@
 							<li>
 								<span
 									>Send our logs (Adobe Experience Manager), Dispatcher, Firewall (WAF), CloudFront
-									(CDN), automated testing, and Google Lighthouse to Datadog</span
+									(CDN), automated testing, AWS S3 Buckets, and Google Lighthouse to Datadog</span
 								>
+							</li>
+							<li>
+								<span>
+									Use Application Performance Monitoring (APM) to correlate logs and errors
+								</span>
+							</li>
+							<li>
+								<span>
+									Use APM tags to tag heartbeat monitors and infrastructure per environment
+								</span>
+							</li>
+							<li>
+								<span> Trace HTTP requests from AEM to other third-party services </span>
 							</li>
 							<li>
 								<span
@@ -915,8 +1152,28 @@
 			padding: 0.5em 0em;
 			background-color: rgba(255, 255, 255, 0.95);
 
+			&#nand2-to-tetris-part-1 {
+				@include work(darkblue);
+			}
+
+			&#nand2-to-tetris-part-2 {
+				@include work(darkblue);
+			}
+
+			&#snake-sdl {
+				@include work(darkgreen);
+			}
+
+			&#snake-terminal-in-c {
+				@include work(darkgreen);
+			}
+
+			&#snake-terminal-in-go {
+				@include work(darkgreen);
+			}
+
 			&#thomson-reuters-digital-3 {
-				@include work(lightgreen);
+				@include work(darkgreen);
 			}
 
 			&#thomson-reuters-digital-2 {
