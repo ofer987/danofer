@@ -42,11 +42,207 @@
 	</div>
 
 	<section class="personal">
-		<div class="caption">
-			The background photo was taken by my wife Edith when we were walking on the northern edge of
-			High Park in Toronto in the Summer of 2022
-		</div>
+		<h2>Current Experience</h2>
+	</section>
 
+	<section class="jobs">
+		<div class="work" id="thomson-reuters-digital-3">
+			<div class="heading">
+				<h3 class="position">Thomson Reuters - Site Reliability Tech Lead</h3>
+				<h3 class="at">January 2022 – Present</h3>
+			</div>
+			<p>Our objective is to automate all manual processes.</p>
+			<div class="experience">
+				<h4>Artificial Intelligence</h4>
+				<div class="responsibility artificial-integllience">
+					<div class="icons">
+						<Icon klass="github" />
+						<!-- <Icon klass="claude" /> -->
+						<!-- <Icon klass="rag-chains" /> -->
+						<!-- <Icon klass="mcp-servers" /> -->
+						<!-- <Icon klass="vibe-coding" /> -->
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span
+									>Summarize change release reports with Claude Opus using artificial intelligence</span
+								>
+							</li>
+							<li>
+								<span
+									>Vibe coded an authorization endpoint for a RAG-chain backed chatbot that uses
+									artificial intelligence
+								</span>
+							</li>
+							<li>
+								<span
+									>Find solutions to new problems by prompting Claude Sonnet using Claude Code</span
+								>
+							</li>
+							<li>
+								<span
+									>Review GitHub Pull Requests using GitHub Copilot (configured via <code
+										>./.github/copilot-instructions.md</code
+									>)</span
+								>
+							</li>
+							<li>
+								<span
+									>Review GitHub Pull Requests using Claude Code using Sonnet (configured via <code
+										>./CLAUDE.md</code
+									>) together with the GitHub MCP Server to improve both my own code and colleagues</span
+								>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<h4>GitHub Actions</h4>
+				<div class="responsibility github">
+					<div class="icons">
+						<Icon klass="github" />
+						<Icon klass="ruby" />
+						<Icon klass="python" />
+						<Icon klass="bash" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>Use GitHub Actions to start new sprints</span>
+							</li>
+							<li>
+								<span>GitHub Actions deploy to testing environments on cronjob schedule</span>
+							</li>
+							<li>
+								<span>GitHub Actions to deploy to Production and User Acceptance Environments</span>
+							</li>
+							<li>
+								<span
+									>GitHub Actions that automatically validate that unit tests pass and code quality</span
+								>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<h4>Adobe Cloud Manager</h4>
+				<div class="responsibility cloud-manager">
+					<div class="icons">
+						<Icon klass="adobe-experience-manager" />
+						<Icon klass="adobe-cloud-manager" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>Used Adobe Cloud Manager for Continuous Deployments</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<h4>Post-Deployment Lambda Actions</h4>
+				<div class="responsibility installation">
+					<div class="icons">
+						<Icon klass="python" />
+						<Icon klass="aws" />
+						<Icon klass="aws-lambda" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span>
+									Post-Deployment actions written in Python executed on AWS Lambda Functions
+								</span>
+							</li>
+							<li>
+								<span>
+									Adobe Cloud Manager executes them after a deployment has (either successfully or
+									unsuccessfully) finished
+								</span>
+							</li>
+							<li>
+								<span>
+									Clear the Dispatcher (the Apache HTTPd server) and the AWS CloudFront (CDN) caches
+								</span>
+							</li>
+							<li>
+								<span> Notify stakeholders by sending emails </span>
+							</li>
+							<li>
+								<span> Notify stakeholders and developers within a Microsoft Teams channel </span>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<h4>Datadog</h4>
+				<div class="responsibility datadog">
+					<div class="icons">
+						<Icon klass="aws-s3" />
+						<Icon klass="datadog" />
+						<Icon klass="google-lighthouse" />
+						<Icon klass="microsoft-teams" />
+						<Icon klass="pager-duty" />
+						<Icon klass="service-now" />
+					</div>
+					<div class="description">
+						<ol>
+							<li>
+								<span
+									>Send our logs (Adobe Experience Manager), Dispatcher, Firewall (WAF), CloudFront
+									(CDN), automated testing, AWS S3 Buckets, and Google Lighthouse to Datadog</span
+								>
+							</li>
+							<li>
+								<span>
+									Use Application Performance Monitoring (APM) to correlate logs and errors
+								</span>
+							</li>
+							<li>
+								<span>
+									Use APM tags to tag heartbeat monitors and infrastructure per environment
+								</span>
+							</li>
+							<li>
+								<span> Trace HTTP requests from AEM to other third-party services </span>
+							</li>
+							<li>
+								<span
+									>Logs from automated testing and Google Lighthouse were sent to S3 Buckets</span
+								>
+							</li>
+							<li>
+								<span
+									>Used the Datadog S3 Forwarder Lambda Function to send logs from S3 Buckets</span
+								>
+							</li>
+							<li>
+								<span> Built Grok processors to process logs into Facets and Metrics </span>
+							</li>
+							<li>
+								<span> Built Dashboards to make data accessible to Application Teams </span>
+							</li>
+							<li>
+								<span
+									>Built Heartbeat monitors (using Synthetic Tests) to ensure that websites are
+									running
+								</span>
+							</li>
+							<li>
+								<span>Use PagerDuty to notify by email if website or server is down</span>
+							</li>
+							<li>
+								<span>Use ServiceNow to communicate with stakeholders</span>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="personal">
 		<h2>Personal Projects</h2>
 
 		<div class="main">
@@ -469,205 +665,10 @@
 	</section>
 
 	<section class="personal">
-		<h2>Job Experience</h2>
+		<h2>Past Job Experience</h2>
 	</section>
 
 	<section class="jobs">
-		<div class="work" id="thomson-reuters-digital-3">
-			<div class="heading">
-				<h3 class="position">Thomson Reuters - Site Reliability Tech Lead</h3>
-				<h3 class="at">January 2022 – Present</h3>
-			</div>
-			<p>Our objective is to automate all manual processes.</p>
-			<div class="experience">
-				<h4>Artificial Intelligence</h4>
-				<div class="responsibility artificial-integllience">
-					<div class="icons">
-						<Icon klass="github" />
-						<!-- <Icon klass="claude" /> -->
-						<!-- <Icon klass="rag-chains" /> -->
-						<!-- <Icon klass="mcp-servers" /> -->
-						<!-- <Icon klass="vibe-coding" /> -->
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span
-									>Summarize change release reports with Claude Opus using artificial intelligence</span
-								>
-							</li>
-							<li>
-								<span
-									>Vibe coded an authorization endpoint for a RAG-chain backed chatbot that uses
-									artificial intelligence
-								</span>
-							</li>
-							<li>
-								<span
-									>Find solutions to new problems by prompting Claude Sonnet using Claude Code</span
-								>
-							</li>
-							<li>
-								<span
-									>Review GitHub Pull Requests using GitHub Copilot (configured via <code
-										>./.github/copilot-instructions.md</code
-									>)</span
-								>
-							</li>
-							<li>
-								<span
-									>Review GitHub Pull Requests using Claude Code using Sonnet (configured via <code
-										>./CLAUDE.md</code
-									>) together with the GitHub MCP Server to improve both my own code and colleagues</span
-								>
-							</li>
-						</ol>
-					</div>
-				</div>
-
-				<h4>GitHub Actions</h4>
-				<div class="responsibility github">
-					<div class="icons">
-						<Icon klass="github" />
-						<Icon klass="ruby" />
-						<Icon klass="python" />
-						<Icon klass="bash" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span>Use GitHub Actions to start new sprints</span>
-							</li>
-							<li>
-								<span>GitHub Actions deploy to testing environments on cronjob schedule</span>
-							</li>
-							<li>
-								<span>GitHub Actions to deploy to Production and User Acceptance Environments</span>
-							</li>
-							<li>
-								<span
-									>GitHub Actions that automatically validate that unit tests pass and code quality</span
-								>
-							</li>
-						</ol>
-					</div>
-				</div>
-
-				<h4>Adobe Cloud Manager</h4>
-				<div class="responsibility cloud-manager">
-					<div class="icons">
-						<Icon klass="adobe-experience-manager" />
-						<Icon klass="adobe-cloud-manager" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span>Used Adobe Cloud Manager for Continuous Deployments</span>
-							</li>
-						</ol>
-					</div>
-				</div>
-
-				<h4>Post-Deployment Lambda Actions</h4>
-				<div class="responsibility installation">
-					<div class="icons">
-						<Icon klass="python" />
-						<Icon klass="aws" />
-						<Icon klass="aws-lambda" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span>
-									Post-Deployment actions written in Python executed on AWS Lambda Functions
-								</span>
-							</li>
-							<li>
-								<span>
-									Adobe Cloud Manager executes them after a deployment has (either successfully or
-									unsuccessfully) finished
-								</span>
-							</li>
-							<li>
-								<span>
-									Clear the Dispatcher (the Apache HTTPd server) and the AWS CloudFront (CDN) caches
-								</span>
-							</li>
-							<li>
-								<span> Notify stakeholders by sending emails </span>
-							</li>
-							<li>
-								<span> Notify stakeholders and developers within a Microsoft Teams channel </span>
-							</li>
-						</ol>
-					</div>
-				</div>
-
-				<h4>Datadog</h4>
-				<div class="responsibility datadog">
-					<div class="icons">
-						<Icon klass="aws-s3" />
-						<Icon klass="datadog" />
-						<Icon klass="google-lighthouse" />
-						<Icon klass="microsoft-teams" />
-						<Icon klass="pager-duty" />
-						<Icon klass="service-now" />
-					</div>
-					<div class="description">
-						<ol>
-							<li>
-								<span
-									>Send our logs (Adobe Experience Manager), Dispatcher, Firewall (WAF), CloudFront
-									(CDN), automated testing, AWS S3 Buckets, and Google Lighthouse to Datadog</span
-								>
-							</li>
-							<li>
-								<span>
-									Use Application Performance Monitoring (APM) to correlate logs and errors
-								</span>
-							</li>
-							<li>
-								<span>
-									Use APM tags to tag heartbeat monitors and infrastructure per environment
-								</span>
-							</li>
-							<li>
-								<span> Trace HTTP requests from AEM to other third-party services </span>
-							</li>
-							<li>
-								<span
-									>Logs from automated testing and Google Lighthouse were sent to S3 Buckets</span
-								>
-							</li>
-							<li>
-								<span
-									>Used the Datadog S3 Forwarder Lambda Function to send logs from S3 Buckets</span
-								>
-							</li>
-							<li>
-								<span> Built Grok processors to process logs into Facets and Metrics </span>
-							</li>
-							<li>
-								<span> Built Dashboards to make data accessible to Application Teams </span>
-							</li>
-							<li>
-								<span
-									>Built Heartbeat monitors (using Synthetic Tests) to ensure that websites are
-									running
-								</span>
-							</li>
-							<li>
-								<span>Use PagerDuty to notify by email if website or server is down</span>
-							</li>
-							<li>
-								<span>Use ServiceNow to communicate with stakeholders</span>
-							</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="work" id="thomson-reuters-digital-2">
 			<div class="heading">
 				<h3 class="position">Thomson Reuters - Site Reliability Senior Developer</h3>
@@ -1041,6 +1042,13 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<section class="personal">
+		<div class="caption">
+			The background photo was taken by my wife Edith when we were walking on the northern edge of
+			High Park in Toronto in the Summer of 2022
 		</div>
 	</section>
 </section>
