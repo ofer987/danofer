@@ -22,7 +22,7 @@
 
 			<p class="main">
 				Father / Husband / Passionate Software Developer who uses AI to resolve problems (but
-				against vibe coding)
+				against vibe-coding)
 			</p>
 			<div class="contact">
 				<button
@@ -71,7 +71,7 @@
 							</li>
 							<li>
 								<span
-									>Vibe coded an authorization endpoint for a RAG-chain backed chatbot that uses
+									>Vibe-coded an authorization endpoint for a RAG-chain backed chatbot that uses
 									artificial intelligence
 								</span>
 							</li>
@@ -152,7 +152,7 @@
 						<ol>
 							<li>
 								<span>
-									Post-Deployment actions written in Python executed on AWS Lambda Functions
+									Post-Deployment actions written in Python are executed on AWS Lambda Functions
 								</span>
 							</li>
 							<li>
