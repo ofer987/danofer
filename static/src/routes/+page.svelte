@@ -1144,16 +1144,16 @@
 		.work {
 			&:first-child {
 				margin: 0em 0em 0em 0em;
-				padding: 1em 0em 0.5em 0em;
+				padding: 1em 1em 0.5em 1em;
 			}
 
 			&:last-child {
 				margin: 10em 0em 0em 0em;
-				padding: 1em 0em 0.5em 0em;
+				padding: 1em 1em 0.5em 1em;
 			}
 
 			margin: 10em 0em 10em 0em;
-			padding: 0.5em 0em;
+			padding: 0.5em 1em;
 			background-color: rgba(255, 255, 255, 0.95);
 
 			&#nand2-to-tetris-part-1 {
