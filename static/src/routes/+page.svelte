@@ -57,10 +57,10 @@
 				<div class="responsibility artificial-integllience">
 					<div class="icons">
 						<Icon klass="github" />
-						<!-- <Icon klass="claude" /> -->
-						<!-- <Icon klass="rag-chains" /> -->
-						<!-- <Icon klass="mcp-servers" /> -->
-						<!-- <Icon klass="vibe-coding" /> -->
+						<Icon klass="claude" />
+						<Icon klass="rag-chain" />
+						<Icon klass="mcp-servers" />
+						<Icon klass="vibe-coding" />
 					</div>
 					<div class="description">
 						<ol>
@@ -271,10 +271,10 @@
 				<h4>Development</h4>
 				<div class="responsibility development">
 					<div class="icons">
+						<Icon klass="nand2tetris" />
 						<Icon klass="ruby" />
-						<!-- <Icon klass="hack-computer" /> -->
-						<!-- <Icon klass="operating-systems" /> -->
-						<!-- <Icon klass="compilers" /> -->
+						<Icon klass="operating-systems" />
+						<Icon klass="compiler" />
 					</div>
 					<div class="description">
 						<ol>
@@ -312,11 +312,11 @@
 				<h4>Development</h4>
 				<div class="responsibility development">
 					<div class="icons">
+						<Icon klass="nand2tetris" />
 						<Icon klass="ruby" />
-						<!-- <Icon klass="hack-computer" /> -->
-						<!-- <Icon klass="assembly" /> -->
-						<!-- <Icon klass="hdl" /> -->
-						<!-- <Icon klass="ruby" /> -->
+						<Icon klass="assembly" />
+						<Icon klass="hdl" />
+						<Icon klass="ruby" />
 					</div>
 					<div class="description">
 						<ol>
@@ -349,9 +349,9 @@
 				<h4>Development</h4>
 				<div class="responsibility development">
 					<div class="icons">
-						<!-- <Icon klass="c" /> -->
-						<!-- <Icon klass="sdl-3" /> -->
-						<!-- <Icon klass="xcode" /> -->
+						<Icon klass="c-lang" />
+						<Icon klass="sdl3" />
+						<Icon klass="xcode" />
 					</div>
 					<div class="description">
 						<ol>
@@ -379,8 +379,8 @@
 				<h4>Development</h4>
 				<div class="responsibility development">
 					<div class="icons">
-						<!-- <Icon klass="c" /> -->
-						<!-- <Icon klass="gcc" /> -->
+						<Icon klass="c-lang" />
+						<Icon klass="gcc" />
 					</div>
 					<div class="description">
 						<ol>
@@ -411,8 +411,8 @@
 				<h4>Development</h4>
 				<div class="responsibility development">
 					<div class="icons">
-						<!-- <Icon klass="go" /> -->
-						<!-- <Icon klass="gcc" /> -->
+						<Icon klass="go-lang" />
+						<Icon klass="gcc" />
 					</div>
 					<div class="description">
 						<ol>
