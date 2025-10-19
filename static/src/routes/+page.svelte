@@ -54,7 +54,7 @@
 			<p>Our objective is to automate all manual processes.</p>
 			<div class="experience">
 				<h4>Artificial Intelligence</h4>
-				<div class="responsibility artificial-integllience">
+				<div class="responsibility artificial-intelligence">
 					<div class="icons">
 						<Icon klass="github" />
 						<Icon klass="claude" />
@@ -281,7 +281,7 @@
 							<li>
 								<span
 									>Currently developing the Jack compiler that translates the Jack language to
-									virtual machines instructions, using the Ruby language</span
+									virtual machine instructions, using the Ruby language</span
 								>
 							</li>
 							<li>
@@ -316,7 +316,6 @@
 						<Icon klass="ruby" />
 						<Icon klass="assembly" />
 						<Icon klass="hdl" />
-						<Icon klass="ruby" />
 					</div>
 					<div class="description">
 						<ol>
@@ -328,7 +327,7 @@
 							</li>
 							<li>
 								<span
-									>Developed the assembler that converts assembly language to 16 bit instructions</span
+									>Developed the assembler that converts assembly language to 16-bit instructions</span
 								>
 							</li>
 						</ol>
@@ -420,7 +419,7 @@
 								<span>Developed in Go using the terminal graphics</span>
 							</li>
 							<li>
-								<span>Used Go Coroutines to share memory using channels</span>
+								<span>Used Go goroutines to share memory using channels</span>
 							</li>
 						</ol>
 					</div>
@@ -1100,13 +1099,11 @@
 		.caption {
 			padding-bottom: 2em;
 			font-size: 0.75em;
-			/* width: 25%; */
 			text-align: justify;
 		}
 
 		.main {
 			padding-bottom: 1em;
-			/* padding-left: 1.5em; */
 		}
 
 		padding-top: 2em;
@@ -1123,7 +1120,6 @@
 		}
 
 		.caption {
-			/* background-color: rgba(255, 255, 255, 0.95); */
 			font-size: 0.75em;
 		}
 
@@ -1232,6 +1228,7 @@
 						display: flex;
 						flex-flow: wrap;
 						flex-direction: row;
+						height: 0%;
 					}
 
 					.description {
